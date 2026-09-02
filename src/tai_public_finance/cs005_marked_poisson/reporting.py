@@ -105,6 +105,13 @@ def write_bundle(
                 f"strict_viability_checked: {str(report['strict_viability_checked']).lower()})",
                 f"- Profile: `{report['profile_id']}` (spec CS005 v{spec_version}, status draft -- exploratory first attempt)",
                 f"- Post-mark blocks: L and H both `{report['postmark_status']}`",
+                *[
+                    f"- PM08 tail certificate ({mark}): **{'pass' if cert['passes'] else 'fail'}** "
+                    f"(method `{cert['method']}`, tolerance {cert['tolerance']:.1e}, "
+                    f"manifold-match residual {cert['backward_manifold_match_residual']:.3e}, "
+                    f"saddle-path exclusion bound {cert['saddle_path_exclusion_bound']:.3e})"
+                    for mark, cert in report.get("pm08_certificates", {}).items()
+                ],
                 f"- Candidates found: {n_candidates} (discarded non-convergent brackets: {report['discarded_nonconvergent_brackets']})",
                 f"- Fully admissible candidates: {n_admissible}",
                 f"- Date-zero (inherited-state-matching) candidates: {sum(1 for c in report['candidates'] if not c['is_atlas_entry'])}",
@@ -217,7 +224,11 @@ def write_bundle(
             "actual_cash_usd": 0,
             "checkpoints_recovered": False,
             "solver_reported_metrics": {"n_candidates": n_candidates, "n_admissible": n_admissible, "discarded_nonconvergent_brackets": report["discarded_nonconvergent_brackets"]},
-            "independent_diagnostics": {"postmark": report["postmark_diagnostics"], "candidates": [c["diagnostics"] for c in report["candidates"]]},
+            "independent_diagnostics": {
+                "postmark": report["postmark_diagnostics"],
+                "pm08_tail_certificates": report.get("pm08_certificates"),
+                "candidates": [c["diagnostics"] for c in report["candidates"]],
+            },
             "economic_quantities": {"derived_constants": report["derived_constants"], "inherited_state": report["inherited_state"], "candidates": report["candidates"]},
             "reliable_region": "Post-mark continuation objects (q_j(k), H_j(k)) only, on the certified [k_min, k_max] domain reported per mark; pre-arrival candidates are conditional atlas entries, not equilibria.",
             "failure_code": None,

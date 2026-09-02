@@ -8,7 +8,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .diagnostics import candidate_is_admissible, check_physical_risk_neutral_separation, diagnose_candidate, diagnose_postmark
+from .diagnostics import (
+    candidate_is_admissible,
+    certify_postmark_tail,
+    check_physical_risk_neutral_separation,
+    diagnose_candidate,
+    diagnose_postmark,
+)
 from .postmark_equations import mark_params
 from .postmark_solver import solve_postmark
 from .prearrival_solver import enumerate_with_domain_expansion, point_geometry
@@ -72,6 +78,15 @@ def main() -> int:
 
     result, path_L, path_H = enumerate_with_domain_expansion(primitives, derived, path_L, path_H, k_grid_points=k_grid_points)
 
+    # PM08 decisive tail/transversality certificate: backward true-time integration
+    # from a local linear tail, computed on the FINAL (possibly domain-expanded)
+    # paths so the certificate covers the domain the candidates actually used. The
+    # forward-shooting pm08_* fields above remain as warning-level diagnostics.
+    independent_tolerance = tolerances.get("independent_tolerance", 1.0e-8)
+    cert_L = certify_postmark_tail(mp_L, path_L, tolerance=independent_tolerance)
+    cert_H = certify_postmark_tail(mp_H, path_H, tolerance=independent_tolerance)
+    pm08_certificates = {"L": serializable(cert_L), "H": serializable(cert_H)}
+
     candidate_rows = []
     structural_ok = postmark_ok
     for c in result.candidates:
@@ -113,8 +128,7 @@ def main() -> int:
     n_admissible = sum(1 for row in candidate_rows if row["admissible"])
     n_date_zero = sum(1 for row in candidate_rows if not row["is_atlas_entry"])
     outcome = "computational_pass" if structural_ok else "computational_fail"
-    independent_tolerance = tolerances.get("independent_tolerance", 1.0e-8)
-    pm08_cs005_tolerance_pass = all(pm.pm08_unstable_projection <= independent_tolerance for pm in (pm_L, pm_H))
+    pm08_cs005_tolerance_pass = cert_L.passes and cert_H.passes
     qualification = (
         "First real prototype / reduced-coverage computational pass, not a decision-grade CS005 pass "
         f"(spec draft; PM08 tail/transversality at CS005 tolerance: {pm08_cs005_tolerance_pass}; "
@@ -144,6 +158,7 @@ def main() -> int:
         "tolerances": tolerances,
         "postmark_status": "pass" if postmark_ok else "fail",
         "postmark_diagnostics": postmark_diagnostics,
+        "pm08_certificates": pm08_certificates,
         "derived_constants": {
             "eta_W": derived.eta_W,
             "eta_K": derived.eta_K,
@@ -170,7 +185,7 @@ def main() -> int:
     limitations = [
         "Draft specification (CS005 v0.7): every result is proof-assurance stage S0_unassessed; a numerical root is a candidate, not evidence of existence, uniqueness, global optimality, or equilibrium.",
         "Reduced-coverage root search: one log-spaced k-grid per branch slot (interior x2, boundary x2, private-portfolio x2) with pole-aware bracket rejection and bisection refinement -- not CS005's full 513/1025-node Chebyshev, 64-Sobol-start, iterative box/domain-doubling coverage-certification protocol. Branch-slot identity is sorted-order-based, not continuation-tracked, so a bifurcation could in principle hide or double-count a root.",
-        "PM08 tail/transversality: forward time-domain shooting from the certified graph cannot meet CS005's 1e-8 unstable-eigenvector-projection bound at its specified T_j horizons (T_j up to ~150 years here) because forward integration amplifies any floating-point-level deviation from the exact stable manifold exponentially via the positive eigenvalue over that horizon -- a known limitation of naive shooting, not evidence against q_j(k) itself (independently confirmed to 1e-10..1e-12 by PM01-PM04). A correct tail certificate needs backward integration from the anchor, a boundary-value/collocation solve, or an analytically-attached local linear tail; none is implemented here. Reported at both the domain edge and a moderate |u|=1 starting point.",
+        "PM08 tail/transversality: the decisive certificate is backward true-time integration from a local linear tail attached at |u|=1e-3 using the numerically-built Jacobian eigendecomposition (diagnostics.certify_postmark_tail; per-mark method, attachment point, saddle-path exclusion bound, manifold-match residual, tolerance, and pass/fail reported in pm08_certificates). It certifies the tail/transversality property on the certified [k_min, k_max] domain only, with a LINEARIZED contraction bound for the off-manifold exclusion -- not a computer-assisted proof. The original forward-shooting diagnostic is retained as a warning-level indicator (pm08_* fields in postmark_diagnostics); its large projections reflect forward saddle-path shooting instability, not evidence against q_j(k).",
         "PR06 (the scalar capital residual K(k)) is independently re-implemented from the same displayed reduced formula (fresh code, different intermediate structuring) plus finite-difference verification of every partial-derivative term, not from a from-scratch unreduced costate/investment-FOC pair -- CS005's four authorized source documents supply only the reduced K(k), not that pair, for this profile.",
         "W5 strict-viability frontiers (underline_f_j(k, ell)) are not computed in this first attempt -- f_j^+ values are reported, but no candidate's viability against its branch-specific frontier has been checked. Do not read a candidate's admissibility here as including fiscal-capacity viability.",
         "W2 (two-tranche capital-income-strip/residual-equity rank), W3 (direct tax-path price-response cone), W4 (fixed-mark diagnostic), a global transition, and a closed-economy version are all explicitly out of scope for this first attempt.",
