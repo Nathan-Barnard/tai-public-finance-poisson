@@ -35,6 +35,9 @@ venv/
 # (summary tables, FINDINGS.md, root/admissibility tables) stay tracked.
 outputs/*/figures/
 outputs/*/report.json
+# The CS005 first-real report.json is small (15 KB), structured, and
+# hash-referenced by its run record — tracked as a durable output.
+!outputs/cs005-marked-poisson-first-real/report.json
 # (add the names of large per-run CSV/array files here once the first run
 #  defines them; small tables stay tracked)
 outputs/*/checkpoints/

@@ -1,0 +1,35 @@
+{
+  "primitive_set_id": "P-CS005-SMOKE-01",
+  "spec_id": "CS005",
+  "spec_version": "0.7",
+  "inherited_state_convention": "smoke_protected_zero_debt",
+  "parameters": {
+    "rho": 0.04,
+    "g": 0.02,
+    "delta": 0.06,
+    "phi": 2.0,
+    "chi": 0.80,
+    "omega_W": 1.0,
+    "omega_K": 1.0,
+    "I_0": 0.20,
+    "I_L": 0.30,
+    "I_H": 0.40,
+    "lambda_intensity": 0.02,
+    "p_L": 0.50,
+    "p_H": 0.50,
+    "lambda_L_star": 0.008,
+    "lambda_H_star": 0.012,
+    "rbar_0": 0.04,
+    "rbar_L": 0.04,
+    "rbar_H": 0.04,
+    "gamma_C": 0.50,
+    "tau_min": 0.0,
+    "tau_max": 1.0,
+    "t_min": 0.0,
+    "b_min": 0.0
+  },
+  "provenance": {
+    "source": "CS005 v0.7, 'Synthetic verification profile P-CS005-SMOKE-01' table",
+    "note": "Equation, branch, and limiting-case regression fixture only. Not a quantitative baseline -- may not be used for policy, welfare, or capacity magnitudes. rbar_0=rbar_L=rbar_H=rho=0.04 deliberately, to exercise the full-BGP closed-form identities."
+  }
+}

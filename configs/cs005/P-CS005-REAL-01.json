@@ -1,0 +1,35 @@
+{
+  "primitive_set_id": "P-CS005-REAL-01",
+  "spec_id": "CS005",
+  "spec_version": "0.7",
+  "inherited_state_convention": "real_one_year_output_debt",
+  "parameters": {
+    "rho": 0.04,
+    "g": 0.015,
+    "delta": 0.06,
+    "phi": 3.0,
+    "chi": 0.80,
+    "omega_W": 1.0,
+    "omega_K": 1.0,
+    "I_0": 0.22,
+    "I_L": 0.32,
+    "I_H": 0.46,
+    "lambda_intensity": 0.025,
+    "p_L": 0.65,
+    "p_H": 0.35,
+    "lambda_L_star": 0.014,
+    "lambda_H_star": 0.026,
+    "rbar_0": 0.025,
+    "rbar_L": 0.03,
+    "rbar_H": 0.03,
+    "gamma_C": 0.50,
+    "tau_min": 0.0,
+    "tau_max": 0.60,
+    "t_min": 0.0,
+    "b_min": 0.0
+  },
+  "provenance": {
+    "source": "EMP005 'Provisional marked-Poisson first-run calibration', profile P-CS005-REAL-01",
+    "note": "Nathan approved this live-calibration route on 2026-09-02. Judgement values, not source-versioned measurement -- not a country baseline or decision-grade empirical estimate. Do not tune after seeing rank, tax, or viability outcomes."
+  }
+}

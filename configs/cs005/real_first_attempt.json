@@ -1,0 +1,9 @@
+{
+  "profile_id": "P-CS005-REAL-01",
+  "primitive_file": "P-CS005-REAL-01.json",
+  "k_grid_points": 400,
+  "tolerances": {
+    "independent_tolerance": 1e-8,
+    "solver_tolerance": 1e-10
+  }
+}
