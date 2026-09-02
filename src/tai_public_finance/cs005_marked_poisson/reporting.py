@@ -93,6 +93,8 @@ def write_bundle(
 
     n_candidates = len(report["candidates"])
     n_admissible = sum(1 for c in report["candidates"] if c["admissible"])
+    n_admissible_ex_w5 = sum(1 for c in report["candidates"] if c.get("admissible_ex_w5", c["admissible"]))
+    w5_label_counts = report.get("strict_viability_label_counts")
     summary_path = output_dir / "summary.md"
     summary_path.write_text(
         "\n".join(
@@ -113,7 +115,21 @@ def write_bundle(
                     for mark, cert in report.get("pm08_certificates", {}).items()
                 ],
                 f"- Candidates found: {n_candidates} (discarded non-convergent brackets: {report['discarded_nonconvergent_brackets']})",
-                f"- Fully admissible candidates: {n_admissible}",
+                f"- Fully admissible candidates (implemented checks AND certified W5 strict viability): {n_admissible}",
+                f"- Admissible under pre-W5 implemented checks only (`admissible_ex_w5`): {n_admissible_ex_w5}",
+                *(
+                    [
+                        f"- W5 strict-viability labels (method `{report.get('strict_viability_method', 'unknown')}`): "
+                        f"{w5_label_counts.get('certified_viable', 0)} certified_viable / "
+                        f"{w5_label_counts.get('frontier_unresolved', 0)} frontier_unresolved / "
+                        f"{w5_label_counts.get('certified_infeasible_on_declared_domain', 0)} certified_infeasible_on_declared_domain",
+                        "- `frontier_unresolved` means the certified-inner capacity lower bound (constant-tax witness) could not "
+                        "certify viability AND the tau=1 compact-domain outer bound could not certify infeasibility -- a "
+                        "certification gap of this conservative method, **not** an infeasibility finding.",
+                    ]
+                    if w5_label_counts is not None
+                    else []
+                ),
                 f"- Date-zero (inherited-state-matching) candidates: {sum(1 for c in report['candidates'] if not c['is_atlas_entry'])}",
                 "",
                 "Interpretation: every candidate is a conditional rest point/atlas entry unless "
@@ -137,11 +153,12 @@ def write_bundle(
         "created_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "status": "completed",
         "purpose": (
-            "First real-attempt CP005 run under the provisional calibration P-CS005-REAL-01 "
+            "CP005 run under the provisional calibration P-CS005-REAL-01 "
             "(or the synthetic regression profile P-CS005-SMOKE-01): post-mark stable-manifold "
             "continuation (F1), pre-arrival rank-one candidate enumeration with debt-interior "
-            "and debt-boundary KKT branches (F2 core / W1), and independent diagnostics. "
-            "Diagnostic first-run evidence, not a decision-grade empirical result -- "
+            "and debt-boundary KKT branches (F2 core / W1), W5 strict fiscal-viability "
+            "certification against conservative inner/outer frontier bounds, and independent "
+            "diagnostics. Diagnostic prototype evidence, not a decision-grade empirical result -- "
             "see specification.status."
         ),
         "specification": {"id": "CS005", "version": spec_version, "status": "draft", "fingerprint_sha256": None},
@@ -223,7 +240,14 @@ def write_bundle(
             "peak_memory_gb": None,
             "actual_cash_usd": 0,
             "checkpoints_recovered": False,
-            "solver_reported_metrics": {"n_candidates": n_candidates, "n_admissible": n_admissible, "discarded_nonconvergent_brackets": report["discarded_nonconvergent_brackets"]},
+            "solver_reported_metrics": {
+                "n_candidates": n_candidates,
+                "n_admissible": n_admissible,
+                "n_admissible_ex_w5": n_admissible_ex_w5,
+                "strict_viability_label_counts": w5_label_counts,
+                "strict_viability_method": report.get("strict_viability_method"),
+                "discarded_nonconvergent_brackets": report["discarded_nonconvergent_brackets"],
+            },
             "independent_diagnostics": {
                 "postmark": report["postmark_diagnostics"],
                 "pm08_tail_certificates": report.get("pm08_certificates"),
@@ -245,7 +269,7 @@ def write_bundle(
             ],
             "conclusion": report["conclusion"],
             "limitations": limitations,
-            "next_decision": "Report back to Nathan for independent review before attempting the two-tranche (W2) and tax-span (W3/W4/W5) blocks; the Codex-side registry still needs CP005's repository binding recorded.",
+            "next_decision": "Report back to Nathan for independent review before attempting the two-tranche (W2), tax-span (W3), and fixed-mark (W4) blocks, and before closing the W5 lower/upper capacity gap with CS005's full I5 collocation protocol; the Codex-side registry still needs CP005's repository binding recorded.",
         },
     }
     record_path = (runs_dir or repository / "runs") / f"{report['run_id']}.yaml"
