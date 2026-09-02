@@ -28,8 +28,15 @@ the inherited EMP005 state. A numerical root is a candidate, not evidence of
 existence, uniqueness, global optimality, or equilibrium; every Poisson-branch
 result remains proof-assurance stage S0_unassessed.
 
-Evidence: `runs/RUN-20260902T203112Z-CS005-4f27d1d7-01.yaml` and
-`outputs/cs005-marked-poisson-first-real/`.
+Evidence (preferred, native to this repository):
+`runs/RUN-20260902T211134Z-CS005-45f5d452-01.yaml` and
+`outputs/cs005-marked-poisson-first-real-rerun/` — a rerun from a clean tree
+at commit `45f5d452`, numerically identical to the import (same run
+fingerprint). The imported legacy record
+`runs/RUN-20260902T203112Z-CS005-4f27d1d7-01.yaml` and
+`outputs/cs005-marked-poisson-first-real/` are kept as provenance/history;
+the commit they name belongs to the legacy repository and is not resolvable
+here.
 
 ## Setup
 
