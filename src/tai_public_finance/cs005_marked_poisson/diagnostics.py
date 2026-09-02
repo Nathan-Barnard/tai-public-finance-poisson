@@ -80,6 +80,12 @@ class PostMarkDiagnostics:
     pm05_full_bgp_identity_relative_error: float | None  # PM05, only when rbar_j == rho
     pm06_zero_tax_recovery_max_abs: float  # PM06
     pm07_specialization_margin_min: float  # PM07 (>0 required)
+    # The four pm08_* fields below are the ORIGINAL forward-shooting tail diagnostic,
+    # retained as a WARNING-LEVEL indicator only: forward integration along a saddle
+    # path amplifies floating-point deviations exponentially via nu_+, so these do not
+    # and cannot meet CS005's 1e-8 bound at the specified horizons. The decisive PM08
+    # certificate is certify_postmark_tail (backward integration from a local linear
+    # tail), reported separately as PM08TailCertificate.
     pm08_tail_position_error: float  # PM08 at the domain edge: |(k_T,q_T) - anchor| after T_j, both sides
     pm08_unstable_projection: float  # PM08 at the domain edge
     pm08_tail_position_error_moderate: float  # same check shot from |u|=1 rather than the domain edge
@@ -226,6 +232,185 @@ def diagnose_postmark(mp: MarkParams, path: PostMarkPath, n_samples: int = 25) -
         pm08_tail_position_error_moderate=pm08_tail_mod,
         pm08_unstable_projection_moderate=pm08_proj_mod,
         T_j=T_j,
+    )
+
+
+# ---------------------------------------------------------------------------
+# PM08 tail/transversality certificate (decisive method)
+# ---------------------------------------------------------------------------
+
+PM08_METHOD = "backward_time_integration_from_local_linear_tail"
+PM08_U_ATTACH = 1.0e-3
+_PM08_MIN_MATCH_POINTS = 10
+
+
+@dataclass(frozen=True)
+class PM08SideCertificate:
+    """One side (u<0 "left" or u>0 "right" of the anchor) of the PM08 tail certificate."""
+
+    side: str
+    u_attach: float
+    k_attach: float
+    u_edge: float
+    k_edge: float
+    reached_edge: bool
+    local_tail_consistency_error: float  # sine of the angle between (delta_k, delta_q) at attachment and the numerical stable eigenvector
+    unstable_projection_at_attachment: float  # |w_+ . delta| / |delta| at attachment, w_+ the unit numerical left unstable eigenvector
+    backward_time_horizon: float  # |T| of the backward integration from attachment to the domain edge
+    linearized_contraction_factor: float  # exp(-nu_plus_numeric * backward_time_horizon)
+    saddle_path_exclusion_bound: float  # |w_+ . delta|_attach * contraction / (1 + k_star): certified off-manifold content at the edge
+    backward_manifold_match_residual: float  # max_i |q_bwd(k_i) - path.q(k_i)| / (1 + |path.q(k_i)|) over the backward trajectory's own steps
+    n_match_points: int
+
+
+@dataclass(frozen=True)
+class PM08TailCertificate:
+    """The decisive PM08 tail/transversality certificate for one post-mark mark.
+
+    Method: attach a local linear tail to the anchor at |u| = u_attach using the
+    NUMERICALLY-built Jacobian eigendecomposition (never the closed-form nu_{+/-}),
+    then integrate the true-time (k, q) saddle system BACKWARD from the solved
+    graph's attachment point out to each certified domain edge. Backward in time
+    the unstable eigenvalue nu_+ becomes contracting, so any off-manifold
+    component present at attachment shrinks by exp(-nu_+ |T|) rather than being
+    amplified -- the exact reverse of the forward-shooting diagnostic retained in
+    PostMarkDiagnostics as a warning-level indicator. The certificate is:
+
+      (a) at attachment, the graph agrees with the anchor's stable direction
+          (local_tail_consistency_error, unstable_projection_at_attachment small
+          -- both O(u_attach) from stable-manifold curvature alone);
+      (b) the backward trajectory, which converges onto the true stable manifold
+          at rate nu_+ backward in time, reproduces the solved graph q_j(k) at
+          every one of its own steps out to the edge
+          (backward_manifold_match_residual <= tolerance);
+      (c) the linearized contracted bound on off-manifold content carried from
+          attachment to the edge is below tolerance
+          (saddle_path_exclusion_bound <= tolerance).
+
+    (b) and (c) are the pass criteria at CS005's independent tolerance; (a) is
+    reported and expected at the O(u_attach) curvature scale, not gated at 1e-8.
+    A path certified this way coincides, to the reported residual, with a true
+    time-domain trajectory that converges to the anchor as t -> +infinity, which
+    is the transversality/tail property PM08 exists to certify on [k_min, k_max].
+    """
+
+    mark: str
+    method: str
+    tolerance: float
+    nu_minus_numeric: float
+    nu_plus_numeric: float
+    sides: tuple[PM08SideCertificate, ...]
+    local_tail_consistency_error: float  # max over sides
+    unstable_projection_at_attachment: float  # max over sides
+    saddle_path_exclusion_bound: float  # max over sides
+    backward_manifold_match_residual: float  # max over sides
+    passes: bool
+
+
+def certify_postmark_tail(
+    mp: MarkParams, path: PostMarkPath, tolerance: float = 1.0e-8, u_attach: float = PM08_U_ATTACH
+) -> PM08TailCertificate:
+    from scipy.integrate import solve_ivp
+
+    jac = _numerical_jacobian_time_domain(mp)
+    eigvals_c, eigvecs_c = np.linalg.eig(jac)
+    eigvals = eigvals_c.real
+    stable_index = int(np.argmin(eigvals))
+    unstable_index = int(np.argmax(eigvals))
+    nu_minus_numeric = float(eigvals[stable_index])
+    nu_plus_numeric = float(eigvals[unstable_index])
+    v_stable = eigvecs_c[:, stable_index].real
+    v_stable = v_stable / np.linalg.norm(v_stable)
+    w_unstable = np.linalg.inv(eigvecs_c).real[unstable_index]
+    w_unstable = w_unstable / np.linalg.norm(w_unstable)
+
+    k_star, q_star = mp.anchor.k_star, mp.q_star
+    sides: list[PM08SideCertificate] = []
+    for side, u_edge in (("left", path.u_min), ("right", path.u_max)):
+        if abs(u_edge) <= u_attach:
+            continue  # domain does not extend beyond the attachment radius on this side
+        u_att_signed = math.copysign(u_attach, u_edge)
+        k_att = k_star * math.exp(u_att_signed)
+        q_att = path.q(k_att)
+        delta_att = np.array([k_att - k_star, q_att - q_star])
+        delta_norm = float(np.linalg.norm(delta_att))
+        stable_component = float(delta_att @ v_stable) * v_stable
+        local_err = float(np.linalg.norm(delta_att - stable_component)) / max(delta_norm, 1.0e-300)
+        unstable_abs = abs(float(w_unstable @ delta_att))
+        unstable_proj = unstable_abs / max(delta_norm, 1.0e-300)
+
+        # Backward integration: terminate when k crosses the certified domain edge.
+        k_edge = k_star * math.exp(u_edge)
+        T_guess = 6.0 * (math.log(abs(u_edge) / u_attach) + 1.0) / abs(nu_minus_numeric) + 50.0
+
+        def hit_edge(_t: float, y, *_args) -> float:
+            return y[0] - k_edge
+
+        hit_edge.terminal = True
+        sim = solve_ivp(
+            time_domain_rhs,
+            (0.0, -T_guess),
+            (k_att, q_att),
+            args=(mp,),
+            method="DOP853",
+            dense_output=False,
+            rtol=1.0e-12,
+            atol=1.0e-13,
+            events=hit_edge,
+        )
+        if not sim.success:
+            raise RuntimeError(f"PM08 backward tail integration failed for mark {mp.mark} ({side}): {sim.message}")
+        reached_edge = sim.status == 1
+        T_back = abs(float(sim.t[-1]))
+        contraction = math.exp(-nu_plus_numeric * T_back) if nu_plus_numeric * T_back < 700.0 else 0.0
+        exclusion = unstable_abs * contraction / (1.0 + k_star)
+
+        residuals = []
+        for k_i, q_i in zip(sim.y[0], sim.y[1]):
+            u_i = math.log(k_i / k_star)
+            if abs(u_i) < u_attach or u_i < path.u_min - 1.0e-9 or u_i > path.u_max + 1.0e-9:
+                continue
+            q_graph = path.q(min(max(k_i, path.k_min), path.k_max))
+            residuals.append(abs(q_i - q_graph) / (1.0 + abs(q_graph)))
+        match_residual = float(max(residuals)) if residuals else float("inf")
+
+        sides.append(
+            PM08SideCertificate(
+                side=side,
+                u_attach=u_att_signed,
+                k_attach=k_att,
+                u_edge=u_edge,
+                k_edge=k_edge,
+                reached_edge=reached_edge,
+                local_tail_consistency_error=local_err,
+                unstable_projection_at_attachment=unstable_proj,
+                backward_time_horizon=T_back,
+                linearized_contraction_factor=contraction,
+                saddle_path_exclusion_bound=exclusion,
+                backward_manifold_match_residual=match_residual,
+                n_match_points=len(residuals),
+            )
+        )
+
+    passes = bool(sides) and all(
+        s.reached_edge
+        and s.n_match_points >= _PM08_MIN_MATCH_POINTS
+        and s.backward_manifold_match_residual <= tolerance
+        and s.saddle_path_exclusion_bound <= tolerance
+        for s in sides
+    )
+    return PM08TailCertificate(
+        mark=mp.mark,
+        method=PM08_METHOD,
+        tolerance=tolerance,
+        nu_minus_numeric=nu_minus_numeric,
+        nu_plus_numeric=nu_plus_numeric,
+        sides=tuple(sides),
+        local_tail_consistency_error=max((s.local_tail_consistency_error for s in sides), default=float("inf")),
+        unstable_projection_at_attachment=max((s.unstable_projection_at_attachment for s in sides), default=float("inf")),
+        saddle_path_exclusion_bound=max((s.saddle_path_exclusion_bound for s in sides), default=float("inf")),
+        backward_manifold_match_residual=max((s.backward_manifold_match_residual for s in sides), default=float("inf")),
+        passes=passes,
     )
 
 
