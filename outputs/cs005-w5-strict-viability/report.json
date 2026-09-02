@@ -1,0 +1,871 @@
+{
+  "candidates": [
+    {
+      "K_residual": -4.3416875997182025e-15,
+      "admissible": false,
+      "admissible_ex_w5": false,
+      "b": 325.3471709639489,
+      "branch": "debt_interior",
+      "diagnostics": {
+        "feasibility_c0W_positive": false,
+        "feasibility_debt_sign": true,
+        "feasibility_kkt_multiplier_sign": true,
+        "feasibility_private_solvency": true,
+        "feasibility_specialization": true,
+        "feasibility_tax_bounds": true,
+        "feasibility_transfer_pre": false,
+        "is_atlas_entry": true,
+        "pr01_jump_and_successor_identity": 0.0,
+        "pr02_private_portfolio_raw_foc": 2.7755575615628914e-17,
+        "pr03_public_portfolio_raw_foc": 2.6020852139652106e-18,
+        "pr04_public_saving_raw_foc": 2.6020852139652106e-18,
+        "pr06_capital_residual_independent_reimplementation": 2.263557939176375e-12,
+        "pr06_derivative_finite_difference_max_relative_error": 3.101583076109474e-11,
+        "pr07_balance_sheet_identity": 0.0,
+        "pr07_debt_interior_margin": 325.3469755707558,
+        "pr08_boundary_uncleared_equation": null,
+        "pr08_complementarity": null,
+        "pr09_gamma_a": 0.0034078981570023065,
+        "pr09_is_full_bgp": false,
+        "pr10_tax_recovery_general_identity": 0.0
+      },
+      "e": -290.434950691004,
+      "epsilon_B": 0.00019539319311666999,
+      "is_atlas_entry": true,
+      "k": 7.129056343114046,
+      "nu_B": null,
+      "physical_risk_neutral_separation": {
+        "lambda_used_in_compensator": [
+          0.014,
+          0.026
+        ],
+        "physical_intensities": [
+          0.01625,
+          0.008749999999999999
+        ],
+        "risk_neutral_intensities": [
+          0.014,
+          0.026
+        ],
+        "uses_risk_neutral": true
+      },
+      "pi": -0.5563350496040411,
+      "psi": 34.912220272944865,
+      "recovery": {
+        "a_H_plus": 0.3444080753877664,
+        "a_L_plus": 0.9026779916368405,
+        "b_0": 325.3471709639489,
+        "c0W": -6.406492306569836,
+        "d_0": 2.0095497278791536,
+        "e_H_plus": -249.29396973444503,
+        "e_L_plus": -284.32761052647857,
+        "f_0": -281.5070714875106,
+        "f_H_plus": -229.84537012354681,
+        "f_L_plus": -273.8379402132464,
+        "gamma_a": 0.0034078981570023065,
+        "n_0": -289.434950691004,
+        "t_0": -8.441635038014214,
+        "tau_0": 0.08120668207990622,
+        "theta_0": 43.84009947643828
+      },
+      "slot": "pi[0]/interior[0]",
+      "strict_viability": {
+        "checked": true,
+        "failure_reason": "successor public wealth f_j^+ lies below the tau=1 compact-domain outer frontier bound -C_upper for mark(s) L: certified infeasible on the declared domain",
+        "label": "certified_infeasible_on_declared_domain",
+        "margin_requirement": 0.00019539319311666999,
+        "marks": {
+          "H": {
+            "capacity_lower_bound": 46.618163957182645,
+            "capacity_outer_bound": 1075.5007853206093,
+            "domain_limited": false,
+            "f_plus": -229.84537012354681,
+            "frontier_lower_bound": -1075.5007853206093,
+            "frontier_upper_bound": -46.618163957182645,
+            "k": 7.129056343114046,
+            "label": "frontier_unresolved",
+            "margin": -183.22720616636417,
+            "margin_requirement": 0.00019539319311666999,
+            "mark": "H",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.1886833798602061,
+              "constraints_pass": true,
+              "independent_agreement": 5.982542115329843e-12,
+              "k_start_rescaled": 37.783170666096304,
+              "min_q": 1.25232271663554,
+              "min_specialization_margin": 6.2772036394103425,
+              "pv": 46.618163957182645,
+              "pv_independent": 46.61816395690375,
+              "pv_stationary_tail": 0.4297997584529321,
+              "pv_transition": 46.188364198729715,
+              "reached_anchor": true,
+              "tau": 0.5936538311668403,
+              "transition_horizon": 156.54611909635483
+            }
+          },
+          "L": {
+            "capacity_lower_bound": 17.568503268699125,
+            "capacity_outer_bound": 152.02200027181922,
+            "domain_limited": false,
+            "f_plus": -273.8379402132464,
+            "frontier_lower_bound": -152.02200027181922,
+            "frontier_upper_bound": -17.568503268699125,
+            "k": 7.129056343114046,
+            "label": "certified_infeasible_on_declared_domain",
+            "margin": -256.26943694454724,
+            "margin_requirement": 0.00019539319311666999,
+            "mark": "L",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.2598927143076235,
+              "constraints_pass": true,
+              "independent_agreement": 1.0921329194435465e-11,
+              "k_start_rescaled": 27.430766430319004,
+              "min_q": 0.8956679568547691,
+              "min_specialization_margin": 2.237827896733239,
+              "pv": 17.568503268699125,
+              "pv_independent": 17.568503268507254,
+              "pv_stationary_tail": 0.15758383902995374,
+              "pv_transition": 17.41091942966917,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 154.99338792501982
+            }
+          }
+        },
+        "method": "constant_tax_rescaled_stable_manifold_witness_lower_bound_with_tau1_compact_domain_outer_bound",
+        "min_margin": -256.26943694454724,
+        "passes": false,
+        "price_label": "smooth_zero_tax_stable_manifold_branch",
+        "tau_bounds_profile": [
+          0.0,
+          0.6
+        ]
+      },
+      "strict_viability_checked": true,
+      "strict_viability_label": "certified_infeasible_on_declared_domain",
+      "strict_viability_margin": -256.26943694454724,
+      "strict_viability_pass": false,
+      "structural_checks_pass": true
+    },
+    {
+      "K_residual": 2.37246935421917e-13,
+      "admissible": false,
+      "admissible_ex_w5": false,
+      "b": 0.0,
+      "branch": "debt_boundary",
+      "diagnostics": {
+        "feasibility_c0W_positive": true,
+        "feasibility_debt_sign": true,
+        "feasibility_kkt_multiplier_sign": false,
+        "feasibility_private_solvency": true,
+        "feasibility_specialization": true,
+        "feasibility_tax_bounds": false,
+        "feasibility_transfer_pre": false,
+        "is_atlas_entry": true,
+        "pr01_jump_and_successor_identity": 0.0,
+        "pr02_private_portfolio_raw_foc": 1.0408340855860843e-17,
+        "pr03_public_portfolio_raw_foc": 1.1660811205516097e-14,
+        "pr04_public_saving_raw_foc": 1.1612238948188747e-14,
+        "pr06_capital_residual_independent_reimplementation": 2.041519264837227e-11,
+        "pr06_derivative_finite_difference_max_relative_error": 3.3898611901819737e-11,
+        "pr07_balance_sheet_identity": 0.0,
+        "pr07_debt_interior_margin": "nan",
+        "pr08_boundary_uncleared_equation": 2.360611706109239e-14,
+        "pr08_complementarity": 0.0,
+        "pr09_gamma_a": 0.0014462193259776358,
+        "pr09_is_full_bgp": false,
+        "pr10_tax_recovery_general_identity": 0.0
+      },
+      "e": -122.23271954738509,
+      "epsilon_B": 0.00020740211582003456,
+      "is_atlas_entry": true,
+      "k": 12.215924290398064,
+      "nu_B": -0.02011009253020111,
+      "physical_risk_neutral_separation": {
+        "lambda_used_in_compensator": [
+          0.014,
+          0.026
+        ],
+        "physical_intensities": [
+          0.01625,
+          0.008749999999999999
+        ],
+        "risk_neutral_intensities": [
+          0.014,
+          0.026
+        ],
+        "uses_risk_neutral": true
+      },
+      "pi": -0.9955237303939369,
+      "psi": -122.23271954738509,
+      "recovery": {
+        "a_H_plus": 0.3349895900099993,
+        "a_L_plus": 1.0602893809830274,
+        "b_0": 0.0,
+        "c0W": 0.8733942430920703,
+        "d_0": 1.909907163386685,
+        "e_H_plus": -203.88424472824016,
+        "e_L_plus": -114.83024909651223,
+        "f_0": -106.9344400592396,
+        "f_H_plus": -178.3667059658557,
+        "f_L_plus": -100.45844054249574,
+        "gamma_a": 0.0014462193259776358,
+        "n_0": -121.23271954738509,
+        "t_0": -1.4177456957638719,
+        "tau_0": -0.7906911566058688,
+        "theta_0": -106.9344400592396
+      },
+      "slot": "pi[0]/boundary[0]",
+      "strict_viability": {
+        "checked": true,
+        "failure_reason": "the certified-inner capacity lower bound (constant-tax witness family) is insufficient to certify f_j^+ >= underline_f_j for mark(s) H, L, and the outer bound does not certify infeasibility: frontier unresolved -- a certification gap, not an infeasibility finding",
+        "label": "frontier_unresolved",
+        "margin_requirement": 0.00020740211582003456,
+        "marks": {
+          "H": {
+            "capacity_lower_bound": 49.14959589273931,
+            "capacity_outer_bound": 1075.5007853206093,
+            "domain_limited": false,
+            "f_plus": -178.3667059658557,
+            "frontier_lower_bound": -1075.5007853206093,
+            "frontier_upper_bound": -49.14959589273931,
+            "k": 12.215924290398064,
+            "label": "frontier_unresolved",
+            "margin": -129.21711007311637,
+            "margin_requirement": 0.00020740211582003456,
+            "mark": "H",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.18326269042118254,
+              "constraints_pass": true,
+              "independent_agreement": 4.917025072070353e-12,
+              "k_start_rescaled": 66.65799930320175,
+              "min_q": 1.0750073662069068,
+              "min_specialization_margin": 6.865970040443993,
+              "pv": 49.14959589273931,
+              "pv_independent": 49.14959589249764,
+              "pv_stationary_tail": 0.29123168185211223,
+              "pv_transition": 48.8583642108872,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 169.42694231198607
+            }
+          },
+          "L": {
+            "capacity_lower_bound": 18.3436812015553,
+            "capacity_outer_bound": 152.02200027181922,
+            "domain_limited": false,
+            "f_plus": -100.45844054249574,
+            "frontier_lower_bound": -152.02200027181922,
+            "frontier_upper_bound": -18.3436812015553,
+            "k": 12.215924290398064,
+            "label": "frontier_unresolved",
+            "margin": -82.11475934094044,
+            "margin_requirement": 0.00020740211582003456,
+            "mark": "L",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.2598927143076235,
+              "constraints_pass": true,
+              "independent_agreement": 3.1512870090035014e-12,
+              "k_start_rescaled": 47.00371968080111,
+              "min_q": 0.7775281795729039,
+              "min_specialization_margin": 2.237827896733239,
+              "pv": 18.3436812015553,
+              "pv_independent": 18.343681201497493,
+              "pv_stationary_tail": 0.1385210432462985,
+              "pv_transition": 18.205160158309,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 159.2912338269209
+            }
+          }
+        },
+        "method": "constant_tax_rescaled_stable_manifold_witness_lower_bound_with_tau1_compact_domain_outer_bound",
+        "min_margin": -129.21711007311637,
+        "passes": false,
+        "price_label": "smooth_zero_tax_stable_manifold_branch",
+        "tau_bounds_profile": [
+          0.0,
+          0.6
+        ]
+      },
+      "strict_viability_checked": true,
+      "strict_viability_label": "frontier_unresolved",
+      "strict_viability_margin": -129.21711007311637,
+      "strict_viability_pass": false,
+      "structural_checks_pass": true
+    },
+    {
+      "K_residual": -8.146153022969838e-15,
+      "admissible": false,
+      "admissible_ex_w5": true,
+      "b": 0.0,
+      "branch": "debt_boundary",
+      "diagnostics": {
+        "feasibility_c0W_positive": true,
+        "feasibility_debt_sign": true,
+        "feasibility_kkt_multiplier_sign": true,
+        "feasibility_private_solvency": true,
+        "feasibility_specialization": true,
+        "feasibility_tax_bounds": true,
+        "feasibility_transfer_pre": true,
+        "is_atlas_entry": true,
+        "pr01_jump_and_successor_identity": 0.0,
+        "pr02_private_portfolio_raw_foc": 1.3877787807814457e-17,
+        "pr03_public_portfolio_raw_foc": 2.3418766925686896e-17,
+        "pr04_public_saving_raw_foc": 2.3418766925686896e-17,
+        "pr06_capital_residual_independent_reimplementation": 7.234678676450168e-12,
+        "pr06_derivative_finite_difference_max_relative_error": 1.8381161275330977e-11,
+        "pr07_balance_sheet_identity": 0.0,
+        "pr07_debt_interior_margin": "nan",
+        "pr08_boundary_uncleared_equation": 4.163336342344337e-17,
+        "pr08_complementarity": 0.0,
+        "pr09_gamma_a": 0.0036341852842246974,
+        "pr09_is_full_bgp": false,
+        "pr10_tax_recovery_general_identity": 0.0
+      },
+      "e": -57.77853879708903,
+      "epsilon_B": 0.00019312695249514703,
+      "is_atlas_entry": true,
+      "k": 6.323597400058727,
+      "nu_B": 0.004022389955599048,
+      "physical_risk_neutral_separation": {
+        "lambda_used_in_compensator": [
+          0.014,
+          0.026
+        ],
+        "physical_intensities": [
+          0.01625,
+          0.008749999999999999
+        ],
+        "risk_neutral_intensities": [
+          0.014,
+          0.026
+        ],
+        "uses_risk_neutral": true
+      },
+      "pi": -0.4945118383958738,
+      "psi": -57.77853879708903,
+      "recovery": {
+        "a_H_plus": 0.34736262380732585,
+        "a_L_plus": 0.8810276069132023,
+        "b_0": 0.0,
+        "c0W": 2.742121893559174,
+        "d_0": 2.0093756107548146,
+        "e_H_plus": -134.0323936756691,
+        "e_L_plus": -71.67921921769637,
+        "f_0": -49.85935412494367,
+        "f_H_plus": -115.66177891687587,
+        "f_L_plus": -61.85479329834919,
+        "gamma_a": 0.0036341852842246974,
+        "n_0": -56.77853879708903,
+        "t_0": 0.7599562264278945,
+        "tau_0": 0.22830834417652512,
+        "theta_0": -49.85935412494367
+      },
+      "slot": "pi[0]/boundary[1]",
+      "strict_viability": {
+        "checked": true,
+        "failure_reason": "the certified-inner capacity lower bound (constant-tax witness family) is insufficient to certify f_j^+ >= underline_f_j for mark(s) H, L, and the outer bound does not certify infeasibility: frontier unresolved -- a certification gap, not an infeasibility finding",
+        "label": "frontier_unresolved",
+        "margin_requirement": 0.00019312695249514703,
+        "marks": {
+          "H": {
+            "capacity_lower_bound": 46.12479253704608,
+            "capacity_outer_bound": 1075.5007853206093,
+            "domain_limited": false,
+            "f_plus": -115.66177891687587,
+            "frontier_lower_bound": -1075.5007853206093,
+            "frontier_upper_bound": -46.12479253704608,
+            "k": 6.323597400058727,
+            "label": "frontier_unresolved",
+            "margin": -69.53698637982978,
+            "margin_requirement": 0.00019312695249514703,
+            "mark": "H",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.1905006695014494,
+              "constraints_pass": true,
+              "independent_agreement": 1.2437827322300304e-11,
+              "k_start_rescaled": 33.19462034757109,
+              "min_q": 1.25232271663554,
+              "min_specialization_margin": 5.471744696355024,
+              "pv": 46.12479253704608,
+              "pv_independent": 46.12479253647239,
+              "pv_stationary_tail": 0.3530221329134197,
+              "pv_transition": 45.77177040413267,
+              "reached_anchor": true,
+              "tau": 0.5915450971793933,
+              "transition_horizon": 163.13410149477258
+            }
+          },
+          "L": {
+            "capacity_lower_bound": 17.414142505002022,
+            "capacity_outer_bound": 152.02200027181922,
+            "domain_limited": false,
+            "f_plus": -61.85479329834919,
+            "frontier_lower_bound": -152.02200027181922,
+            "frontier_upper_bound": -17.414142505002022,
+            "k": 6.323597400058727,
+            "label": "frontier_unresolved",
+            "margin": -44.440650793347174,
+            "margin_requirement": 0.00019312695249514703,
+            "mark": "L",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.2598927143076235,
+              "constraints_pass": true,
+              "independent_agreement": 8.496534729660367e-12,
+              "k_start_rescaled": 24.33156857399921,
+              "min_q": 0.9282437263869524,
+              "min_specialization_margin": 2.237827896733239,
+              "pv": 17.414142505002022,
+              "pv_independent": 17.414142504854063,
+              "pv_stationary_tail": 0.16438382166487206,
+              "pv_transition": 17.249758683337152,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 153.58517320916798
+            }
+          }
+        },
+        "method": "constant_tax_rescaled_stable_manifold_witness_lower_bound_with_tau1_compact_domain_outer_bound",
+        "min_margin": -69.53698637982978,
+        "passes": false,
+        "price_label": "smooth_zero_tax_stable_manifold_branch",
+        "tau_bounds_profile": [
+          0.0,
+          0.6
+        ]
+      },
+      "strict_viability_checked": true,
+      "strict_viability_label": "frontier_unresolved",
+      "strict_viability_margin": -69.53698637982978,
+      "strict_viability_pass": false,
+      "structural_checks_pass": true
+    },
+    {
+      "K_residual": -1.6927784044287741e-16,
+      "admissible": false,
+      "admissible_ex_w5": false,
+      "b": 0.0,
+      "branch": "debt_boundary",
+      "diagnostics": {
+        "feasibility_c0W_positive": true,
+        "feasibility_debt_sign": true,
+        "feasibility_kkt_multiplier_sign": true,
+        "feasibility_private_solvency": true,
+        "feasibility_specialization": true,
+        "feasibility_tax_bounds": false,
+        "feasibility_transfer_pre": true,
+        "is_atlas_entry": true,
+        "pr01_jump_and_successor_identity": 0.0,
+        "pr02_private_portfolio_raw_foc": 0.0,
+        "pr03_public_portfolio_raw_foc": 1.6940658945086007e-21,
+        "pr04_public_saving_raw_foc": 8.470329472543003e-21,
+        "pr06_capital_residual_independent_reimplementation": 4.650850559707875e-14,
+        "pr06_derivative_finite_difference_max_relative_error": 2.3858667044772597e-11,
+        "pr07_balance_sheet_identity": 0.0,
+        "pr07_debt_interior_margin": "nan",
+        "pr08_boundary_uncleared_equation": 0.0,
+        "pr08_complementarity": 0.0,
+        "pr09_gamma_a": -0.0051828531012506895,
+        "pr09_is_full_bgp": false,
+        "pr10_tax_recovery_general_identity": 0.0
+      },
+      "e": 16226.020844310855,
+      "epsilon_B": 0.00037504065624756745,
+      "is_atlas_entry": true,
+      "k": 167.34576990649902,
+      "nu_B": 5.79436764362625e-06,
+      "physical_risk_neutral_separation": {
+        "lambda_used_in_compensator": [
+          0.014,
+          0.026
+        ],
+        "physical_intensities": [
+          0.01625,
+          0.008749999999999999
+        ],
+        "risk_neutral_intensities": [
+          0.014,
+          0.026
+        ],
+        "uses_risk_neutral": true
+      },
+      "pi": 0.6271257426263213,
+      "psi": 16226.020844310855,
+      "recovery": {
+        "a_H_plus": 0.7929625927292594,
+        "a_L_plus": 0.683273263592139,
+        "b_0": 0.0,
+        "c0W": 650.8050276558297,
+        "d_0": -8.850742134077807,
+        "e_H_plus": 10869.21110491408,
+        "e_L_plus": 8031.149740180865,
+        "f_0": 16435.59175342338,
+        "f_H_plus": 11009.594904149213,
+        "f_L_plus": 8134.877904246342,
+        "gamma_a": -0.0051828531012506895,
+        "n_0": 16227.020844310855,
+        "t_0": 646.7300703268435,
+        "tau_0": -18.658974720058353,
+        "theta_0": 16435.59175342338
+      },
+      "slot": "pi[0]/boundary[1]",
+      "strict_viability": {
+        "checked": true,
+        "failure_reason": null,
+        "label": "certified_viable",
+        "margin_requirement": 0.00037504065624756745,
+        "marks": {
+          "H": {
+            "capacity_lower_bound": 73.7442165894179,
+            "capacity_outer_bound": 1075.5007853206093,
+            "domain_limited": false,
+            "f_plus": 11009.594904149213,
+            "frontier_lower_bound": -1075.5007853206093,
+            "frontier_upper_bound": -73.7442165894179,
+            "k": 167.34576990649902,
+            "label": "certified_viable",
+            "margin": 11083.33912073863,
+            "margin_requirement": 0.00037504065624756745,
+            "mark": "H",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.18326269042118254,
+              "constraints_pass": true,
+              "independent_agreement": 1.0266919258657877e-11,
+              "k_start_rescaled": 913.1469669134369,
+              "min_q": 0.630146090194582,
+              "min_specialization_margin": 6.865970040443993,
+              "pv": 73.7442165894179,
+              "pv_independent": 73.74421658866078,
+              "pv_stationary_tail": 0.15876756460352923,
+              "pv_transition": 73.58544902481438,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 189.64953675030063
+            }
+          },
+          "L": {
+            "capacity_lower_bound": 25.11158415503124,
+            "capacity_outer_bound": 209.3537173642107,
+            "domain_limited": false,
+            "f_plus": 8134.877904246342,
+            "frontier_lower_bound": -209.3537173642107,
+            "frontier_upper_bound": -25.11158415503124,
+            "k": 167.34576990649902,
+            "label": "certified_viable",
+            "margin": 8159.989488401373,
+            "margin_requirement": 0.00037504065624756745,
+            "mark": "L",
+            "price_label": "smooth_zero_tax_stable_manifold_branch",
+            "tau_bounds_searched": [
+              0.0,
+              0.6
+            ],
+            "witness": {
+              "capital_scale": 0.2598927143076235,
+              "constraints_pass": true,
+              "independent_agreement": 2.9741312413689583e-12,
+              "k_start_rescaled": 643.9032750584121,
+              "min_q": 0.5476937458165191,
+              "min_specialization_margin": 2.237827896733239,
+              "pv": 25.11158415503124,
+              "pv_independent": 25.111584154956557,
+              "pv_stationary_tail": 0.0976555834625905,
+              "pv_transition": 25.013928571568652,
+              "reached_anchor": true,
+              "tau": 0.6,
+              "transition_horizon": 170.9437477228588
+            }
+          }
+        },
+        "method": "constant_tax_rescaled_stable_manifold_witness_lower_bound_with_tau1_compact_domain_outer_bound",
+        "min_margin": 8159.989488401373,
+        "passes": true,
+        "price_label": "smooth_zero_tax_stable_manifold_branch",
+        "tau_bounds_profile": [
+          0.0,
+          0.6
+        ]
+      },
+      "strict_viability_checked": true,
+      "strict_viability_label": "certified_viable",
+      "strict_viability_margin": 8159.989488401373,
+      "strict_viability_pass": true,
+      "structural_checks_pass": true
+    }
+  ],
+  "conclusion": "First real prototype / reduced-coverage computational pass, not a decision-grade CS005 pass (spec draft; PM08 tail/transversality at CS005 tolerance: True; W5 strict viability checked via certified-inner/outer bounds; W2/W3/W4 out of scope): computation completed cleanly (4 candidates enumerated, all independent checks passed at high precision); no candidate satisfies every admissibility condition (tax bounds, positive consumption, transfer floor, debt sign, private solvency, specialization, certified W5 strict viability) simultaneously under this profile and reduced-coverage search. This is a substantive finding, not a computational failure. W5 strict-viability labels: 1 certified_viable, 2 frontier_unresolved, 1 certified_infeasible_on_declared_domain. 1 candidate(s) pass every pre-W5 implemented check (admissible_ex_w5); 'admissible' additionally requires a certified_viable W5 label. A frontier_unresolved label is a certification gap of the constant-tax lower-bound witness, not evidence of fiscal infeasibility.",
+  "config_path": "/Users/nathanbarnard/Documents/TAI public finnace poisson shock claude/.claude/worktrees/w5-strict-viability-frontiers/configs/cs005/real_first_attempt.json",
+  "coverage": "reduced",
+  "decision_grade": false,
+  "derived_constants": {
+    "Delta_0": 0.04,
+    "anchors": {
+      "0": {
+        "H_star": null,
+        "R_w": 0.11541563996875143,
+        "k_star": 4.493170179047145,
+        "mark": "0",
+        "nu_minus": null,
+        "nu_plus": null,
+        "q_prime_star": null,
+        "rbar": 0.025,
+        "specialization_floor": 0.28205128205128205,
+        "task_share": 0.22,
+        "u_max": 4.0,
+        "u_min": -2.7682238791875116,
+        "y_star": null
+      },
+      "H": {
+        "H_star": 253.2536724121165,
+        "R_w": 0.12167725354971073,
+        "k_star": 42.113442287093065,
+        "mark": "H",
+        "nu_minus": -0.11809405273879588,
+        "nu_plus": 0.1480940527387959,
+        "q_prime_star": -0.010535248855965407,
+        "rbar": 0.03,
+        "specialization_floor": 0.8518518518518519,
+        "task_share": 0.46,
+        "u_max": 4.0,
+        "u_min": -3.9007086340306993,
+        "y_star": 11.139669554386376
+      },
+      "L": {
+        "H_star": 102.8698610609936,
+        "R_w": 0.12167725354971073,
+        "k_star": 10.421287134280119,
+        "mark": "L",
+        "nu_minus": -0.13415836894746902,
+        "nu_plus": 0.16415836894746905,
+        "q_prime_star": -0.048365303873311935,
+        "rbar": 0.03,
+        "specialization_floor": 0.4705882352941177,
+        "task_share": 0.32,
+        "u_max": 4.0,
+        "u_min": -3.097621356436247,
+        "y_star": 3.962604990475438
+      }
+    },
+    "eta_K": 0.19999999999999996,
+    "eta_W": 0.8,
+    "iota_star": 0.0841075720639548,
+    "lambda_H": 0.008749999999999999,
+    "lambda_L": 0.01625,
+    "q_star": 1.2523227161918644
+  },
+  "discarded_nonconvergent_brackets": 5,
+  "elapsed_seconds": 3.741413999989163,
+  "environment": {
+    "architecture": "arm64",
+    "cpu": "arm",
+    "logical_cores": 10,
+    "memory_gb": 16.0,
+    "numpy": "2.5.2",
+    "operating_system": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "precision": "float64",
+    "python": "3.13.5",
+    "pyyaml": "6.0.3",
+    "scipy": "1.18.1"
+  },
+  "implementation": {
+    "branch": "cs005/w5-strict-viability-frontiers",
+    "commit": "5a264b836ecdfd8e22c868b38680ec8435545fc4",
+    "dirty_worktree_at_run_start": false
+  },
+  "inherited_state": {
+    "a_0": 1.0,
+    "b_0": 2.3571914168328902,
+    "convention": "real_one_year_output_debt",
+    "e_0": -7.984090499769497,
+    "f_0": -2.35719141683289,
+    "k_0": 4.493170179047145,
+    "psi_0": -5.626899082936607,
+    "theta_0": 0.0
+  },
+  "k_domain": [
+    0.8518527037037038,
+    568.9829984959017
+  ],
+  "n_admissible_ex_w5": 1,
+  "outcome": "computational_pass",
+  "pm08_certificates": {
+    "H": {
+      "backward_manifold_match_residual": 6.127480541152113e-13,
+      "local_tail_consistency_error": 8.558461371377236e-06,
+      "mark": "H",
+      "method": "backward_time_integration_from_local_linear_tail",
+      "nu_minus_numeric": -0.1180940527287708,
+      "nu_plus_numeric": 0.14809405273281723,
+      "passes": true,
+      "saddle_path_exclusion_bound": 4.4222336188230437e-13,
+      "sides": [
+        {
+          "backward_manifold_match_residual": 6.127480541152113e-13,
+          "backward_time_horizon": 66.48952797122966,
+          "k_attach": 42.071349894509964,
+          "k_edge": 0.8518527037037038,
+          "linearized_contraction_factor": 5.2921352502513355e-05,
+          "local_tail_consistency_error": 8.558461371377236e-06,
+          "n_match_points": 52,
+          "reached_edge": true,
+          "saddle_path_exclusion_bound": 4.4222336188230437e-13,
+          "side": "left",
+          "u_attach": -0.001,
+          "u_edge": -3.9007086340306993,
+          "unstable_projection_at_attachment": 8.558461371379874e-06
+        },
+        {
+          "backward_manifold_match_residual": 8.707700690495391e-14,
+          "backward_time_horizon": 76.02238924203155,
+          "k_attach": 42.155576793121966,
+          "k_edge": 2299.316040402868,
+          "linearized_contraction_factor": 1.2897672086601899e-05,
+          "local_tail_consistency_error": 8.551939014565135e-06,
+          "n_match_points": 54,
+          "reached_edge": true,
+          "saddle_path_exclusion_bound": 1.0780159701411294e-13,
+          "side": "right",
+          "u_attach": 0.001,
+          "u_edge": 4.0,
+          "unstable_projection_at_attachment": 8.551939014563702e-06
+        }
+      ],
+      "tolerance": 1e-08,
+      "unstable_projection_at_attachment": 8.558461371379874e-06
+    },
+    "L": {
+      "backward_manifold_match_residual": 1.258102199040628e-12,
+      "local_tail_consistency_error": 4.086633902909464e-05,
+      "mark": "L",
+      "method": "backward_time_integration_from_local_linear_tail",
+      "nu_minus_numeric": -0.134158368943281,
+      "nu_plus_numeric": 0.1641583689473274,
+      "passes": true,
+      "saddle_path_exclusion_bound": 3.103100144354752e-12,
+      "sides": [
+        {
+          "backward_manifold_match_residual": 1.258102199040628e-12,
+          "backward_time_horizon": 57.2295052658057,
+          "k_attach": 10.41087105605296,
+          "k_edge": 0.4705887058823529,
+          "linearized_contraction_factor": 8.316348072443956e-05,
+          "local_tail_consistency_error": 4.086633902909464e-05,
+          "n_match_points": 47,
+          "reached_edge": true,
+          "saddle_path_exclusion_bound": 3.103100144354752e-12,
+          "side": "left",
+          "u_attach": -0.001,
+          "u_edge": -3.097621356436247,
+          "unstable_projection_at_attachment": 4.086633902908463e-05
+        },
+        {
+          "backward_manifold_match_residual": 5.549193855408447e-14,
+          "backward_time_horizon": 67.57516613447105,
+          "k_attach": 10.431713633795281,
+          "k_edge": 568.9829984959017,
+          "linearized_contraction_factor": 1.5218039052945864e-05,
+          "local_tail_consistency_error": 4.083353953392661e-05,
+          "n_match_points": 53,
+          "reached_edge": true,
+          "saddle_path_exclusion_bound": 5.679442403749301e-13,
+          "side": "right",
+          "u_attach": 0.001,
+          "u_edge": 4.0,
+          "unstable_projection_at_attachment": 4.0833539533933874e-05
+        }
+      ],
+      "tolerance": 1e-08,
+      "unstable_projection_at_attachment": 4.086633902908463e-05
+    }
+  },
+  "pm08_cs005_tolerance_pass": true,
+  "postmark_diagnostics": {
+    "H": {
+      "T_j": 152.42088473170585,
+      "mark": "H",
+      "pm01_ode_residual_finite_difference": 4.361601468687133e-11,
+      "pm02_H_prime_vs_q_finite_difference": 4.593661796868801e-11,
+      "pm03_anchor_user_cost_identity": 1.3877787807814457e-17,
+      "pm03_k_star_recompute_relative_error": 0.0,
+      "pm04_eigenvalue_relative_error_vs_numerical_jacobian": 8.96622065506545e-12,
+      "pm04_stable_slope_finite_difference_both_sides": 8.467270365176744e-07,
+      "pm05_full_bgp_identity_relative_error": null,
+      "pm06_zero_tax_recovery_max_abs": 3.7064817881571344e-10,
+      "pm07_specialization_margin_min": 8.518518519462503e-07,
+      "pm08_tail_position_error": 0.0011546361882940588,
+      "pm08_tail_position_error_moderate": 0.0006172054183417957,
+      "pm08_unstable_projection": 0.04744570949951385,
+      "pm08_unstable_projection_moderate": 0.025925732177848618
+    },
+    "L": {
+      "T_j": 134.16978859550738,
+      "mark": "L",
+      "pm01_ode_residual_finite_difference": 5.500686362154856e-11,
+      "pm02_H_prime_vs_q_finite_difference": 5.7453960224683604e-11,
+      "pm03_anchor_user_cost_identity": 1.3877787807814457e-17,
+      "pm03_k_star_recompute_relative_error": 0.0,
+      "pm04_eigenvalue_relative_error_vs_numerical_jacobian": 3.692615743737114e-12,
+      "pm04_stable_slope_finite_difference_both_sides": 3.9058085503472825e-06,
+      "pm05_full_bgp_identity_relative_error": null,
+      "pm06_zero_tax_recovery_max_abs": 3.0976310405606e-10,
+      "pm07_specialization_margin_min": 4.7058823521295423e-07,
+      "pm08_tail_position_error": 0.00043844394126056505,
+      "pm08_tail_position_error_moderate": 0.00032562400888558937,
+      "pm08_unstable_projection": 0.004984903452137981,
+      "pm08_unstable_projection_moderate": 0.003705624930688943
+    }
+  },
+  "postmark_status": "pass",
+  "preflight_tests_status": "passed",
+  "primitive_path": "/Users/nathanbarnard/Documents/TAI public finnace poisson shock claude/.claude/worktrees/w5-strict-viability-frontiers/configs/cs005/P-CS005-REAL-01.json",
+  "profile_id": "P-CS005-REAL-01",
+  "run_fingerprint": "620da26ac308448a9a630f6f07edb189f9557fc50a142e79b3c1133050887d94",
+  "run_id": "RUN-20260902T220418Z-CS005-5a264b83-01",
+  "strict_viability_checked": true,
+  "strict_viability_label_counts": {
+    "certified_infeasible_on_declared_domain": 1,
+    "certified_viable": 1,
+    "frontier_unresolved": 2
+  },
+  "strict_viability_method": "constant_tax_rescaled_stable_manifold_witness_lower_bound_with_tau1_compact_domain_outer_bound",
+  "tolerances": {
+    "independent_tolerance": 1e-08,
+    "solver_tolerance": 1e-10
+  }
+}
