@@ -38,6 +38,9 @@ outputs/*/report.json
 # The CS005 first-real report.json is small (15 KB), structured, and
 # hash-referenced by its run record — tracked as a durable output.
 !outputs/cs005-marked-poisson-first-real/report.json
+# Same reasoning for the native rerun and the PM08-certificate rerun bundles.
+!outputs/cs005-marked-poisson-first-real-rerun/report.json
+!outputs/cs005-pm08-tail-certificate/report.json
 # (add the names of large per-run CSV/array files here once the first run
 #  defines them; small tables stay tracked)
 outputs/*/checkpoints/
