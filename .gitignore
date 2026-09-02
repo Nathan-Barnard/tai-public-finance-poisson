@@ -41,6 +41,7 @@ outputs/*/report.json
 # Same reasoning for the native rerun and the PM08-certificate rerun bundles.
 !outputs/cs005-marked-poisson-first-real-rerun/report.json
 !outputs/cs005-pm08-tail-certificate/report.json
+!outputs/cs005-w5-strict-viability/report.json
 # (add the names of large per-run CSV/array files here once the first run
 #  defines them; small tables stay tracked)
 outputs/*/checkpoints/

@@ -44,6 +44,35 @@ def test_cli_end_to_end_on_smoke_profile(tmp_path):
     assert report["profile_id"] == "P-CS005-SMOKE-01"
     assert isinstance(report["candidates"], list)
 
+    # W5 strict-viability fields: stdout payload, report.json, summary.md, run record.
+    assert payload["strict_viability_checked"] is True
+    assert "n_admissible_ex_w5" in payload
+    assert set(payload["strict_viability_label_counts"]) == {"certified_viable", "frontier_unresolved", "certified_infeasible_on_declared_domain"}
+    assert report["strict_viability_checked"] is True
+    assert report["strict_viability_method"]
+    for candidate in report["candidates"]:
+        assert candidate["strict_viability_checked"] is True
+        assert candidate["strict_viability_label"] in ("certified_viable", "frontier_unresolved", "certified_infeasible_on_declared_domain")
+        assert isinstance(candidate["strict_viability_pass"], bool)
+        assert candidate["admissible"] == (candidate["admissible_ex_w5"] and candidate["strict_viability_pass"])
+        viability = candidate["strict_viability"]
+        assert viability["method"] == report["strict_viability_method"]
+        assert set(viability["marks"]) == {"L", "H"}
+        for mark_result in viability["marks"].values():
+            assert mark_result["capacity_lower_bound"] >= 0.0
+            assert mark_result["capacity_outer_bound"] > mark_result["capacity_lower_bound"]
+            assert "margin" in mark_result and "margin_requirement" in mark_result
+
+    summary_text = (output_dir / "summary.md").read_text()
+    assert "W5 strict-viability labels" in summary_text
+    assert "admissible_ex_w5" in summary_text
+    assert "not** an infeasibility finding" in summary_text
+
+    record_text = (runs_dir / "RUN-TEST-CS005-SMOKE.yaml").read_text()
+    assert "strict_viability_checked: true" in record_text
+    assert "n_admissible_ex_w5" in record_text
+    assert "strict_viability_label_counts" in record_text
+
 
 def test_cli_refuses_to_overwrite_an_existing_run_record(tmp_path):
     output_dir_1 = tmp_path / "out1"

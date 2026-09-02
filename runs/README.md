@@ -16,8 +16,34 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260902T220418Z-CS005-5a264b83-01.yaml`](RUN-20260902T220418Z-CS005-5a264b83-01.yaml)
+  — **preferred evidence record (W5 strict viability).** Rerun of the CS005
+  first real prototype under the same provisional calibration
+  `P-CS005-REAL-01` (EMP005), executed 2026-09-02 from a clean tree at commit
+  `5a264b83` (branch `cs005/w5-strict-viability-frontiers`), adding W5 strict
+  support-based fiscal viability: each candidate's successor public wealth
+  `f_j^+` is certified against the branch-specific lower frontier
+  `underline_f_j(k, ell) = -C_j(k, ell)` via a certified-inner constant-tax
+  witness lower bound on capacity (feasible paths on the rescaled certified
+  zero-tax stable manifold, independently re-integrated at four-times-finer
+  tolerance) and CS005's coarse `tau=1` compact-domain outer bound. Labels:
+  1 `certified_viable` (an otherwise-inadmissible high-wealth candidate),
+  2 `frontier_unresolved`, 1 `certified_infeasible_on_declared_domain`.
+  **The previously admissible candidate is `frontier_unresolved` on both
+  marks** (successor wealth ≈ −61.9 (L) / −115.7 (H) against certified
+  capacity lower bounds ≈ 17.4 / 46.1 and outer bounds ≈ 152 / 1076): it is
+  neither certified strictly viable nor refuted, so `n_admissible: 0` under
+  the new W5-inclusive definition while `n_admissible_ex_w5: 1` preserves the
+  pre-W5 count. Candidate counts otherwise unchanged (4 atlas, 0 date-zero);
+  `pm08_cs005_tolerance_pass: true`; still `decision_grade: false`,
+  `coverage: reduced` (reduced-coverage root search; W2/W3/W4 out of scope;
+  the W5 lower/upper capacity gap is not closed to CS005's 1e-4 tolerance, so
+  no claimed frontier is reported). The run fingerprint differs from earlier
+  records because the experiment now includes the W5 method. Bundle under
+  `../outputs/cs005-w5-strict-viability/`.
 - [`RUN-20260902T212539Z-CS005-d1e3ea99-01.yaml`](RUN-20260902T212539Z-CS005-d1e3ea99-01.yaml)
-  — **preferred evidence record (post-mark tail).** Rerun of the CS005 first
+  — **preferred post-mark-tail evidence record; superseded as the overall
+  preferred record by the W5 run above.** Rerun of the CS005 first
   real prototype under the same provisional calibration `P-CS005-REAL-01`
   (EMP005), executed 2026-09-02 from a clean tree at commit `d1e3ea99`
   (branch `cs005/pm08-tail-certificate`), after replacing the decisive PM08
