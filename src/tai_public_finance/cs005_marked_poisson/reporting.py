@@ -99,7 +99,10 @@ def write_bundle(
             [
                 f"# {report['run_id']}",
                 "",
-                f"- Outcome: **{report['outcome']}**",
+                f"- Outcome: **{report['outcome']}** (prototype / reduced-coverage pass; decision_grade: "
+                f"{str(report['decision_grade']).lower()}, coverage: {report['coverage']}, "
+                f"pm08_cs005_tolerance_pass: {str(report['pm08_cs005_tolerance_pass']).lower()}, "
+                f"strict_viability_checked: {str(report['strict_viability_checked']).lower()})",
                 f"- Profile: `{report['profile_id']}` (spec CS005 v{spec_version}, status draft -- exploratory first attempt)",
                 f"- Post-mark blocks: L and H both `{report['postmark_status']}`",
                 f"- Candidates found: {n_candidates} (discarded non-convergent brackets: {report['discarded_nonconvergent_brackets']})",
@@ -140,7 +143,7 @@ def write_bundle(
         "approach_id": "CA008",
         "benchmark_id": "CB005",
         "implementation": {
-            "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance",
+            "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance-poisson",
             "local_path": str(repository),
             "commit": git_at_run_start["commit"],
             "branch": git_at_run_start["branch"],
@@ -205,6 +208,10 @@ def write_bundle(
         },
         "result": {
             "outcome": report["outcome"],
+            "decision_grade": report["decision_grade"],
+            "coverage": report["coverage"],
+            "pm08_cs005_tolerance_pass": report["pm08_cs005_tolerance_pass"],
+            "strict_viability_checked": report["strict_viability_checked"],
             "wall_seconds": elapsed_seconds,
             "peak_memory_gb": None,
             "actual_cash_usd": 0,

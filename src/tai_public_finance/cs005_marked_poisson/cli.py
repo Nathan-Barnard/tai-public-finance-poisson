@@ -113,17 +113,24 @@ def main() -> int:
     n_admissible = sum(1 for row in candidate_rows if row["admissible"])
     n_date_zero = sum(1 for row in candidate_rows if not row["is_atlas_entry"])
     outcome = "computational_pass" if structural_ok else "computational_fail"
+    independent_tolerance = tolerances.get("independent_tolerance", 1.0e-8)
+    pm08_cs005_tolerance_pass = all(pm.pm08_unstable_projection <= independent_tolerance for pm in (pm_L, pm_H))
+    qualification = (
+        "First real prototype / reduced-coverage computational pass, not a decision-grade CS005 pass "
+        f"(spec draft; PM08 tail/transversality at CS005 tolerance: {pm08_cs005_tolerance_pass}; "
+        "W2/W3/W4/W5 out of scope): "
+    )
     if not structural_ok:
         conclusion = "One or more structural/independent-evaluator checks failed to meet the generous 1e-6 sanity tolerance -- treat all candidates below as unverified. See per-check residuals in diagnostics."
     elif n_admissible == 0:
-        conclusion = (
-            f"Computation completed cleanly ({len(candidate_rows)} candidates enumerated, all independent checks passed at high precision); "
+        conclusion = qualification + (
+            f"computation completed cleanly ({len(candidate_rows)} candidates enumerated, all independent checks passed at high precision); "
             "no candidate satisfies every admissibility condition (tax bounds, positive consumption, transfer floor, debt sign, private solvency, specialization) "
             "simultaneously under this profile and reduced-coverage search. This is a substantive first-attempt finding, not a computational failure."
         )
     else:
-        conclusion = (
-            f"Computation completed cleanly; {n_admissible} of {len(candidate_rows)} candidates are fully admissible. "
+        conclusion = qualification + (
+            f"computation completed cleanly; {n_admissible} of {len(candidate_rows)} candidates are fully admissible. "
             f"{n_date_zero} candidate(s) match the declared inherited state (date-zero); all others are atlas entries."
         )
 
@@ -152,6 +159,10 @@ def main() -> int:
         "discarded_nonconvergent_brackets": result.discarded_nonconvergent_brackets,
         "candidates": candidate_rows,
         "outcome": outcome,
+        "decision_grade": False,
+        "coverage": "reduced",
+        "pm08_cs005_tolerance_pass": pm08_cs005_tolerance_pass,
+        "strict_viability_checked": False,
         "conclusion": conclusion,
         "preflight_tests_status": args.preflight_tests_status,
     }
@@ -179,6 +190,10 @@ def main() -> int:
             {
                 "run_id": run_id,
                 "outcome": outcome,
+                "decision_grade": False,
+                "coverage": "reduced",
+                "pm08_cs005_tolerance_pass": pm08_cs005_tolerance_pass,
+                "strict_viability_checked": False,
                 "n_candidates": len(candidate_rows),
                 "n_admissible": n_admissible,
                 "n_date_zero": n_date_zero,
