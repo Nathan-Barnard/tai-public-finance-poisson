@@ -1,0 +1,46 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Repository-local caches created by computational runs (e.g. matplotlib font
+# cache under MPLCONFIGDIR) -- never a material run artifact.
+.cache/
+
+# Claude
+.claude/settings.local.json
+.claude/worktrees/
+
+# Large per-run computational artifacts: hash- and size-referenced from the
+# matching runs/*.yaml record rather than committed (see runs/README.md once it
+# exists), and regenerable from that record's command. Small structured outputs
+# (summary tables, FINDINGS.md, root/admissibility tables) stay tracked.
+outputs/*/figures/
+outputs/*/report.json
+# (add the names of large per-run CSV/array files here once the first run
+#  defines them; small tables stay tracked)
+outputs/*/checkpoints/
+
+# Reference literature (copyrighted textbooks/papers -- kept local only)
+literature/textbooks/
+literature/papers/
+literature/lecture-notes/
+literature/code/
