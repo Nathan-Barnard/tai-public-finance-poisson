@@ -15,12 +15,19 @@ pass** of the CS005 post-mark stable-manifold and pre-arrival candidate
 enumeration blocks under the provisional calibration `P-CS005-REAL-01`
 (EMP005). This is **not a decision-grade CS005 pass**:
 
-- PM08 tail/transversality diagnostics do not pass CS005-level tolerance
-  (a known forward-shooting limitation; see the run record's limitations).
 - The root search is reduced-coverage relative to CS005's full multi-start
   protocol.
 - W2 (two-tranche rank), W3 (tax-span cone), W4 (fixed-mark diagnostic), and
   W5 (strict-viability frontiers) are out of scope for this first import.
+
+PM08 tail/transversality now **passes CS005-level tolerance** (2026-09-02):
+the decisive certificate is backward true-time integration from a local
+linear tail attached at the anchor (`diagnostics.certify_postmark_tail`),
+which contracts off-manifold deviations at rate nu_+ instead of amplifying
+them the way the original forward-shooting check did. The forward-shooting
+diagnostic is retained as a warning-level indicator only. The certificate
+covers the certified post-mark [k_min, k_max] domain with a linearized
+contraction bound — a numerical certificate, not a computer-assisted proof.
 
 Substantive prototype result, with the qualifications above: 4 stationary
 atlas candidates found, 1 admissible under the implemented checks, 0 matching
@@ -29,14 +36,16 @@ existence, uniqueness, global optimality, or equilibrium; every Poisson-branch
 result remains proof-assurance stage S0_unassessed.
 
 Evidence (preferred, native to this repository):
-`runs/RUN-20260902T211134Z-CS005-45f5d452-01.yaml` and
-`outputs/cs005-marked-poisson-first-real-rerun/` — a rerun from a clean tree
-at commit `45f5d452`, numerically identical to the import (same run
-fingerprint). The imported legacy record
-`runs/RUN-20260902T203112Z-CS005-4f27d1d7-01.yaml` and
-`outputs/cs005-marked-poisson-first-real/` are kept as provenance/history;
-the commit they name belongs to the legacy repository and is not resolvable
-here.
+`runs/RUN-20260902T212539Z-CS005-d1e3ea99-01.yaml` and
+`outputs/cs005-pm08-tail-certificate/` — the PM08-certificate rerun from a
+clean tree at commit `d1e3ea99`, with `pm08_cs005_tolerance_pass: true` and
+candidate counts unchanged (same run fingerprint as the earlier runs; the
+profile and search are identical, only the tail certificate method changed).
+Superseded records, kept as provenance/history:
+`runs/RUN-20260902T211134Z-CS005-45f5d452-01.yaml` (native rerun, forward
+shooting only, PM08 below tolerance) and
+`runs/RUN-20260902T203112Z-CS005-4f27d1d7-01.yaml` (the legacy import, whose
+commit belongs to the legacy repository and is not resolvable here).
 
 ## Setup
 
