@@ -16,6 +16,29 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260905T210214Z-CS012-09830d98-01.yaml`](RUN-20260905T210214Z-CS012-09830d98-01.yaml)
+  — **CS012 I0 pricing-kernel identity core (exploratory only; separate
+  specification from CS005, so it neither supersedes nor is superseded by the
+  records below).** Parameter-free manufactured-fixture run executed 2026-09-05
+  from a clean tree at commit `09830d98` (branch
+  `cs012/i0-pricing-kernel-identities`, based on `74c736f8`) under draft
+  CS012 v0.1, SHA-256
+  `275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8`. It checks
+  the three jump pricing-kernel definitions, the exact `D_G = D_K + D_GK`
+  decomposition and its relative-kernel form, the owner exposure interval and
+  portfolio-pricing root, the intensity-weighted marketed projection and
+  orthogonal fiscal gap, the exact safe-account payoff rank, and the literal
+  laissez-faire extended-real boundary, each reconstructed term by term by a
+  standard-library-only independent checker. Maximum discrepancies 1.4e-17
+  (identity), 1.0e-17 (production versus independent), 6.7e-18 (owner-root
+  residual), 1.7e-17 (weighted orthogonality). Output
+  `outputs/cs012-i0-pricing-kernel-identities/identity_report.json`
+  (`2ce7e59d…`, 38 087 bytes). **No economic calibration, successor, transition,
+  prefunding family, portfolio grid, or plot**, and nothing here supports a
+  finite government kernel path, a portfolio sign, a welfare conclusion, an
+  existence result, or an optimal portfolio. Ready for independent review; not
+  accepted, not merged, not pushed.
+
 - [`RUN-20260902T220418Z-CS005-5a264b83-01.yaml`](RUN-20260902T220418Z-CS005-5a264b83-01.yaml)
   — **preferred evidence record (W5 strict viability).** Rerun of the CS005
   first real prototype under the same provisional calibration
