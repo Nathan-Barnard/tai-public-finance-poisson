@@ -1,0 +1,1065 @@
+{
+  "fixture_set": {
+    "fingerprint": "7e4e8c8fee1991f832edc2818a1dcd9602b909d8ca16bec73039e6a6e61fb008",
+    "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/i0_manufactured_fixtures.json",
+    "sha256": "5d116074672d0470d916e55e44e3a9aa00625f3d7bb0db85d52b21b39eb8f58d"
+  },
+  "fixtures": [
+    {
+      "boundary_marks": [],
+      "declared_branch": "finite_maintained_branch",
+      "description": "One mark. Both the private and public exposure conditions hold, so all three kernels equal 0.5, gamma_F = 1, and the owner and government residuals vanish. The owner root must also equal the analytic (lambda/lambda_star - 1)/J = 2.",
+      "fixture_id": "one_mark_alignment",
+      "identities": {
+        "decomposition_error": 0.0,
+        "relative_identity_applies": true,
+        "relative_identity_error": 0.0
+      },
+      "independent": {
+        "marks": [
+          {
+            "gamma": 1.0,
+            "k_government": 0.5,
+            "k_owner": 0.5,
+            "k_world": 0.5,
+            "mark_id": "F",
+            "term_government": 0.0,
+            "term_government_owner": 0.0,
+            "term_owner": 0.0,
+            "term_relative": 0.0
+          }
+        ],
+        "orthogonal": [
+          0.0
+        ],
+        "projection_alpha": 0.0,
+        "projection_denominator": 0.05,
+        "route": "expanded-form sums, consumption-ratio owner kernel, plain summation",
+        "sums": {
+          "d_government": 0.0,
+          "d_government_owner": 0.0,
+          "d_owner": 0.0,
+          "d_relative": 0.0
+        }
+      },
+      "inputs": {
+        "declared_branch": "finite_maintained_branch",
+        "fixture_id": "one_mark_alignment",
+        "government_current_marginal_value": 2.0,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 1.0
+            },
+            "lambda_physical": 0.2,
+            "lambda_risk_neutral": 0.1,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.5
+          }
+        ],
+        "owner_exposure": 2.0,
+        "worker_consumption": null
+      },
+      "kernel_detail": "all kernels finite and positive on the maintained branch",
+      "kernel_status": "finite_maintained_branch",
+      "marks": [
+        {
+          "gamma": 1.0,
+          "k_government": 0.5,
+          "k_owner": 0.5,
+          "k_world": 0.5,
+          "lambda_physical": 0.2,
+          "lambda_risk_neutral": 0.1,
+          "mark_id": "F",
+          "owner_wealth_multiplier": 2.0,
+          "payoff_jump": 0.5,
+          "term_government": 0.0,
+          "term_government_owner": 0.0,
+          "term_owner": 0.0,
+          "term_relative": 0.0
+        }
+      ],
+      "owner_root": {
+        "boundary_margin": 4.0,
+        "boundary_margin_is_unbounded": false,
+        "derivative_at_root": -0.0125,
+        "detail": "a finite interior sign change was bracketed inside the open admissible interval; the residual is strictly decreasing there, so the root is unique",
+        "exposure": 2.0,
+        "interval": {
+          "lower": -2.0,
+          "lower_is_finite": true,
+          "upper": null,
+          "upper_is_finite": false,
+          "zero_is_interior": true
+        },
+        "limit_at_unbounded_end": -0.05,
+        "residual_at_root": 0.0,
+        "residual_at_zero_exposure": 0.05,
+        "status": "unique_interior_root"
+      },
+      "production_versus_independent": {
+        "max_kernel_absolute_error": 0.0,
+        "max_sum_normalized_error": 0.0,
+        "owner_root_independent_residual": 0.0,
+        "projection_absolute_error": 0.0,
+        "sum_normalized_errors": {
+          "d_government": 0.0,
+          "d_government_owner": 0.0,
+          "d_owner": 0.0,
+          "d_relative": 0.0
+        }
+      },
+      "projection": {
+        "alpha": 0.0,
+        "components": [
+          {
+            "gap": 0.0,
+            "mark_id": "F",
+            "orthogonal": 0.0,
+            "parallel": 0.0
+          }
+        ],
+        "denominator": 0.05,
+        "detail": "the fiscal gap was split into its marketed projection on the payoff vector and an orthogonal residual under the physical-intensity inner product",
+        "numerator": 0.0,
+        "orthogonality_error": 0.0,
+        "status": "projection_resolved",
+        "weighted_inner_product_orthogonal_payoff": 0.0,
+        "weighted_norm_gap": 0.0,
+        "weighted_norm_orthogonal": 0.0,
+        "weighted_norm_parallel": 0.0
+      },
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 1,
+        "rank_with_safe_account": 1,
+        "risky_payoff_vector": [
+          0.5
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0
+        ]
+      },
+      "sums": {
+        "d_government": 0.0,
+        "d_government_owner": 0.0,
+        "d_owner": 0.0,
+        "d_relative": 0.0
+      },
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless",
+        "lambda_physical": "inverse time",
+        "lambda_risk_neutral": "inverse time",
+        "owner_exposure": "inverse payoff unit",
+        "payoff_jump": "current good per unit installed equity",
+        "residual_sums": "inverse time"
+      },
+      "worker_consumption": null
+    },
+    {
+      "boundary_marks": [],
+      "declared_branch": "finite_maintained_branch",
+      "description": "Two marks with intentionally opposite payoff signs. k_world = k_owner = [1,1] and gamma = [1.2,1.8], so the fiscal gap g = [0.2,0.8] has zero physical-intensity-weighted inner product with J. The marketed projection and D_government are therefore zero while the orthogonal gap is not.",
+      "fixture_id": "two_mark_orthogonal_gap",
+      "identities": {
+        "decomposition_error": 0.0,
+        "relative_identity_applies": true,
+        "relative_identity_error": 0.0
+      },
+      "independent": {
+        "marks": [
+          {
+            "gamma": 1.2,
+            "k_government": 1.2,
+            "k_owner": 1.0,
+            "k_world": 1.0,
+            "mark_id": "P",
+            "term_government": 0.01999999999999999,
+            "term_government_owner": 0.01999999999999999,
+            "term_owner": 0.0,
+            "term_relative": 0.01999999999999999
+          },
+          {
+            "gamma": 1.8,
+            "k_government": 1.8,
+            "k_owner": 1.0,
+            "k_world": 1.0,
+            "mark_id": "F",
+            "term_government": -0.020000000000000004,
+            "term_government_owner": -0.020000000000000004,
+            "term_owner": 0.0,
+            "term_relative": -0.020000000000000004
+          }
+        ],
+        "orthogonal": [
+          0.2,
+          0.8
+        ],
+        "projection_alpha": -1.2335811384723962e-16,
+        "projection_denominator": 0.05625,
+        "route": "expanded-form sums, consumption-ratio owner kernel, plain summation",
+        "sums": {
+          "d_government": -1.3877787807814457e-17,
+          "d_government_owner": -1.3877787807814457e-17,
+          "d_owner": 0.0,
+          "d_relative": -1.3877787807814457e-17
+        }
+      },
+      "inputs": {
+        "declared_branch": "finite_maintained_branch",
+        "fixture_id": "two_mark_orthogonal_gap",
+        "government_current_marginal_value": 1.0,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 1.2
+            },
+            "lambda_physical": 0.2,
+            "lambda_risk_neutral": 0.2,
+            "mark_id": "P",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.5
+          },
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 1.8
+            },
+            "lambda_physical": 0.1,
+            "lambda_risk_neutral": 0.1,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": -0.25
+          }
+        ],
+        "owner_exposure": 0.0,
+        "worker_consumption": null
+      },
+      "kernel_detail": "all kernels finite and positive on the maintained branch",
+      "kernel_status": "finite_maintained_branch",
+      "marks": [
+        {
+          "gamma": 1.2,
+          "k_government": 1.2,
+          "k_owner": 1.0,
+          "k_world": 1.0,
+          "lambda_physical": 0.2,
+          "lambda_risk_neutral": 0.2,
+          "mark_id": "P",
+          "owner_wealth_multiplier": 1.0,
+          "payoff_jump": 0.5,
+          "term_government": 0.019999999999999997,
+          "term_government_owner": 0.019999999999999997,
+          "term_owner": 0.0,
+          "term_relative": 0.019999999999999997
+        },
+        {
+          "gamma": 1.8,
+          "k_government": 1.8,
+          "k_owner": 1.0,
+          "k_world": 1.0,
+          "lambda_physical": 0.1,
+          "lambda_risk_neutral": 0.1,
+          "mark_id": "F",
+          "owner_wealth_multiplier": 1.0,
+          "payoff_jump": -0.25,
+          "term_government": -0.020000000000000004,
+          "term_government_owner": -0.020000000000000004,
+          "term_owner": -0.0,
+          "term_relative": -0.020000000000000004
+        }
+      ],
+      "owner_root": {
+        "boundary_margin": 2.0,
+        "boundary_margin_is_unbounded": false,
+        "derivative_at_root": -0.05625,
+        "detail": "the owner residual vanishes exactly at zero exposure",
+        "exposure": 0.0,
+        "interval": {
+          "lower": -2.0,
+          "lower_is_finite": true,
+          "upper": 4.0,
+          "upper_is_finite": true,
+          "zero_is_interior": true
+        },
+        "limit_at_unbounded_end": -0.07500000000000001,
+        "residual_at_root": 0.0,
+        "residual_at_zero_exposure": 0.0,
+        "status": "unique_interior_root"
+      },
+      "production_versus_independent": {
+        "max_kernel_absolute_error": 0.0,
+        "max_sum_normalized_error": 6.938893903907228e-18,
+        "owner_root_independent_residual": 0.0,
+        "projection_absolute_error": 0.0,
+        "sum_normalized_errors": {
+          "d_government": 6.938893903907228e-18,
+          "d_government_owner": 6.938893903907228e-18,
+          "d_owner": 0.0,
+          "d_relative": 6.938893903907228e-18
+        }
+      },
+      "projection": {
+        "alpha": -1.2335811384723962e-16,
+        "components": [
+          {
+            "gap": 0.19999999999999996,
+            "mark_id": "P",
+            "orthogonal": 0.2,
+            "parallel": -6.167905692361981e-17
+          },
+          {
+            "gap": 0.8,
+            "mark_id": "F",
+            "orthogonal": 0.8,
+            "parallel": 3.0839528461809905e-17
+          }
+        ],
+        "denominator": 0.05625,
+        "detail": "the fiscal gap was split into its marketed projection on the payoff vector and an orthogonal residual under the physical-intensity inner product",
+        "numerator": -6.938893903907228e-18,
+        "orthogonality_error": 0.0,
+        "status": "projection_resolved",
+        "weighted_inner_product_orthogonal_payoff": 0.0,
+        "weighted_norm_gap": 0.2683281572999748,
+        "weighted_norm_orthogonal": 0.2683281572999748,
+        "weighted_norm_parallel": 2.925694557147251e-17
+      },
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 1,
+        "rank_with_safe_account": 1,
+        "risky_payoff_vector": [
+          0.5,
+          -0.25
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0,
+          0.0
+        ]
+      },
+      "sums": {
+        "d_government": -6.938893903907228e-18,
+        "d_government_owner": -6.938893903907228e-18,
+        "d_owner": 0.0,
+        "d_relative": -6.938893903907228e-18
+      },
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless",
+        "lambda_physical": "inverse time",
+        "lambda_risk_neutral": "inverse time",
+        "owner_exposure": "inverse payoff unit",
+        "payoff_jump": "current good per unit installed equity",
+        "residual_sums": "inverse time"
+      },
+      "worker_consumption": null
+    },
+    {
+      "boundary_marks": [
+        {
+          "gamma": {
+            "kind": "positive_infinity",
+            "value": null
+          },
+          "k_government": {
+            "kind": "positive_infinity",
+            "value": null
+          },
+          "k_owner": {
+            "kind": "finite",
+            "value": 0.5
+          },
+          "k_world": {
+            "kind": "finite",
+            "value": 0.5
+          },
+          "lambda_physical": 0.2,
+          "lambda_risk_neutral": 0.1,
+          "mark_id": "F",
+          "owner_wealth_multiplier": {
+            "kind": "finite",
+            "value": 2.0
+          },
+          "payoff_jump": 0.5
+        }
+      ],
+      "declared_branch": "literal_laissez_faire",
+      "description": "Literal full-AK laissez-faire. Public tax, transfer, equity, money-market, and net-wealth positions are all zero, so the full-AK successor leaves hand-to-mouth workers with zero consumption and the successor government marginal value is positive infinity. The pre-event government marginal value is still finite and strictly positive. This fixture carries no finite residual arithmetic.",
+      "fixture_id": "literal_laissez_faire_full_ak",
+      "identities": null,
+      "independent": null,
+      "inputs": {
+        "declared_branch": "literal_laissez_faire",
+        "fixture_id": "literal_laissez_faire_full_ak",
+        "government_current_marginal_value": 2.0,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "positive_infinity",
+              "value": null
+            },
+            "lambda_physical": 0.2,
+            "lambda_risk_neutral": 0.1,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.5
+          }
+        ],
+        "owner_exposure": 2.0,
+        "worker_consumption": 0.0
+      },
+      "kernel_detail": "full-AK continuation with zero public wealth and transfers gives hand-to-mouth workers zero consumption; the fiscal marginal value is not finite and is excluded from all residual arithmetic",
+      "kernel_status": "nonfinite_fiscal_kernel_at_literal_laissez_faire",
+      "marks": [],
+      "owner_root": null,
+      "production_versus_independent": null,
+      "projection": null,
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 1,
+        "rank_with_safe_account": 1,
+        "risky_payoff_vector": [
+          0.5
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0
+        ]
+      },
+      "sums": null,
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless (extended real)",
+        "worker_consumption": "current good"
+      },
+      "worker_consumption": {
+        "kind": "finite",
+        "value": 0.0
+      }
+    },
+    {
+      "boundary_marks": [],
+      "declared_branch": "finite_maintained_branch",
+      "description": "Two marks with exactly one zero payoff component. The zero-payoff mark stays in the kernel report and contributes zero to every portfolio residual; the exposure interval is constrained only by the nonzero component, and the owner root is the analytic one-mark value (0.15/0.09 - 1)/0.40.",
+      "fixture_id": "two_mark_one_zero_payoff",
+      "identities": {
+        "decomposition_error": 0.0,
+        "relative_identity_applies": true,
+        "relative_identity_error": 3.469446951953614e-18
+      },
+      "independent": {
+        "marks": [
+          {
+            "gamma": 1.2,
+            "k_government": 1.2,
+            "k_owner": 1.0,
+            "k_world": 0.8,
+            "mark_id": "P",
+            "term_government": 0.0,
+            "term_government_owner": 0.0,
+            "term_owner": 0.0,
+            "term_relative": 0.0
+          },
+          {
+            "gamma": 0.72,
+            "k_government": 0.6,
+            "k_owner": 0.8333333333333334,
+            "k_world": 0.6,
+            "mark_id": "F",
+            "term_government": 0.0,
+            "term_government_owner": -0.014000000000000005,
+            "term_owner": 0.014000000000000005,
+            "term_relative": -0.014000000000000005
+          }
+        ],
+        "orthogonal": [
+          0.3999999999999999,
+          0.0
+        ],
+        "projection_alpha": 0.0,
+        "projection_denominator": 0.024,
+        "route": "expanded-form sums, consumption-ratio owner kernel, plain summation",
+        "sums": {
+          "d_government": 0.0,
+          "d_government_owner": -0.014000000000000005,
+          "d_owner": 0.014000000000000005,
+          "d_relative": -0.014000000000000005
+        }
+      },
+      "inputs": {
+        "declared_branch": "finite_maintained_branch",
+        "fixture_id": "two_mark_one_zero_payoff",
+        "government_current_marginal_value": 1.5,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 1.8
+            },
+            "lambda_physical": 0.3,
+            "lambda_risk_neutral": 0.24,
+            "mark_id": "P",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.0
+          },
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 0.9
+            },
+            "lambda_physical": 0.15,
+            "lambda_risk_neutral": 0.09,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.4
+          }
+        ],
+        "owner_exposure": 0.5,
+        "worker_consumption": null
+      },
+      "kernel_detail": "all kernels finite and positive on the maintained branch",
+      "kernel_status": "finite_maintained_branch",
+      "marks": [
+        {
+          "gamma": 1.2,
+          "k_government": 1.2,
+          "k_owner": 1.0,
+          "k_world": 0.8,
+          "lambda_physical": 0.3,
+          "lambda_risk_neutral": 0.24,
+          "mark_id": "P",
+          "owner_wealth_multiplier": 1.0,
+          "payoff_jump": 0.0,
+          "term_government": 0.0,
+          "term_government_owner": 0.0,
+          "term_owner": 0.0,
+          "term_relative": 0.0
+        },
+        {
+          "gamma": 0.72,
+          "k_government": 0.6,
+          "k_owner": 0.8333333333333334,
+          "k_world": 0.6,
+          "lambda_physical": 0.15,
+          "lambda_risk_neutral": 0.09,
+          "mark_id": "F",
+          "owner_wealth_multiplier": 1.2,
+          "payoff_jump": 0.4,
+          "term_government": 0.0,
+          "term_government_owner": -0.014000000000000005,
+          "term_owner": 0.014000000000000005,
+          "term_relative": -0.014000000000000002
+        }
+      ],
+      "owner_root": {
+        "boundary_margin": 4.166666666666668,
+        "boundary_margin_is_unbounded": false,
+        "derivative_at_root": -0.008639999999999998,
+        "detail": "a finite interior sign change was bracketed inside the open admissible interval; the residual is strictly decreasing there, so the root is unique",
+        "exposure": 1.6666666666666674,
+        "interval": {
+          "lower": -2.5,
+          "lower_is_finite": true,
+          "upper": null,
+          "upper_is_finite": false,
+          "zero_is_interior": true
+        },
+        "limit_at_unbounded_end": -0.036,
+        "residual_at_root": -6.661338147750939e-18,
+        "residual_at_zero_exposure": 0.024,
+        "status": "unique_interior_root"
+      },
+      "production_versus_independent": {
+        "max_kernel_absolute_error": 0.0,
+        "max_sum_normalized_error": 3.469446951953614e-18,
+        "owner_root_independent_residual": 6.938893903907228e-18,
+        "projection_absolute_error": 0.0,
+        "sum_normalized_errors": {
+          "d_government": 0.0,
+          "d_government_owner": 0.0,
+          "d_owner": 0.0,
+          "d_relative": 3.469446951953614e-18
+        }
+      },
+      "projection": {
+        "alpha": 0.0,
+        "components": [
+          {
+            "gap": 0.3999999999999999,
+            "mark_id": "P",
+            "orthogonal": 0.3999999999999999,
+            "parallel": 0.0
+          },
+          {
+            "gap": 0.0,
+            "mark_id": "F",
+            "orthogonal": 0.0,
+            "parallel": 0.0
+          }
+        ],
+        "denominator": 0.024000000000000004,
+        "detail": "the fiscal gap was split into its marketed projection on the payoff vector and an orthogonal residual under the physical-intensity inner product",
+        "numerator": 0.0,
+        "orthogonality_error": 0.0,
+        "status": "projection_resolved",
+        "weighted_inner_product_orthogonal_payoff": 0.0,
+        "weighted_norm_gap": 0.2190890230020664,
+        "weighted_norm_orthogonal": 0.2190890230020664,
+        "weighted_norm_parallel": 0.0
+      },
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 1,
+        "rank_with_safe_account": 1,
+        "risky_payoff_vector": [
+          0.0,
+          0.4
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0,
+          0.0
+        ]
+      },
+      "sums": {
+        "d_government": 0.0,
+        "d_government_owner": -0.014000000000000005,
+        "d_owner": 0.014000000000000005,
+        "d_relative": -0.014000000000000002
+      },
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless",
+        "lambda_physical": "inverse time",
+        "lambda_risk_neutral": "inverse time",
+        "owner_exposure": "inverse payoff unit",
+        "payoff_jump": "current good per unit installed equity",
+        "residual_sums": "inverse time"
+      },
+      "worker_consumption": null
+    },
+    {
+      "boundary_marks": [],
+      "declared_branch": "finite_maintained_branch",
+      "description": "An all-zero payoff vector. Installed equity changes no successor wealth, so the owner pricing equation identifies no exposure and the weighted payoff norm is refused rather than normalized into a direction. The safe account's marked payoff is zero here too, and the risky rank is zero.",
+      "fixture_id": "all_zero_payoff_unidentified",
+      "identities": {
+        "decomposition_error": 0.0,
+        "relative_identity_applies": true,
+        "relative_identity_error": 0.0
+      },
+      "independent": {
+        "marks": [
+          {
+            "gamma": 1.1,
+            "k_government": 1.1,
+            "k_owner": 1.0,
+            "k_world": 0.7499999999999999,
+            "mark_id": "P",
+            "term_government": 0.0,
+            "term_government_owner": 0.0,
+            "term_owner": 0.0,
+            "term_relative": 0.0
+          },
+          {
+            "gamma": 0.9,
+            "k_government": 0.9,
+            "k_owner": 1.0,
+            "k_world": 0.5,
+            "mark_id": "F",
+            "term_government": 0.0,
+            "term_government_owner": 0.0,
+            "term_owner": 0.0,
+            "term_relative": 0.0
+          }
+        ],
+        "orthogonal": [],
+        "projection_alpha": null,
+        "projection_denominator": 0.0,
+        "route": "expanded-form sums, consumption-ratio owner kernel, plain summation",
+        "sums": {
+          "d_government": 0.0,
+          "d_government_owner": 0.0,
+          "d_owner": 0.0,
+          "d_relative": 0.0
+        }
+      },
+      "inputs": {
+        "declared_branch": "finite_maintained_branch",
+        "fixture_id": "all_zero_payoff_unidentified",
+        "government_current_marginal_value": 1.0,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 1.1
+            },
+            "lambda_physical": 0.2,
+            "lambda_risk_neutral": 0.15,
+            "mark_id": "P",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.0
+          },
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 0.9
+            },
+            "lambda_physical": 0.1,
+            "lambda_risk_neutral": 0.05,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.0
+          }
+        ],
+        "owner_exposure": 0.0,
+        "worker_consumption": null
+      },
+      "kernel_detail": "all kernels finite and positive on the maintained branch",
+      "kernel_status": "finite_maintained_branch",
+      "marks": [
+        {
+          "gamma": 1.1,
+          "k_government": 1.1,
+          "k_owner": 1.0,
+          "k_world": 0.7499999999999999,
+          "lambda_physical": 0.2,
+          "lambda_risk_neutral": 0.15,
+          "mark_id": "P",
+          "owner_wealth_multiplier": 1.0,
+          "payoff_jump": 0.0,
+          "term_government": 0.0,
+          "term_government_owner": 0.0,
+          "term_owner": 0.0,
+          "term_relative": 0.0
+        },
+        {
+          "gamma": 0.9,
+          "k_government": 0.9,
+          "k_owner": 1.0,
+          "k_world": 0.5,
+          "lambda_physical": 0.1,
+          "lambda_risk_neutral": 0.05,
+          "mark_id": "F",
+          "owner_wealth_multiplier": 1.0,
+          "payoff_jump": 0.0,
+          "term_government": 0.0,
+          "term_government_owner": -0.0,
+          "term_owner": 0.0,
+          "term_relative": -0.0
+        }
+      ],
+      "owner_root": {
+        "boundary_margin": null,
+        "boundary_margin_is_unbounded": false,
+        "derivative_at_root": null,
+        "detail": "every marked payoff component is exactly zero, so the owner pricing equation holds identically and identifies no exposure; no default exposure is chosen",
+        "exposure": null,
+        "interval": null,
+        "limit_at_unbounded_end": null,
+        "residual_at_root": null,
+        "residual_at_zero_exposure": null,
+        "status": "zero_payoff_unidentified"
+      },
+      "production_versus_independent": {
+        "max_kernel_absolute_error": 0.0,
+        "max_sum_normalized_error": 0.0,
+        "owner_root_independent_residual": null,
+        "projection_absolute_error": null,
+        "sum_normalized_errors": {
+          "d_government": 0.0,
+          "d_government_owner": 0.0,
+          "d_owner": 0.0,
+          "d_relative": 0.0
+        }
+      },
+      "projection": {
+        "alpha": null,
+        "components": [],
+        "denominator": 0.0,
+        "detail": "the payoff vector is structurally zero, so installed equity changes no successor wealth and there is no direction to project on; the vector is not normalized into one",
+        "numerator": null,
+        "orthogonality_error": null,
+        "status": "zero_payoff_norm_refused",
+        "weighted_inner_product_orthogonal_payoff": null,
+        "weighted_norm_gap": null,
+        "weighted_norm_orthogonal": null,
+        "weighted_norm_parallel": null
+      },
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 0,
+        "rank_with_safe_account": 0,
+        "risky_payoff_vector": [
+          0.0,
+          0.0
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0,
+          0.0
+        ]
+      },
+      "sums": {
+        "d_government": 0.0,
+        "d_government_owner": 0.0,
+        "d_owner": 0.0,
+        "d_relative": 0.0
+      },
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless",
+        "lambda_physical": "inverse time",
+        "lambda_risk_neutral": "inverse time",
+        "owner_exposure": "inverse payoff unit",
+        "payoff_jump": "current good per unit installed equity",
+        "residual_sums": "inverse time"
+      },
+      "worker_consumption": null
+    },
+    {
+      "boundary_marks": [],
+      "declared_branch": "finite_maintained_branch",
+      "description": "One mark with a strictly positive physical intensity, a zero risk-neutral intensity, and a positive payoff. The owner residual is strictly positive on the whole open admissible interval and approaches zero only as exposure tends to positive infinity, so there is no finite interior root.",
+      "fixture_id": "one_mark_zero_risk_neutral_limit",
+      "identities": {
+        "decomposition_error": 1.3877787807814457e-17,
+        "relative_identity_applies": true,
+        "relative_identity_error": 3.469446951953614e-18
+      },
+      "independent": {
+        "marks": [
+          {
+            "gamma": 1.28,
+            "k_government": 0.8,
+            "k_owner": 0.625,
+            "k_world": 0.0,
+            "mark_id": "F",
+            "term_government": 0.12,
+            "term_government_owner": 0.026249999999999996,
+            "term_owner": 0.09375,
+            "term_relative": 0.026249999999999996
+          }
+        ],
+        "orthogonal": [
+          1.1102230246251565e-16
+        ],
+        "projection_alpha": 1.3333333333333333,
+        "projection_denominator": 0.09,
+        "route": "expanded-form sums, consumption-ratio owner kernel, plain summation",
+        "sums": {
+          "d_government": 0.12,
+          "d_government_owner": 0.026249999999999996,
+          "d_owner": 0.09375,
+          "d_relative": 0.026249999999999996
+        }
+      },
+      "inputs": {
+        "declared_branch": "finite_maintained_branch",
+        "fixture_id": "one_mark_zero_risk_neutral_limit",
+        "government_current_marginal_value": 1.0,
+        "marks": [
+          {
+            "government_successor_marginal_value": {
+              "kind": "finite",
+              "value": 0.8
+            },
+            "lambda_physical": 0.25,
+            "lambda_risk_neutral": 0.0,
+            "mark_id": "F",
+            "owner_wealth_after": null,
+            "owner_wealth_before": null,
+            "payoff_jump": 0.6
+          }
+        ],
+        "owner_exposure": 1.0,
+        "worker_consumption": null
+      },
+      "kernel_detail": "all kernels finite and positive on the maintained branch",
+      "kernel_status": "finite_maintained_branch",
+      "marks": [
+        {
+          "gamma": 1.28,
+          "k_government": 0.8,
+          "k_owner": 0.625,
+          "k_world": 0.0,
+          "lambda_physical": 0.25,
+          "lambda_risk_neutral": 0.0,
+          "mark_id": "F",
+          "owner_wealth_multiplier": 1.6,
+          "payoff_jump": 0.6,
+          "term_government": 0.12,
+          "term_government_owner": 0.026250000000000006,
+          "term_owner": 0.09375,
+          "term_relative": 0.026250000000000002
+        }
+      ],
+      "owner_root": {
+        "boundary_margin": null,
+        "boundary_margin_is_unbounded": false,
+        "derivative_at_root": null,
+        "detail": "the owner residual is strictly decreasing and its analytic limit at the unbounded end, -0.0, does not lie beyond zero in the direction of travel from the residual at zero exposure, 0.15. The residual therefore keeps one sign on the whole open admissible interval and approaches its limit only at the boundary; no finite interior exposure exists. This is an analytic conclusion, not a failed search",
+        "exposure": null,
+        "interval": {
+          "lower": -1.6666666666666667,
+          "lower_is_finite": true,
+          "upper": null,
+          "upper_is_finite": false,
+          "zero_is_interior": true
+        },
+        "limit_at_unbounded_end": -0.0,
+        "residual_at_root": null,
+        "residual_at_zero_exposure": 0.15,
+        "status": "no_interior_root_boundary_limit"
+      },
+      "production_versus_independent": {
+        "max_kernel_absolute_error": 0.0,
+        "max_sum_normalized_error": 1.0408340855860843e-17,
+        "owner_root_independent_residual": null,
+        "projection_absolute_error": 0.0,
+        "sum_normalized_errors": {
+          "d_government": 0.0,
+          "d_government_owner": 1.0408340855860843e-17,
+          "d_owner": 0.0,
+          "d_relative": 6.938893903907228e-18
+        }
+      },
+      "projection": {
+        "alpha": 1.3333333333333333,
+        "components": [
+          {
+            "gap": 0.8,
+            "mark_id": "F",
+            "orthogonal": 1.1102230246251565e-16,
+            "parallel": 0.7999999999999999
+          }
+        ],
+        "denominator": 0.09,
+        "detail": "the fiscal gap was split into its marketed projection on the payoff vector and an orthogonal residual under the physical-intensity inner product",
+        "numerator": 0.12,
+        "orthogonality_error": 1.6653345369377347e-17,
+        "status": "projection_resolved",
+        "weighted_inner_product_orthogonal_payoff": 1.6653345369377347e-17,
+        "weighted_norm_gap": 0.4,
+        "weighted_norm_orthogonal": 5.551115123125783e-17,
+        "weighted_norm_parallel": 0.39999999999999997
+      },
+      "safe_account": {
+        "detail": "the rolled money-market account has an identically zero marked payoff vector, so it adds no independent row to the risky-exposure matrix and cannot increase risky span; it is not sent through the nonzero-payoff projection routine",
+        "rank_increase": 0,
+        "rank_risky": 1,
+        "rank_with_safe_account": 1,
+        "risky_payoff_vector": [
+          0.6
+        ],
+        "safe_account_has_zero_marked_payoff": true,
+        "safe_payoff_vector": [
+          0.0
+        ]
+      },
+      "sums": {
+        "d_government": 0.12,
+        "d_government_owner": 0.026250000000000006,
+        "d_owner": 0.09375,
+        "d_relative": 0.026250000000000002
+      },
+      "units": {
+        "government_marginal_value": "utility per current good",
+        "kernels": "dimensionless",
+        "lambda_physical": "inverse time",
+        "lambda_risk_neutral": "inverse time",
+        "owner_exposure": "inverse payoff unit",
+        "payoff_jump": "current good per unit installed equity",
+        "residual_sums": "inverse time"
+      },
+      "worker_consumption": null
+    }
+  ],
+  "formula_convention": "CS012-I0-v0.1",
+  "interpretation_limits": [
+    "identity and boundary characterization only",
+    "no economic calibration, scenario, successor, transition, or portfolio grid",
+    "no policy, welfare, existence, or optimality claim",
+    "CS012 is a draft specification; this run does not promote it"
+  ],
+  "machine_runtime_seconds": 0.0007589159649796784,
+  "provenance": {
+    "branch": "cs012/i0-pricing-kernel-identities",
+    "clean_start": true,
+    "code_commit": "8c738c6db162727dbbec58fb6090b7a3dfbd6ec0",
+    "dependency_lock_path": "uv.lock",
+    "dependency_lock_sha256": "3c59dc4b381ad68cd634a6f917f1ce4fa1080d9ce43e2344064acb6109f76c4a",
+    "machine": "arm64",
+    "numpy_version": "2.5.2",
+    "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "python_version": "3.13.5",
+    "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance-poisson.git",
+    "scipy_version": "1.18.1"
+  },
+  "result_use": "exploratory_only",
+  "schema": "cs012-i0-identity-report/1",
+  "specification": {
+    "path": "computation/specifications/laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md",
+    "sha256": "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
+    "specification_id": "CS012",
+    "status": "draft",
+    "superseded_specification_sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+    "supersession_note": "The 2026-09-05 report at the earlier CS012 hash remains valid historical exploratory evidence under that hash; it is not edited or withdrawn. The intervening specification change concerns the downstream signed-safe CS011 v0.6 scope and does not alter any I0 formula.",
+    "version": "0.1",
+    "workspace": "TAI public finnace codex"
+  },
+  "summary": {
+    "fixture_count": 6,
+    "kernel_status_counts": {
+      "finite_maintained_branch": 5,
+      "nonfinite_fiscal_kernel_at_literal_laissez_faire": 1
+    },
+    "max_decomposition_error": 1.3877787807814457e-17,
+    "max_orthogonality_error": 1.6653345369377347e-17,
+    "max_owner_root_residual": 6.661338147750939e-18,
+    "max_production_versus_independent_error": 1.0408340855860843e-17,
+    "max_relative_identity_error": 3.469446951953614e-18,
+    "owner_root_status_counts": {
+      "no_interior_root_boundary_limit": 1,
+      "unique_interior_root": 3,
+      "zero_payoff_unidentified": 1
+    },
+    "projection_status_counts": {
+      "projection_resolved": 4,
+      "zero_payoff_norm_refused": 1
+    },
+    "refusal_counts": {
+      "kernel_non_finite_branch": 1,
+      "owner_root_unidentified_or_boundary": 2,
+      "projection_refused": 1
+    }
+  },
+  "tolerance_policy": {
+    "normalized_error": "abs(lhs-rhs)/max(1, sum(abs(term)))",
+    "owner_root_boundary_margin_min_factor": 1e-10,
+    "owner_root_residual_max": 1e-11,
+    "production_identity_max": 1e-11,
+    "production_versus_independent_max": 1e-10,
+    "weighted_orthogonality_max": 1e-11
+  }
+}

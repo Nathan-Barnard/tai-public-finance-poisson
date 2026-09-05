@@ -16,8 +16,34 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260905T222042Z-CS012-8c738c6d-01.yaml`](RUN-20260905T222042Z-CS012-8c738c6d-01.yaml)
+  — **preferred CS012 I0 evidence record (bounded independent-review repair;
+  exploratory only).** Supersedes `RUN-20260905T210214Z-CS012-09830d98-01`
+  without withdrawing it. Executed 2026-09-05 from a clean tree at commit
+  `8c738c6d` under CS012 v0.1, SHA-256
+  `d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498`. Two
+  defects repaired: the owner-root solver decided existence by searching 200
+  geometric doublings and so reported a root at `1e100` as absent — existence is
+  now decided analytically from strict monotonicity plus the residual limit,
+  with bracketing that exhausts every FP64 binade and a new
+  `finite_root_not_representable` status for a root proven to exist beyond
+  double precision; and `project_fiscal_gap`'s "catastrophic cancellation" guard
+  was unreachable, since a sum of nonnegative weighted squares is never below its
+  largest term — it is removed and replaced by an honest underflow case kept
+  distinct from a structurally zero payoff vector. The six manufactured
+  fixtures, all kernel values, both identity discrepancies, every status count,
+  and all five reported maxima are unchanged (one root moved two units in the
+  last place, toward its analytic value, because the bracket changed; explained
+  in the record). Output
+  `outputs/cs012-i0-pricing-kernel-identities-repair-01/identity_report.json`
+  (`f1ee44f4…`, 38 673 bytes). **Still no economic calibration, successor,
+  transition, prefunding family, portfolio grid, or plot.** Ready for
+  independent review; not accepted, not merged, not pushed.
+
 - [`RUN-20260905T210214Z-CS012-09830d98-01.yaml`](RUN-20260905T210214Z-CS012-09830d98-01.yaml)
-  — **CS012 I0 pricing-kernel identity core (exploratory only; separate
+  — **superseded by `RUN-20260905T222042Z-CS012-8c738c6d-01`; retained and still
+  valid as historical exploratory evidence under the CS012 hash it records,
+  `275cf384…`.** CS012 I0 pricing-kernel identity core (exploratory only; separate
   specification from CS005, so it neither supersedes nor is superseded by the
   records below).** Parameter-free manufactured-fixture run executed 2026-09-05
   from a clean tree at commit `09830d98` (branch

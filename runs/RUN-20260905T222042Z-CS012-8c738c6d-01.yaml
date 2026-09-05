@@ -1,0 +1,452 @@
+schema_version: '1.0'
+run_id: RUN-20260905T222042Z-CS012-8c738c6d-01
+created_utc: 2026-09-05T22:20:42Z
+status: complete
+purpose: identity_core_repair
+supersedes: RUN-20260905T210214Z-CS012-09830d98-01
+supersession:
+  relation: supersedes_as_preferred_evidence
+  superseded_record_remains_valid: true
+  note: >-
+    The 2026-09-05T21:02:14Z run and its report
+    outputs/cs012-i0-pricing-kernel-identities/identity_report.json are neither
+    edited nor withdrawn. They remain valid historical exploratory evidence under
+    the CS012 hash they record, 275cf384..., for the fixtures and identities that
+    independent review reproduced. They are superseded only because (a) the owner
+    root classification defect repaired here was latent in that code, and (b) the
+    governing specification hash has moved to d345f07c.... Prefer this record.
+intended_use:
+  control_lane: fast
+  decisive_risk_dimensions:
+    - correct existence classification for the owner portfolio-pricing root
+    - honest separation of structural rank statements from FP64 limits
+    - exact equation identity and independent term-by-term reconstruction
+    - specification provenance
+  claim_or_decision: >-
+    The bounded repair of the two defects found in independent review is complete:
+    owner-root existence is decided analytically rather than by a finite search,
+    and the unreachable payoff-norm guard is removed and replaced by an honest
+    underflow case. The six manufactured fixtures and the kernel identities are
+    unchanged. No economic claim is made.
+  quantities_of_interest:
+    - owner-root existence classification on unbounded exposure intervals
+    - projection refusal statuses
+    - D_owner, D_government, D_government_owner, D_relative and their term contributions
+    - literal laissez-faire extended-real boundary status
+  declared_domain_or_branch: >-
+    Parameter-free manufactured fixtures plus adversarial extreme-intensity cases
+    in tests. No economic scenario, successor, transition, prefunding family, or
+    portfolio grid.
+  result_use_target: exploratory_only
+
+parallel_campaign: null
+
+specification:
+  id: CS012
+  version: '0.1'
+  status: draft
+  path: >-
+    /Users/nathanbarnard/Documents/TAI public finnace codex/computation/specifications/laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md
+  file_sha256: d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498
+  hash_verified_before_writing: true
+  superseded_file_sha256: 275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8
+  specification_change_scope: >-
+    The intervening CS012 change concerns the downstream signed-safe CS011 v0.6
+    Ramsey calculation and the A33/A32 nesting statement. Every I0 formula,
+    status requirement, tolerance, and acceptance check is unchanged; the I0
+    section was re-read in full and compared before rebinding.
+  fingerprint_sha256: 7e4e8c8fee1991f832edc2818a1dcd9602b909d8ca16bec73039e6a6e61fb008
+  superseded_fingerprint_sha256: 7a1394fdff96d7190a541e6c36516bd4e8b5daae8ef6de9a888ba67c4dff849c
+  fingerprint_change_reason: >-
+    The fingerprint payload includes the specification hash by design, so it moves
+    with the rebinding. No fixture direct field changed.
+  handoff_sha256: f4781debb95eec0253083a00e76b60a76cac85a285f11fef41df3e9cc520c873
+  draft_authorization: >-
+    CS012 remains a draft. This bounded repair stays inside the same
+    parameter-free exploratory authorization; it does not promote the
+    specification and makes no policy, welfare, existence, or optimality claim.
+problem_id: CP012
+approach_id: CA024
+benchmark_id: CB012
+implementation_block: I0
+
+implementation:
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-poisson.git
+  repository_local_path: /Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0
+  commit: 8c738c6db162727dbbec58fb6090b7a3dfbd6ec0
+  commit_subject: Repair unbounded root classification and the dead payoff-norm guard
+  ancestry_base_commit: 74c736f8753e65f444eb30443a16adbb62f9c35c
+  prior_implementation_commit: 09830d98650a399e7012f37ea22f7541dfe5d893
+  prior_evidence_commit: b076e3ff2fa9e89e970edf7f9bedb726dde507ba
+  branch: cs012/i0-pricing-kernel-identities
+  dirty_worktree: false
+  clean_start: true
+  implementer: claude_code
+  entrypoint: tai_public_finance.cs012_poisson_kernels.report
+  command: >-
+    uv run python -m tai_public_finance.cs012_poisson_kernels.report
+    --fixtures configs/cs012/i0_manufactured_fixtures.json
+    --output outputs/cs012-i0-pricing-kernel-identities-repair-01/identity_report.json
+  merged: false
+  pushed: false
+
+environment:
+  operating_system: macOS-15.6.1
+  architecture: arm64
+  runtime_versions:
+    python: 3.13.5
+    numpy: 2.5.2
+    scipy: 1.18.1
+    uv: 0.12.5
+    pytest: 9.1.1
+  dependency_lock_path: uv.lock
+  dependency_lock_sha256: 3c59dc4b381ad68cd634a6f917f1ce4fa1080d9ce43e2344064acb6109f76c4a
+  lock_sync_command: uv sync --locked
+  container_or_image: null
+
+hardware:
+  resource_lane: L0_smoke
+  machine_label: Apple M4 MacBook Air (local)
+  cpu: Apple M4
+  logical_cores: 10
+  memory_gb: 16
+  accelerator: null
+  free_disk_gb_at_run: 61
+  detected_at_runtime: true
+
+budget:
+  wall_seconds_limit: 60
+  cash_limit_usd: 0
+  estimated_cash_usd: 0
+  actual_cash_usd: 0
+  early_stop_rule: bounded repair only; no I1 work
+
+randomness:
+  deterministic_requested: true
+  seeds:
+    - name: property_case_generator
+      value: 20260905
+      library: python_random
+    - name: projection_arithmetic_property_check
+      value: 20260905
+      library: python_random
+  nondeterminism_notes: The report generator is deterministic; seeds feed tests only.
+
+inputs:
+  parameter_set_id: CS012-I0-MANUFACTURED-01
+  parameter_fingerprint_sha256: 7e4e8c8fee1991f832edc2818a1dcd9602b909d8ca16bec73039e6a6e61fb008
+  experiment_ids: [E09]
+  input_artifacts:
+    - role: manufactured_fixtures
+      location: configs/cs012/i0_manufactured_fixtures.json
+      sha256: 5d116074672d0470d916e55e44e3a9aa00625f3d7bb0db85d52b21b39eb8f58d
+      bytes: 6523
+      changed_in_this_repair: false
+  formula_convention: CS012-I0-v0.1
+
+repair:
+  scope: bounded independent-review repair; no new implementation block
+  issue_a:
+    title: unbounded owner-root misclassification
+    defect: >-
+      solve_owner_root decided existence by searching 200 geometric doublings and
+      returned no_interior_root_boundary_limit whenever no sign change was found.
+      The search reached only about 1.6e60.
+    counterexample:
+      lambda_physical: 1
+      lambda_risk_neutral: 1.0e-100
+      payoff_jump: 1
+      exact_root: 1e100 - 1
+      before_repair: no_interior_root_boundary_limit, no exposure reported
+      after_repair: unique_interior_root, exposure 1e+100, residual 0.0
+    repair: >-
+      Existence is decided analytically before any search by finite_root_exists,
+      from strict monotonicity of D_owner plus its analytic limit
+      -sum_j lambda_star_j J_j. The sign of D_owner(0) fixes the side; a finite
+      endpoint on that side always gives a root because the residual diverges
+      there, and an unbounded endpoint gives one exactly when the limit lies
+      strictly beyond zero in the direction of travel. Bracketing then walks every
+      FP64 binade to sys.float_info.max, so exhaustion proves unrepresentability
+      rather than absence.
+    new_status: finite_root_not_representable
+    new_status_justification: >-
+      The handoff's six statuses could not distinguish "no finite root exists"
+      from "the finite root is unrepresentable in FP64", which is exactly how the
+      defect hid. The reviewer required an explicit numerical refusal for the
+      second case. Added as a documented deviation from the handoff's status list.
+    preserved_true_negative: >-
+      lambda_risk_neutral = 0 gives an analytic limit of exactly zero, so the
+      strictly decreasing residual approaches zero without reaching it. It remains
+      no_interior_root_boundary_limit.
+    division_by_selected_payoff_component: >-
+      None. The general multi-mark production route uses only the unmultiplied
+      residual and the analytic limit; -1/J_j appears solely in the definition of
+      the admissible interval for J_j != 0.
+  issue_b:
+    title: unreachable payoff-norm guard
+    defect: >-
+      project_fiscal_gap tested denominator < NORM_RESOLUTION_FLOOR * largest and
+      documented it as a catastrophic-cancellation guard. The denominator is a sum
+      of nonnegative weighted squares and is therefore never below its own largest
+      term, so the branch was unreachable and the documentation was wrong: a sum
+      of nonnegative terms cannot cancel.
+    repair: >-
+      The criterion and its NORM_RESOLUTION_FLOOR constant are removed, not
+      retuned. A zero denominator is now split by exact zero-testing of the payoff
+      components into a structurally zero payoff vector
+      (zero_payoff_norm_refused) and an FP64 underflow of every weighted square
+      with a structurally nonzero payoff vector
+      (underflowed_payoff_norm_refused). No new absolute threshold was introduced
+      and no payoff direction is normalized without a specified scale.
+    status_rename: unresolved_payoff_norm_refused -> underflowed_payoff_norm_refused
+    former_test_disposition: >-
+      The test named "catastrophically cancelled payoff norm" was mislabelled; it
+      exercised underflow. It is replaced by a test that asserts the arithmetic
+      directly (each weighted square is exactly 0.0 while the payoff components are
+      not, and the sum is never below its largest term over 500 seeded cases) and
+      then pins the underflow status.
+  status_contract_trim: >-
+    ROOT_STATUSES and PROJECTION_STATUSES listed upstream kernel refusals that
+    those functions raise rather than return. Those entries are removed, and each
+    tuple is now covered by a test asserting that the observed status set equals
+    the declared set.
+
+solver:
+  packages_and_versions:
+    scipy: 1.18.1
+  method: >-
+    Analytic kernel evaluation; closed-form residual sums with math.fsum; analytic
+    existence classification; scipy.optimize.brentq bracketing over an
+    FP64-exhaustive probe sequence.
+  tolerances:
+    brentq_xtol: 1.0e-15
+    brentq_rtol: 8.881784197001252e-16
+    wealth_route_agreement: 1.0e-12
+  precision: float64
+
+preflight:
+  tests_command: uv sync --locked && uv run pytest
+  tests_status: passed
+  tests_before_repair: 169 passed at b076e3ff (clean tree)
+  exact_or_manufactured_benchmark: >-
+    Hand-solvable one-mark alignment fixture and the reviewer's extreme-intensity
+    counterexample, both checked against the analytic root
+    (lambda/lambda_star - 1)/J.
+
+result:
+  outcome: success
+  wall_seconds: 0.28
+  report_build_seconds: 0.00076
+  independent_checker_seconds: 0.04
+  focused_tests_seconds: 0.61
+  full_tests_seconds: 9.64
+  solver_reported_metrics:
+    fixtures: 6
+    kernel_status_counts:
+      finite_maintained_branch: 5
+      nonfinite_fiscal_kernel_at_literal_laissez_faire: 1
+    owner_root_status_counts:
+      unique_interior_root: 3
+      no_interior_root_boundary_limit: 1
+      zero_payoff_unidentified: 1
+    projection_status_counts:
+      projection_resolved: 4
+      zero_payoff_norm_refused: 1
+    refusal_counts:
+      kernel_non_finite_branch: 1
+      owner_root_unidentified_or_boundary: 2
+      projection_refused: 1
+  independent_diagnostics:
+    standalone_checker: tools/check_cs012_i0_report.py
+    standalone_checker_import_surface: python standard library only (json, math, sys)
+    standalone_checker_result: pass
+    checker_strengthened: >-
+      The checker now re-derives owner-root existence itself from monotonicity and
+      the analytic limit, and rejects both a far-away root reported as
+      boundary-only and an unrepresentable root reported as boundary-only. It also
+      re-derives which of the two zero-denominator projection refusals applies.
+    corrupted_report_tests: 19 corruption cases plus 3 misclassification cases, all rejected
+    max_decomposition_error: 1.3877787807814457e-17
+    max_relative_identity_error: 3.469446951953614e-18
+    max_owner_root_residual: 6.661338147750939e-18
+    max_orthogonality_error: 1.6653345369377347e-17
+    max_production_versus_independent_error: 1.0408340855860843e-17
+  comparison_with_superseded_report:
+    identical_fields:
+      - every kernel value, term contribution, and residual sum on all six fixtures
+      - both identity discrepancies on all six fixtures
+      - all status counts and refusal counts
+      - all five reported maxima, bit for bit
+      - the literal laissez-faire boundary block
+    changed_fields:
+      - path: /specification/sha256
+        reason: rebinding to the current CS012 hash
+      - path: /specification/superseded_specification_sha256 and /supersession_note
+        reason: new fields recording that the earlier report stays valid under its own hash
+      - path: /fixture_set/fingerprint
+        reason: the fingerprint payload includes the specification hash by design
+      - path: /provenance/code_commit and /machine_runtime_seconds
+        reason: provenance
+      - path: /fixtures[4]/projection/detail
+        reason: prose only; the structurally zero payoff vector is now named as such
+      - path: /fixtures[5]/owner_root/detail
+        reason: prose only; the boundary-only conclusion is now stated as analytic
+      - path: /fixtures[3]/owner_root/{exposure,residual_at_root,derivative_at_root,boundary_margin}
+        reason: >-
+          Explained reporting change. The probe sequence toward an unbounded
+          endpoint now starts at magnitude 1 rather than 2, so the bracket for
+          two_mark_one_zero_payoff is [1,2] instead of [0,2] and brentq lands on a
+          neighbouring representable double. Exposure moved from
+          1.6666666666666656 to 1.6666666666666674 against an analytic root of
+          1.6666666666666667: absolute error improved from 1.11e-15 to 6.66e-16.
+          The residual magnitude is unchanged at 6.661338147750939e-18 and only
+          its sign flipped, so the reported maximum is bit-identical. Well inside
+          the 1e-11 bound.
+  reliable_region: >-
+    Well-conditioned manufactured fixtures inside the declared property box, plus
+    extreme-intensity adversarial cases in tests. Roots beyond
+    sys.float_info.max are refused, not characterized.
+  failure_code: null
+  failure_detail: null
+
+tests:
+  before_repair_full_suite: 169 passed
+  final_full_suite: 187 passed
+  focused_suite: 113 passed
+  property_cases: 240 generated, 240 passed, seed 20260905
+  new_regression_tests:
+    - J=+1 with lambda_risk_neutral=1e-100 recovers the 1e100 root
+    - J=-1 with lambda_risk_neutral=1e-100 recovers the -1e100 root
+    - the old 200-doubling budget provably could not have reached either
+    - lambda_risk_neutral=0 remains a true boundary-only limit
+    - a root beyond sys.float_info.max returns finite_root_not_representable, both signs
+    - ordinary one- and two-mark roots and all four other frozen statuses unchanged
+    - mixed-sign two-mark case with extreme intensities still brackets between finite endpoints
+    - a two-mark case with one exactly zero payoff component solves without dividing through it
+    - the checker rejects the 1e100 root reported as boundary-only
+    - the checker rejects an unrepresentable root reported as boundary-only
+    - the checker rejects a report bound to the superseded specification hash
+    - the former cancellation test is shown to be an underflow test
+    - underflow and structurally zero payoff vectors stay distinct
+    - no relative-resolution guard survives, asserted over 500 seeded cases
+    - every declared root and projection status is produced by a demonstrated case
+
+error_assessment:
+  policy: computation/error-handling-and-result-use.md
+  structural_gates_passed:
+    exact_specification_version_and_hash: true
+    physical_versus_risk_neutral_intensity_separation: true
+    three_kernels_remain_distinct_objects: true
+    positive_wealth_multiplier_and_finite_positive_kernels_on_finite_branches: true
+    explicit_extended_real_classification_at_literal_laissez_faire: true
+    no_division_by_a_possibly_zero_payoff_component: true
+    zero_payoff_norm_refused: true
+    residuals_independently_reconstructed_term_by_term: true
+    clean_start_dependency_lock_immutable_output_complete_provenance: true
+  decision_gaps:
+    decomposition_identity_normalized: 1.0e-11
+    production_versus_independent_normalized: 1.0e-10
+    owner_root_residual_normalized: 1.0e-11
+    weighted_orthogonality_normalized: 1.0e-11
+    owner_root_boundary_margin_factor: 1.0e-10
+  credible_uncertainty:
+    max_decomposition_error: 1.3877787807814457e-17
+    max_relative_identity_error: 3.469446951953614e-18
+    max_production_versus_independent_error: 1.0408340855860843e-17
+    max_owner_root_residual: 6.661338147750939e-18
+    max_orthogonality_error: 1.6653345369377347e-17
+    min_owner_root_boundary_margin: 2.0
+  required_margins:
+    rule: U_q <= 0.1 * Delta_q
+    met: true
+  result_use_status: exploratory_only
+  disposition: continue_exploratory
+  quarantined_outputs: []
+  assessment_artifact: outputs/cs012-i0-pricing-kernel-identities-repair-01/identity_report.json
+
+deviations:
+  - id: DEV-01
+    item: CLI module name and flags
+    detail: >-
+      Unchanged from the superseded record. The handoff's frozen validation
+      command is implemented verbatim rather than CLAUDE.md's scaffold convention.
+    resolution: carried forward; reported, not silently reconciled
+  - id: DEV-04
+    item: seventh owner-root status added
+    detail: >-
+      The handoff lists six statuses. finite_root_not_representable is a seventh,
+      added because the reviewer required an explicit numerical refusal for a
+      mathematically finite root outside FP64, distinct from boundary-only. It is
+      documented in statuses.py and covered by tests in both directions.
+    resolution: added deliberately; flagged for the reviewer
+  - id: DEV-05
+    item: projection status renamed
+    detail: >-
+      unresolved_payoff_norm_refused becomes underflowed_payoff_norm_refused. The
+      old name described an unreachable condition. No report field consumed the
+      old name outside this repository.
+    resolution: renamed with the reachable condition documented
+  - id: DEV-06
+    item: one root value moved by two units in the last place
+    detail: >-
+      See result.comparison_with_superseded_report. The two_mark_one_zero_payoff
+      exposure moved 1.8e-15 closer to its analytic value because the bracket
+      changed. Not a change in the mathematics.
+    resolution: reported explicitly rather than suppressed
+
+artifacts:
+  - role: primary_output
+    location: outputs/cs012-i0-pricing-kernel-identities-repair-01/identity_report.json
+    sha256: f1ee44f46c6141a9320c8f0c6b4349dce153c6ca2e841c901fd33b02aac4ef1f
+    bytes: 38673
+  - role: superseded_output_retained
+    location: outputs/cs012-i0-pricing-kernel-identities/identity_report.json
+    sha256: 2ce7e59d8174fd149cafa5e63b12945cb506ec8b7762f7e93c9d22a8c3b3bb78
+    bytes: 38087
+    disposition: >-
+      unchanged and still tracked; valid historical exploratory evidence under
+      CS012 hash 275cf384... only
+  - role: input_fixtures
+    location: configs/cs012/i0_manufactured_fixtures.json
+    sha256: 5d116074672d0470d916e55e44e3a9aa00625f3d7bb0db85d52b21b39eb8f58d
+    bytes: 6523
+  - role: independent_checker
+    location: tools/check_cs012_i0_report.py
+    sha256: 2c4ba2f04bb4439d255522e173f902c8a7ef224718c0d42e59fe83aa649a3b4c
+    bytes: 30028
+
+timing:
+  machine_runtime_seconds: 0.28
+  machine_runtime_including_tests_seconds: 10.5
+  total_elapsed_repair_minutes: 13
+  elapsed_start_utc: 2026-09-05T22:08:01Z
+  elapsed_end_utc: 2026-09-05T22:20:42Z
+
+interpretation:
+  supports_result_ids: []
+  challenges_result_ids: []
+  question_ids: [Q24]
+  assurance_or_review_artifacts: [EV13]
+  conclusion: >-
+    Both defects found in independent review are repaired and covered by permanent
+    regression tests. Owner-root existence no longer depends on a search budget;
+    the unreachable payoff-norm guard is gone and the real underflow case is named
+    honestly and kept distinct from the structural rank statement. The six
+    manufactured fixtures, all kernel values, both identity discrepancies, every
+    status count, and all five reported maxima are unchanged, with one two-ulp
+    root shift explained above. This remains evidence about algebra and failure
+    semantics only.
+  limitations:
+    - No economic primitive is sourced or calibrated; every fixture value is manufactured.
+    - No successor, transition path, prefunding family, portfolio grid, government optimization, or plot exists.
+    - Nothing here supports a finite government kernel path, a portfolio sign in an economic scenario, a welfare conclusion, an existence result, or an optimal portfolio.
+    - CS012 remains version 0.1, status draft; this run does not promote it.
+    - Owner roots beyond sys.float_info.max are refused rather than characterized; that domain is outside FP64 and would need a different arithmetic to enter.
+    - The repair was scoped to the two reported defects plus the rebinding; the rest of the I0 surface was re-run, not re-derived.
+  next_decision: >-
+    Independent re-review of the bounded repair. I1 onward still requires the
+    frozen parameter packets, inherited (S_0, M_0), successor domains, branch
+    selectors, and quantity-specific economic thresholds.
+  integration_owner: Nathan
+  review_state: ready for independent review
+  accepted: false
