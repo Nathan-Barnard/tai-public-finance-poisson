@@ -1,0 +1,135 @@
+{
+  "fixture_set_id": "CS012-I0-MANUFACTURED-01",
+  "specification_id": "CS012",
+  "specification_version": "0.1",
+  "specification_status": "draft",
+  "specification_sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+  "formula_convention": "CS012-I0-v0.1",
+  "result_use": "exploratory_only",
+  "notes": "Parameter-free manufactured fixtures for the CS012 I0 pricing-kernel identity core. These are hand-checkable algebraic cases, not an economic calibration: no primitive here is sourced, and nothing computed from them supports a finite government kernel path, a portfolio sign, a welfare conclusion, an existence result, or an optimal portfolio. Fixtures one_mark_alignment and two_mark_orthogonal_gap are frozen by the CS012 I0 implementation handoff and must not be changed. Invalid direct wealth-ratio, NaN, wrong-sign intensity, and non-positive wealth-multiplier cases live in tests, never in this accepted finite fixture report.",
+  "fixtures": [
+    {
+      "fixture_id": "one_mark_alignment",
+      "description": "One mark. Both the private and public exposure conditions hold, so all three kernels equal 0.5, gamma_F = 1, and the owner and government residuals vanish. The owner root must also equal the analytic (lambda/lambda_star - 1)/J = 2.",
+      "declared_branch": "finite_maintained_branch",
+      "owner_exposure": 2.0,
+      "government_current_marginal_value": 2.0,
+      "worker_consumption": null,
+      "marks": [
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.20,
+          "lambda_risk_neutral": 0.10,
+          "payoff_jump": 0.50,
+          "government_successor_marginal_value": {"kind": "finite", "value": 1.0}
+        }
+      ]
+    },
+    {
+      "fixture_id": "two_mark_orthogonal_gap",
+      "description": "Two marks with intentionally opposite payoff signs. k_world = k_owner = [1,1] and gamma = [1.2,1.8], so the fiscal gap g = [0.2,0.8] has zero physical-intensity-weighted inner product with J. The marketed projection and D_government are therefore zero while the orthogonal gap is not.",
+      "declared_branch": "finite_maintained_branch",
+      "owner_exposure": 0.0,
+      "government_current_marginal_value": 1.0,
+      "worker_consumption": null,
+      "marks": [
+        {
+          "mark_id": "P",
+          "lambda_physical": 0.20,
+          "lambda_risk_neutral": 0.20,
+          "payoff_jump": 0.50,
+          "government_successor_marginal_value": {"kind": "finite", "value": 1.20}
+        },
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.10,
+          "lambda_risk_neutral": 0.10,
+          "payoff_jump": -0.25,
+          "government_successor_marginal_value": {"kind": "finite", "value": 1.80}
+        }
+      ]
+    },
+    {
+      "fixture_id": "literal_laissez_faire_full_ak",
+      "description": "Literal full-AK laissez-faire. Public tax, transfer, equity, money-market, and net-wealth positions are all zero, so the full-AK successor leaves hand-to-mouth workers with zero consumption and the successor government marginal value is positive infinity. The pre-event government marginal value is still finite and strictly positive. This fixture carries no finite residual arithmetic.",
+      "declared_branch": "literal_laissez_faire",
+      "owner_exposure": 2.0,
+      "government_current_marginal_value": 2.0,
+      "worker_consumption": 0.0,
+      "marks": [
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.20,
+          "lambda_risk_neutral": 0.10,
+          "payoff_jump": 0.50,
+          "government_successor_marginal_value": {"kind": "positive_infinity", "value": null}
+        }
+      ]
+    },
+    {
+      "fixture_id": "two_mark_one_zero_payoff",
+      "description": "Two marks with exactly one zero payoff component. The zero-payoff mark stays in the kernel report and contributes zero to every portfolio residual; the exposure interval is constrained only by the nonzero component, and the owner root is the analytic one-mark value (0.15/0.09 - 1)/0.40.",
+      "declared_branch": "finite_maintained_branch",
+      "owner_exposure": 0.50,
+      "government_current_marginal_value": 1.50,
+      "worker_consumption": null,
+      "marks": [
+        {
+          "mark_id": "P",
+          "lambda_physical": 0.30,
+          "lambda_risk_neutral": 0.24,
+          "payoff_jump": 0.0,
+          "government_successor_marginal_value": {"kind": "finite", "value": 1.80}
+        },
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.15,
+          "lambda_risk_neutral": 0.09,
+          "payoff_jump": 0.40,
+          "government_successor_marginal_value": {"kind": "finite", "value": 0.90}
+        }
+      ]
+    },
+    {
+      "fixture_id": "all_zero_payoff_unidentified",
+      "description": "An all-zero payoff vector. Installed equity changes no successor wealth, so the owner pricing equation identifies no exposure and the weighted payoff norm is refused rather than normalized into a direction. The safe account's marked payoff is zero here too, and the risky rank is zero.",
+      "declared_branch": "finite_maintained_branch",
+      "owner_exposure": 0.0,
+      "government_current_marginal_value": 1.0,
+      "worker_consumption": null,
+      "marks": [
+        {
+          "mark_id": "P",
+          "lambda_physical": 0.20,
+          "lambda_risk_neutral": 0.15,
+          "payoff_jump": 0.0,
+          "government_successor_marginal_value": {"kind": "finite", "value": 1.10}
+        },
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.10,
+          "lambda_risk_neutral": 0.05,
+          "payoff_jump": 0.0,
+          "government_successor_marginal_value": {"kind": "finite", "value": 0.90}
+        }
+      ]
+    },
+    {
+      "fixture_id": "one_mark_zero_risk_neutral_limit",
+      "description": "One mark with a strictly positive physical intensity, a zero risk-neutral intensity, and a positive payoff. The owner residual is strictly positive on the whole open admissible interval and approaches zero only as exposure tends to positive infinity, so there is no finite interior root.",
+      "declared_branch": "finite_maintained_branch",
+      "owner_exposure": 1.0,
+      "government_current_marginal_value": 1.0,
+      "worker_consumption": null,
+      "marks": [
+        {
+          "mark_id": "F",
+          "lambda_physical": 0.25,
+          "lambda_risk_neutral": 0.0,
+          "payoff_jump": 0.60,
+          "government_successor_marginal_value": {"kind": "finite", "value": 0.80}
+        }
+      ]
+    }
+  ]
+}
