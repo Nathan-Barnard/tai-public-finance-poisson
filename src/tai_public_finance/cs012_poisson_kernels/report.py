@@ -55,7 +55,14 @@ SPECIFICATION = {
     "specification_id": "CS012",
     "version": "0.1",
     "status": "draft",
-    "sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+    "sha256": "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
+    "superseded_specification_sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+    "supersession_note": (
+        "The 2026-09-05 report at the earlier CS012 hash remains valid historical "
+        "exploratory evidence under that hash; it is not edited or withdrawn. The "
+        "intervening specification change concerns the downstream signed-safe "
+        "CS011 v0.6 scope and does not alter any I0 formula."
+    ),
     "path": (
         "computation/specifications/"
         "laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md"

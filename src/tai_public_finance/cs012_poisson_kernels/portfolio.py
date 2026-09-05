@@ -24,12 +24,14 @@ never a position size and never an optimum.
 from __future__ import annotations
 
 import math
+import sys
 from dataclasses import dataclass
 
 from scipy.optimize import brentq
 
 from .kernels import KernelOutcome, MarkKernels
 from .statuses import (
+    FINITE_ROOT_NOT_REPRESENTABLE,
     NO_INTERIOR_ROOT_BOUNDARY_LIMIT,
     UNIQUE_INTERIOR_ROOT,
     ZERO_PAYOFF_UNIDENTIFIED,
@@ -37,8 +39,21 @@ from .statuses import (
 
 ROOT_XTOL = 1.0e-15
 ROOT_RTOL = 8.881784197001252e-16  # 4 * DBL_EPSILON, brentq's documented floor
-BRACKET_STEPS = 200
-"""Cap on geometric bracket-expansion steps toward an interval endpoint."""
+
+FINITE_APPROACH_STEPS = 1200
+"""Halvings of the gap to a *finite* interval endpoint. Each step halves the gap, so
+after about 1080 steps the probe has reached the endpoint in FP64 and the loop is
+exhausted rather than truncated; the cap only bounds the loop.
+
+This is not an existence criterion. At a finite endpoint some ``1 + pi*J_j`` tends to
+zero from above and the residual diverges, so a sign change is always found long
+before exhaustion whenever the analytic test says a root exists."""
+
+DOUBLING_STEPS = 1024
+"""Doublings from unit magnitude toward an *unbounded* interval endpoint: 2**0 up to
+2**1023, then one final probe at the largest finite double. That enumerates every
+binade FP64 has, so exhausting it proves the root is unrepresentable rather than
+absent -- which is the distinction the original 200-doubling cap could not make."""
 
 
 def normalized_error(lhs: float, rhs: float, terms: tuple[float, ...]) -> float:
@@ -247,20 +262,76 @@ class OwnerRootResult:
         return self.exposure
 
 
-def _approach(start: float, endpoint: float, endpoint_is_finite: bool, step: int) -> float:
-    """The ``step``-th probe between ``start`` and an interval endpoint, always
-    strictly inside the open interval so that no pole is evaluated."""
-    if endpoint_is_finite:
-        return endpoint - (endpoint - start) * 0.5**step
-    return start + math.copysign(2.0**step, endpoint)
+def finite_root_exists(
+    marks: tuple[MarkKernels, ...], interval: ExposureInterval
+) -> tuple[bool, float, float]:
+    """Decide analytically whether a finite interior owner root exists.
+
+    Returns ``(exists, residual_at_zero, limit)``. No search is involved, so the
+    answer cannot depend on how many probes some loop happens to take.
+
+    ``D_owner`` is strictly decreasing on the open admissible interval, and
+    ``pi = 0`` is always interior, so the sign of ``D_owner(0)`` fixes the side the
+    root must lie on. Two cases then settle existence exactly:
+
+    * The endpoint on that side is **finite**. Some ``1 + pi*J_j`` then tends to zero
+      from above, the corresponding term ``lambda_j*J_j/(1+pi*J_j)`` diverges with the
+      sign of ``J_j``, and ``D_owner`` runs to ``-inf`` at a finite upper endpoint or
+      ``+inf`` at a finite lower endpoint. A root always exists.
+    * The endpoint on that side is **unbounded**. Every ``J_j != 0`` term satisfies
+      ``J_j/(1+pi*J_j) -> 0``, so ``D_owner`` tends to the finite analytic limit
+      ``L = -sum_{j: J_j != 0} lambda_risk_neutral[j]*J_j``. A strictly decreasing
+      function crosses zero on that side exactly when ``L`` lies strictly beyond zero
+      in the direction of travel: ``L < 0`` going right, ``L > 0`` going left.
+
+    An interval is unbounded on at most one side, because an unbounded side requires
+    every nonzero payoff component to share a sign, which makes the other side finite.
+    ``L == 0`` -- the ``lambda_risk_neutral = 0`` limiting fixture -- is correctly a
+    boundary-only case: the residual decreases toward zero and never reaches it.
+    """
+    at_zero = owner_residual(marks, 0.0)
+    limit = owner_residual_limit(marks)
+    if at_zero == 0.0:
+        return True, at_zero, limit
+    if at_zero > 0.0:
+        if interval.upper_is_finite:
+            return True, at_zero, limit
+        return limit < 0.0, at_zero, limit
+    if interval.lower_is_finite:
+        return True, at_zero, limit
+    return limit > 0.0, at_zero, limit
+
+
+def _probe_toward_finite_endpoint(endpoint: float, step: int) -> float:
+    """Halve the gap from zero exposure to a finite endpoint ``step`` times."""
+    return endpoint - endpoint * 0.5**step
+
+
+def _probe_toward_unbounded_endpoint(sign: float, step: int) -> float:
+    """Walk out the FP64 binades toward an unbounded endpoint.
+
+    ``step`` in ``0..1022`` gives ``+-2**step``; the final step gives the largest
+    finite double, so the sequence covers every representable magnitude.
+    """
+    if step >= DOUBLING_STEPS - 1:
+        return math.copysign(sys.float_info.max, sign)
+    return math.copysign(2.0**step, sign)
 
 
 def solve_owner_root(outcome: KernelOutcome) -> OwnerRootResult:
     """Solve ``D_owner(pi) = 0`` on the open admissible exposure interval.
 
-    Uses the repository's pinned SciPy bracketing routine (``scipy.optimize.brentq``)
-    on a bracket found by geometric approach to an endpoint; it never divides
+    Existence is decided analytically by ``finite_root_exists`` before any search
+    runs, so a root that merely lies far out is never mistaken for a root that does
+    not exist. Only once existence is established does the routine bracket, using
+    the repository's pinned SciPy bracketing routine (``scipy.optimize.brentq``) on
+    a bracket found by walking strictly inside the interval. It never divides
     through a selected ``J_j`` and never evaluates a pole.
+
+    If existence holds but the whole representable FP64 range is exhausted without a
+    sign change, the root is beyond ``sys.float_info.max`` and the result is
+    ``finite_root_not_representable`` -- explicitly a statement about the arithmetic,
+    never ``no_interior_root_boundary_limit``.
     """
     marks = outcome.require_finite()
     payoff_vector = tuple(mark.payoff_jump for mark in marks)
@@ -275,8 +346,22 @@ def solve_owner_root(outcome: KernelOutcome) -> OwnerRootResult:
         )
 
     interval = exposure_interval(payoff_vector)
-    at_zero = owner_residual(marks, 0.0)
-    limit = owner_residual_limit(marks)
+    exists, at_zero, limit = finite_root_exists(marks, interval)
+
+    if not exists:
+        return OwnerRootResult(
+            outcome.fixture_id,
+            NO_INTERIOR_ROOT_BOUNDARY_LIMIT,
+            "the owner residual is strictly decreasing and its analytic limit at the "
+            f"unbounded end, {limit!r}, does not lie beyond zero in the direction of "
+            f"travel from the residual at zero exposure, {at_zero!r}. The residual "
+            "therefore keeps one sign on the whole open admissible interval and "
+            "approaches its limit only at the boundary; no finite interior exposure "
+            "exists. This is an analytic conclusion, not a failed search",
+            interval=interval,
+            residual_at_zero=at_zero,
+            limit_at_unbounded_end=limit,
+        )
 
     if at_zero == 0.0:
         return OwnerRootResult(
@@ -292,39 +377,48 @@ def solve_owner_root(outcome: KernelOutcome) -> OwnerRootResult:
             limit_at_unbounded_end=limit,
         )
 
-    # D_owner is strictly decreasing, so a positive value at zero puts the root to
-    # the right and a negative value puts it to the left.
-    if at_zero > 0.0:
+    # Strictly decreasing: a positive residual at zero puts the root to the right,
+    # a negative one puts it to the left.
+    going_right = at_zero > 0.0
+    if going_right:
         endpoint, endpoint_is_finite = interval.upper, interval.upper_is_finite
     else:
         endpoint, endpoint_is_finite = interval.lower, interval.lower_is_finite
 
-    probe = 0.0
-    value = at_zero
+    if endpoint_is_finite:
+        steps = FINITE_APPROACH_STEPS
+        def probe(step: int) -> float:
+            return _probe_toward_finite_endpoint(endpoint, step)
+    else:
+        sign = 1.0 if going_right else -1.0
+        steps = DOUBLING_STEPS
+        def probe(step: int) -> float:
+            return _probe_toward_unbounded_endpoint(sign, step)
+
+    near = 0.0
     bracket: tuple[float, float] | None = None
-    for step in range(1, BRACKET_STEPS + 1):
-        candidate = _approach(0.0, endpoint, endpoint_is_finite, step)
+    for step in range(steps):
+        candidate = probe(step)
         if not math.isfinite(candidate) or not interval.contains(candidate):
             break
         candidate_value = owner_residual(marks, candidate)
         if not math.isfinite(candidate_value):
             break
-        if candidate_value == 0.0:
-            bracket = (min(probe, candidate), max(probe, candidate))
+        if candidate_value == 0.0 or (candidate_value > 0.0) != going_right:
+            bracket = (min(near, candidate), max(near, candidate))
             break
-        if (candidate_value > 0.0) != (at_zero > 0.0):
-            bracket = (min(probe, candidate), max(probe, candidate))
-            break
-        probe, value = candidate, candidate_value
+        near = candidate
 
     if bracket is None:
         return OwnerRootResult(
             outcome.fixture_id,
-            NO_INTERIOR_ROOT_BOUNDARY_LIMIT,
-            "the owner residual keeps one sign across the whole open admissible "
-            f"interval; residual at zero exposure {at_zero!r}, analytic limit at "
-            f"the unbounded end {limit!r}. The root is approached only in the "
-            "boundary limit, so no finite interior exposure is reported",
+            FINITE_ROOT_NOT_REPRESENTABLE,
+            "strict monotonicity and the analytic limit "
+            f"{limit!r} prove that a finite interior root exists beyond a residual of "
+            f"{at_zero!r} at zero exposure, but every representable FP64 magnitude in "
+            "that direction was exhausted without a sign change, so the root lies "
+            "outside double precision and no bracket can be formed. This is a "
+            "numerical refusal, not an absence of a root",
             interval=interval,
             residual_at_zero=at_zero,
             limit_at_unbounded_end=limit,
@@ -366,13 +460,15 @@ def one_mark_analytic_root(lambda_physical: float, lambda_risk_neutral: float,
 
 
 __all__ = [
-    "BRACKET_STEPS",
+    "DOUBLING_STEPS",
+    "FINITE_APPROACH_STEPS",
     "Decomposition",
     "ExposureInterval",
     "OwnerRootResult",
     "ResidualTerm",
     "decompose",
     "exposure_interval",
+    "finite_root_exists",
     "normalized_error",
     "one_mark_analytic_root",
     "owner_residual",

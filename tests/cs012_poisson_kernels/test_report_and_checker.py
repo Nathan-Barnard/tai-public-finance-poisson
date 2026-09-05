@@ -73,7 +73,7 @@ def test_the_report_covers_every_fixture_and_records_its_limits(report, frozen_f
     assert report["specification"]["status"] == "draft"
     assert (
         report["specification"]["sha256"]
-        == "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8"
+        == "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498"
     )
     assert [entry["fixture_id"] for entry in report["fixtures"]] == list(frozen_fixtures)
     assert report["summary"]["max_decomposition_error"] <= IDENTITY_MAX
@@ -265,6 +265,135 @@ def test_the_checker_rejects_a_corrupted_status(report):
 def test_the_checker_rejects_each_corruption(report, label, mutate):
     failures = CHECKER.check_report(_corrupt(report, mutate))
     assert failures.messages, f"the checker accepted a corrupted report: {label}"
+
+
+def test_the_checker_rejects_a_misclassified_extreme_root(fixture_path):
+    """The reviewer's counterexample, deliberately mislabelled.
+
+    A report that calls the 1e100 root a boundary-only limit must be rejected by
+    the standalone checker, which re-derives existence from strict monotonicity and
+    the analytic limit rather than trusting the recorded status.
+    """
+    from tai_public_finance.cs012_poisson_kernels.extended import ExtendedReal
+    from tai_public_finance.cs012_poisson_kernels.inputs import FixtureInput, MarkInput
+
+    extreme = FixtureInput(
+        fixture_id="extreme_root",
+        declared_branch="finite_maintained_branch",
+        owner_exposure=0.0,
+        government_current_marginal_value=1.0,
+        marks=(
+            MarkInput(
+                mark_id="F",
+                lambda_physical=1.0,
+                lambda_risk_neutral=1.0e-100,
+                payoff_jump=1.0,
+                government_successor_marginal_value=ExtendedReal.of(1.0),
+            ),
+        ),
+    )
+    provenance = Provenance(
+        code_commit="0" * 40,
+        branch="cs012/i0-pricing-kernel-identities",
+        clean_start=True,
+        repository_url="https://github.com/Nathan-Barnard/tai-public-finance-poisson.git",
+        python_version="3.13.5",
+        scipy_version="1.18.1",
+        numpy_version="2.5.2",
+        platform="test",
+        machine="test",
+    )
+    honest = build_report((extreme,), provenance, Path(fixture_path), 0.0)
+    entry = honest["fixtures"][0]
+    assert entry["owner_root"]["status"] == "unique_interior_root"
+    assert CHECKER.check_report(honest).messages == []
+
+    misclassified = copy.deepcopy(honest)
+    root = misclassified["fixtures"][0]["owner_root"]
+    root["status"] = "no_interior_root_boundary_limit"
+    root["exposure"] = None
+    root["residual_at_root"] = None
+    root["derivative_at_root"] = None
+    root["boundary_margin"] = None
+    misclassified["summary"]["owner_root_status_counts"] = {
+        "no_interior_root_boundary_limit": 1
+    }
+    misclassified["summary"]["refusal_counts"]["owner_root_unidentified_or_boundary"] = 1
+    misclassified["summary"]["max_owner_root_residual"] = 0.0
+
+    failures = CHECKER.check_report(misclassified)
+    assert failures.messages
+    assert any(
+        "a far-away root is not an absent root" in message
+        for message in failures.messages
+    ), failures.messages
+
+
+def test_the_checker_rejects_an_unrepresentable_root_called_a_boundary(fixture_path):
+    """The same guard, for the genuinely unrepresentable case: it may be refused as
+    a numerical limit, but never reported as an absent root."""
+    from tai_public_finance.cs012_poisson_kernels.extended import ExtendedReal
+    from tai_public_finance.cs012_poisson_kernels.inputs import FixtureInput, MarkInput
+
+    item = FixtureInput(
+        fixture_id="unrepresentable_root",
+        declared_branch="finite_maintained_branch",
+        owner_exposure=0.0,
+        government_current_marginal_value=1.0,
+        marks=(
+            MarkInput(
+                mark_id="F",
+                lambda_physical=1.0,
+                lambda_risk_neutral=1.0e-320,
+                payoff_jump=1.0,
+                government_successor_marginal_value=ExtendedReal.of(1.0),
+            ),
+        ),
+    )
+    provenance = Provenance(
+        code_commit="0" * 40,
+        branch="cs012/i0-pricing-kernel-identities",
+        clean_start=True,
+        repository_url="https://github.com/Nathan-Barnard/tai-public-finance-poisson.git",
+        python_version="3.13.5",
+        scipy_version="1.18.1",
+        numpy_version="2.5.2",
+        platform="test",
+        machine="test",
+    )
+    honest = build_report((item,), provenance, Path(fixture_path), 0.0)
+    assert honest["fixtures"][0]["owner_root"]["status"] == "finite_root_not_representable"
+    assert CHECKER.check_report(honest).messages == []
+
+    misclassified = copy.deepcopy(honest)
+    misclassified["fixtures"][0]["owner_root"]["status"] = (
+        "no_interior_root_boundary_limit"
+    )
+    misclassified["summary"]["owner_root_status_counts"] = {
+        "no_interior_root_boundary_limit": 1
+    }
+    failures = CHECKER.check_report(misclassified)
+    assert failures.messages
+    assert any(
+        "a far-away root is not an absent root" in message
+        for message in failures.messages
+    ), failures.messages
+
+
+def test_the_checker_binds_to_the_current_specification_hash(report):
+    assert (
+        report["specification"]["sha256"]
+        == "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498"
+    )
+    assert (
+        report["specification"]["superseded_specification_sha256"]
+        == "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8"
+    )
+    stale = copy.deepcopy(report)
+    stale["specification"]["sha256"] = (
+        "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8"
+    )
+    assert CHECKER.check_report(stale).messages
 
 
 def test_the_checker_script_exits_nonzero_on_a_corrupted_report(report, tmp_path):

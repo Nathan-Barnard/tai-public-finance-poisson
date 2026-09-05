@@ -10,8 +10,18 @@ CS012 v0.1, I0: for ``g_j = k_government[j] - k_world[j]``,
     g_orthogonal[j] = g_j - g_parallel[j]
 
 The market prices the component along ``J``; the unspanned fiscal valuation is
-what remains. A zero or numerically unresolved weighted payoff norm is refused --
-the payoff vector is never normalized into a direction.
+what remains. The payoff vector is never normalized into a direction, so the
+weighted norm is refused rather than repaired whenever it is unusable. There are
+exactly two ways it can be unusable, and they are kept apart:
+
+* the payoff vector is **structurally zero**, every ``J_j`` being exactly zero, so
+  installed equity changes no successor wealth and there is no direction at all; and
+* the payoff vector is nonzero but every weighted square ``lambda_j * J_j**2``
+  **underflows** to zero in FP64, so the denominator is unusable for arithmetic
+  reasons while the rank statement is unchanged.
+
+Both are detected by exact zero-testing of the denominator and then separated by
+exact zero-testing of the payoff components. Neither uses a tuned threshold.
 
 The safe money-market account is the rolled account of the safe-saving note,
 section 2: its marked payoff vector is identically zero, so the risky-exposure
@@ -27,14 +37,9 @@ from dataclasses import dataclass
 from .kernels import KernelOutcome
 from .statuses import (
     PROJECTION_RESOLVED,
-    UNRESOLVED_PAYOFF_NORM_REFUSED,
+    UNDERFLOWED_PAYOFF_NORM_REFUSED,
     ZERO_PAYOFF_NORM_REFUSED,
 )
-
-NORM_RESOLUTION_FLOOR = 1.0e-12
-"""A weighted payoff norm below this fraction of the largest single weighted term
-that formed it is treated as numerically unresolved and refused. It guards the
-catastrophic-cancellation case, which exact-zero testing alone would miss."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -87,26 +92,33 @@ def project_fiscal_gap(outcome: KernelOutcome) -> ProjectionResult:
     payoffs = tuple(mark.payoff_jump for mark in marks)
     gaps = tuple(mark.k_government - mark.k_world for mark in marks)
 
+    # Every term of this sum is a nonnegative weighted square, so the sum can only
+    # reach zero if every term is zero. There is deliberately no relative-resolution
+    # guard here: a sum of nonnegative terms is never smaller than its largest term,
+    # so the "denominator < floor * largest" test written in the original I0 commit
+    # was unreachable. Cancellation is impossible in this sum; underflow is not.
     weighted_squares = tuple(
         weight * payoff**2 for weight, payoff in zip(weights, payoffs, strict=True)
     )
     denominator = math.fsum(weighted_squares)
     if denominator == 0.0:
+        if all(payoff == 0.0 for payoff in payoffs):
+            return ProjectionResult(
+                outcome.fixture_id,
+                ZERO_PAYOFF_NORM_REFUSED,
+                "the payoff vector is structurally zero, so installed equity changes "
+                "no successor wealth and there is no direction to project on; the "
+                "vector is not normalized into one",
+                denominator=0.0,
+            )
         return ProjectionResult(
             outcome.fixture_id,
-            ZERO_PAYOFF_NORM_REFUSED,
-            "the physical-intensity-weighted payoff norm is exactly zero; there is "
-            "no payoff direction to project on and the vector is not normalized",
+            UNDERFLOWED_PAYOFF_NORM_REFUSED,
+            "the payoff vector is structurally nonzero, but every weighted square "
+            "lambda_j*J_j**2 underflowed to zero in FP64, so the weighted norm is "
+            "unusable for arithmetic reasons rather than structural ones; refused "
+            "rather than reported at an invented scale",
             denominator=0.0,
-        )
-    largest = max(weighted_squares)
-    if denominator < NORM_RESOLUTION_FLOOR * largest:
-        return ProjectionResult(
-            outcome.fixture_id,
-            UNRESOLVED_PAYOFF_NORM_REFUSED,
-            f"the weighted payoff norm {denominator!r} is not resolvable against its "
-            f"largest forming term {largest!r}; refused rather than reported",
-            denominator=denominator,
         )
 
     numerator = math.fsum(
@@ -199,7 +211,6 @@ def safe_account_rank(outcome: KernelOutcome) -> SafeAccountRank:
 
 
 __all__ = [
-    "NORM_RESOLUTION_FLOOR",
     "ProjectionComponent",
     "ProjectionResult",
     "SafeAccountRank",

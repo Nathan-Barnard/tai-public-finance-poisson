@@ -34,8 +34,10 @@ NONFINITE_FISCAL_KERNEL_AT_LITERAL_LAISSEZ_FAIRE = (
 UNIQUE_INTERIOR_ROOT = "unique_interior_root"
 NO_INTERIOR_ROOT_BOUNDARY_LIMIT = "no_interior_root_boundary_limit"
 ZERO_PAYOFF_UNIDENTIFIED = "zero_payoff_unidentified"
+FINITE_ROOT_NOT_REPRESENTABLE = "finite_root_not_representable"
 PROJECTION_RESOLVED = "projection_resolved"
 ZERO_PAYOFF_NORM_REFUSED = "zero_payoff_norm_refused"
+UNDERFLOWED_PAYOFF_NORM_REFUSED = "underflowed_payoff_norm_refused"
 
 # Absolute floor for comparing two independently computed FP64 values of the same
 # well-conditioned quantity. Normalized identity comparisons use the report's own
@@ -303,18 +305,62 @@ def check_finite_fixture(entry: dict[str, Any], policy: dict[str, Any], fail: Fa
                         root["boundary_margin_is_unbounded"] is True,
                         f"{fid}: both endpoints are unbounded, so the boundary margin must be unbounded",
                     )
-        elif root["status"] == NO_INTERIOR_ROOT_BOUNDARY_LIMIT:
+        elif root["status"] in (
+            NO_INTERIOR_ROOT_BOUNDARY_LIMIT,
+            FINITE_ROOT_NOT_REPRESENTABLE,
+        ):
             fail.check(
                 root["exposure"] is None,
-                f"{fid}: a boundary-only limiting root must report no finite exposure",
+                f"{fid}: {root['status']} must report no finite exposure",
             )
-            # A strictly decreasing residual with no interior zero must keep the
-            # sign it has at zero exposure all the way to its unbounded limit.
-            fail.check(
-                (at_zero > 0.0 and limit >= 0.0) or (at_zero < 0.0 and limit <= 0.0),
-                f"{fid}: residual at zero {at_zero!r} and limit {limit!r} straddle zero, "
-                "so an interior root should have been found",
-            )
+            # D_owner is strictly decreasing and pi = 0 is interior, so the sign of
+            # the residual at zero fixes the side the root must lie on. Re-derive
+            # existence here independently, and hold the report to it.
+            going_right = at_zero > 0.0
+            if at_zero == 0.0:
+                exists = True
+                endpoint_is_finite = True
+            elif going_right:
+                endpoint_is_finite = math.isfinite(upper)
+                exists = endpoint_is_finite or limit < 0.0
+            else:
+                endpoint_is_finite = math.isfinite(lower)
+                exists = endpoint_is_finite or limit > 0.0
+
+            if root["status"] == NO_INTERIOR_ROOT_BOUNDARY_LIMIT:
+                fail.check(
+                    not exists,
+                    f"{fid}: reported {NO_INTERIOR_ROOT_BOUNDARY_LIMIT}, but the "
+                    f"residual at zero exposure {at_zero!r} and the analytic limit "
+                    f"{limit!r} on an "
+                    f"{'unbounded' if not endpoint_is_finite else 'FINITE'} endpoint "
+                    "imply a finite interior root does exist; a far-away root is not "
+                    "an absent root",
+                )
+                fail.check(
+                    not endpoint_is_finite,
+                    f"{fid}: reported {NO_INTERIOR_ROOT_BOUNDARY_LIMIT} while the "
+                    "endpoint in the root's direction is finite, where the residual "
+                    "diverges and a root always exists",
+                )
+            else:
+                fail.check(
+                    exists,
+                    f"{fid}: reported {FINITE_ROOT_NOT_REPRESENTABLE}, but no finite "
+                    "interior root is implied by the residual at zero exposure "
+                    f"{at_zero!r} and the analytic limit {limit!r}",
+                )
+                # The root must genuinely be beyond FP64: the residual keeps its
+                # sign right out to the largest finite double.
+                far = math.copysign(sys.float_info.max, 1.0 if going_right else -1.0)
+                if lower < far < upper:
+                    far_value = owner_residual(raw_marks, far)
+                    fail.check(
+                        (far_value > 0.0) == going_right,
+                        f"{fid}: reported {FINITE_ROOT_NOT_REPRESENTABLE}, but the "
+                        f"residual already changes sign by {far!r}, so the root is "
+                        "representable and should have been bracketed",
+                    )
         else:
             fail.check(
                 False,
@@ -325,9 +371,19 @@ def check_finite_fixture(entry: dict[str, Any], policy: dict[str, Any], fail: Fa
     projection = entry["projection"]
     denominator = math.fsum(w * j * j for w, j in zip(weights, payoffs, strict=True))
     if denominator == 0.0:
+        # A sum of nonnegative weighted squares reaches zero only if every term is
+        # zero, so there is no cancellation case to test for -- only a structurally
+        # zero payoff vector and an FP64 underflow, which must not be conflated.
+        expected = (
+            ZERO_PAYOFF_NORM_REFUSED
+            if all(jump == 0.0 for jump in payoffs)
+            else UNDERFLOWED_PAYOFF_NORM_REFUSED
+        )
         fail.check(
-            projection["status"] == ZERO_PAYOFF_NORM_REFUSED,
-            f"{fid}: a zero weighted payoff norm must be refused, not {projection['status']!r}",
+            projection["status"] == expected,
+            f"{fid}: a zero weighted payoff norm with "
+            f"{'an all-zero' if expected == ZERO_PAYOFF_NORM_REFUSED else 'a nonzero'} "
+            f"payoff vector must be {expected}, not {projection['status']!r}",
         )
         fail.check(
             projection["alpha"] is None,
@@ -478,7 +534,7 @@ def check_report(payload: dict[str, Any]) -> Failures:
         specification.get("specification_id") == "CS012"
         and specification.get("version") == "0.1"
         and specification.get("sha256")
-        == "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+        == "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
         "the report does not name CS012 v0.1 with its exact SHA-256",
     )
     policy = payload["tolerance_policy"]

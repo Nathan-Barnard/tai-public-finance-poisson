@@ -26,7 +26,8 @@ from tai_public_finance.cs012_poisson_kernels.projection import (
 from tai_public_finance.cs012_poisson_kernels.statuses import (
     NONFINITE_FISCAL_KERNEL_AT_LITERAL_LAISSEZ_FAIRE,
     PROJECTION_RESOLVED,
-    UNRESOLVED_PAYOFF_NORM_REFUSED,
+    PROJECTION_STATUSES,
+    UNDERFLOWED_PAYOFF_NORM_REFUSED,
     ZERO_PAYOFF_NORM_REFUSED,
 )
 
@@ -76,17 +77,95 @@ def test_zero_payoff_norm_is_refused_not_normalized(frozen_fixtures):
         projection.require_alpha()
 
 
-def test_a_catastrophically_cancelled_payoff_norm_is_refused():
-    """A weighted norm that survives only as rounding noise is refused rather than
-    reported as a direction."""
+def test_the_weighted_payoff_norm_cannot_cancel_only_underflow():
+    """The former "catastrophic cancellation" test was mislabelled: it exercises
+    FP64 underflow, not cancellation.
+
+    The denominator ``sum_j lambda_j * J_j**2`` is a sum of nonnegative terms, so it
+    is never smaller than its own largest term and can never lose magnitude to
+    cancellation. What the tiny-payoff case actually does is underflow every
+    weighted square to exactly zero. This test pins that distinction down so the
+    dead relative-resolution guard cannot come back.
+    """
     tiny = 5.0e-200
+    weights = (0.2, 0.1)
+    payoffs = (tiny, -tiny)
+    squares = [w * j**2 for w, j in zip(weights, payoffs)]
+    # The mechanism is underflow: each weighted square is exactly zero in FP64,
+    # while the payoff components themselves are not.
+    assert squares == [0.0, 0.0]
+    assert all(jump != 0.0 for jump in payoffs)
+    # And the sum could not have been below its largest term in any case.
+    assert math.fsum(squares) >= max(squares)
+
     item = fixture(
-        "tiny_norm",
-        (mark("P", 0.2, 0.1, tiny, 1.0), mark("F", 0.1, 0.05, -tiny, 1.0)),
+        "underflowed_norm",
+        (mark("P", weights[0], 0.1, payoffs[0], 1.0),
+         mark("F", weights[1], 0.05, payoffs[1], 1.0)),
     )
     projection = project_fiscal_gap(evaluate_kernels(item))
-    assert projection.status in {ZERO_PAYOFF_NORM_REFUSED, UNRESOLVED_PAYOFF_NORM_REFUSED}
+    assert projection.status == UNDERFLOWED_PAYOFF_NORM_REFUSED
     assert projection.alpha is None
+    assert projection.denominator == 0.0
+    assert "underflow" in projection.detail
+
+
+def test_underflow_is_kept_distinct_from_a_structurally_zero_payoff_vector(frozen_fixtures):
+    """The two refusals must not be conflated: one is a rank statement, the other
+    is an arithmetic limit."""
+    structural = project_fiscal_gap(
+        evaluate_kernels(frozen_fixtures["all_zero_payoff_unidentified"])
+    )
+    underflowed = project_fiscal_gap(
+        evaluate_kernels(
+            fixture(
+                "underflowed_norm",
+                (mark("P", 0.2, 0.1, 5.0e-200, 1.0), mark("F", 0.1, 0.05, -5.0e-200, 1.0)),
+            )
+        )
+    )
+    assert structural.status == ZERO_PAYOFF_NORM_REFUSED
+    assert underflowed.status == UNDERFLOWED_PAYOFF_NORM_REFUSED
+    assert structural.status != underflowed.status
+    assert "structurally zero" in structural.detail
+
+
+def test_no_relative_resolution_guard_survives_in_the_projection_route():
+    """The removed criterion ``denominator < floor * largest`` was unreachable for
+    finite positive intensities. Assert the arithmetic fact directly, over the same
+    well-conditioned box the property tests use."""
+    import random
+
+    rng = random.Random(20260905)
+    for _ in range(500):
+        count = rng.randint(1, 4)
+        weights = [rng.uniform(0.01, 1.5) for _ in range(count)]
+        payoffs = [rng.uniform(-2.0, 2.0) for _ in range(count)]
+        squares = [w * j**2 for w, j in zip(weights, payoffs)]
+        assert math.fsum(squares) >= max(squares)
+    assert not hasattr(
+        __import__(
+            "tai_public_finance.cs012_poisson_kernels.projection",
+            fromlist=["projection"],
+        ),
+        "NORM_RESOLUTION_FLOOR",
+    )
+
+
+def test_every_projection_status_is_reachable_and_demonstrated(frozen_fixtures):
+    """No status stays in the public contract without a case that produces it."""
+    observed = {
+        project_fiscal_gap(evaluate_kernels(item)).status
+        for item in (
+            frozen_fixtures["two_mark_orthogonal_gap"],
+            frozen_fixtures["all_zero_payoff_unidentified"],
+            fixture(
+                "underflowed_norm",
+                (mark("P", 0.2, 0.1, 5.0e-200, 1.0), mark("F", 0.1, 0.05, -5.0e-200, 1.0)),
+            ),
+        )
+    }
+    assert observed == set(PROJECTION_STATUSES)
 
 
 def test_safe_account_has_zero_marked_payoff_and_does_not_change_risky_rank(frozen_fixtures):

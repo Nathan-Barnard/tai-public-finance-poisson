@@ -9,8 +9,14 @@ safe-account payoff rank; and the literal laissez-faire extended-real boundary.
 Governing records, in the read-only Codex research workspace:
 
 * specification ``CS012`` v0.1 (draft), SHA-256
-  ``275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8``;
+  ``d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498``;
 * work plan ``CP012``; decision ``CD016``.
+
+The first I0 report was generated against the earlier CS012 hash
+``275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8`` and remains
+valid historical exploratory evidence under that hash. The intervening
+specification change concerns the downstream signed-safe ``CS011 v0.6`` scope and
+alters no I0 formula.
 
 This package shares no equations with the quarantined ``cs005_marked_poisson``
 pre-arrival route and imports nothing from it. Everything it produces is
@@ -36,6 +42,7 @@ from .portfolio import (
     ResidualTerm,
     decompose,
     exposure_interval,
+    finite_root_exists,
     normalized_error,
     one_mark_analytic_root,
     owner_residual,
@@ -75,6 +82,7 @@ __all__ = [
     "decompose",
     "evaluate_kernels",
     "exposure_interval",
+    "finite_root_exists",
     "load_fixtures",
     "normalized_error",
     "one_mark_analytic_root",
