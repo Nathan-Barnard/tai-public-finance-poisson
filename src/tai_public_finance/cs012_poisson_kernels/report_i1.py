@@ -417,6 +417,21 @@ def _summary_markdown(payload: dict[str, Any]) -> str:
     marks = {m["mark_id"]: m for m in base["marks"]}
     P, F = marks["P"], marks["F"]
     ak = eco["ak_successor"]
+    interval = base["exposure_interval"]
+
+    def endpoint(value: float | None, unbounded_text: str) -> str:
+        """Render an interval endpoint. An unbounded side has no number to print."""
+        return unbounded_text if value is None else f"{value:.9f}"
+
+    interval_text = (
+        f"({endpoint(interval['lower'], '-inf')}, {endpoint(interval['upper'], '+inf')})"
+    )
+    direction = "short" if base["exposure"] < 0.0 else "long"
+    sign_note = (
+        "the two marks move installed-equity value in *opposite* directions here"
+        if P["payoff_jump"] * F["payoff_jump"] < 0.0
+        else "both marks raise installed-equity value here"
+    )
     return f"""# CS012 I1 — laissez-faire owner branch under {eco["packet"]["packet_id"]}
 
 **Result use: `exploratory_only`. Not an equilibrium, not a welfare result, not a
@@ -443,7 +458,7 @@ automation marks:
 
 Owner exposure `π = {base["exposure"]:.9f}`, solving the unmultiplied
 `D_K(π) = Σ_j λ_j (1/(1+πJ_j) − λ*_j/λ_j) J_j = 0` on the open positive-wealth interval
-`({base["exposure_interval"]["lower"]:.9f}, {base["exposure_interval"]["upper"]:.9f})`,
+`{interval_text}`,
 with residual `{base["residual_at_root"]:+.3e}` and a strictly negative slope
 `{base["derivative_at_root"]:.6e}`.
 
@@ -451,13 +466,11 @@ with residual `{base["residual_at_root"]:+.3e}` and a strictly negative slope
 
 The world prices the full-AK mark far more heavily than its physical frequency warrants
 (`k^w_F = {F["k_world"]:.4f}` against `k^w_P = {P["k_world"]:.4f}`): the risk-neutral law is
-tilted toward the mark the domestic owner least wants. Because the two marks move
-installed-equity value in *opposite* directions here — the partial mark raises `q`, the
-full-AK mark lowers it — the owner's optimal exposure is a large positive equity share
-funded by borrowing, and it is bounded by the full-AK solvency edge rather than by the
-partial one. Owner wealth roughly {("doubles" if P["wealth_multiplier"] > 1.5 else "rises")} on a
-partial arrival and falls to about {F["wealth_multiplier"]:.2f} of its pre-arrival level on a
-full-AK arrival.
+tilted toward the mark the domestic owner least wants. Given that, and given that
+{sign_note}, the owner's optimal exposure is a **{direction}** position of
+`{base["exposure"]:.6f}` times wealth. Owner wealth moves to
+`{P["wealth_multiplier"]:.4f}` times its pre-arrival level on a partial arrival and
+`{F["wealth_multiplier"]:.4f}` times it on a full-AK arrival.
 
 That asymmetry is the whole point of the block: it is the owner-side input the government
 comparison will later be made against. It says nothing yet about what a government would
