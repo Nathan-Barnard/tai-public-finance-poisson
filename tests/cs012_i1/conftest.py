@@ -21,6 +21,7 @@ from tai_public_finance.cs012_poisson_kernels.report import Provenance
 REPOSITORY = Path(__file__).resolve().parents[2]
 SYNTHETIC_CONFIG = REPOSITORY / "configs" / "cs012" / "P-CS012-SYN-01.json"
 ECONOMIC_CONFIG = REPOSITORY / "configs" / "cs012" / "P-CS012-ECO-01.json"
+ECONOMIC_CONFIG_02 = REPOSITORY / "configs" / "cs012" / "P-CS012-ECO-02.json"
 CHECKER_PATH = REPOSITORY / "tools" / "check_cs012_i1_report.py"
 
 CS011_COMMIT = "6b457682c4eed8ad4e3bdd867d1292abac38f424"
@@ -60,6 +61,25 @@ def services(economic_packet):
 @pytest.fixture(scope="session")
 def i1_report():
     return build_i1_report(SYNTHETIC_CONFIG, ECONOMIC_CONFIG, TEST_PROVENANCE, 0.0)
+
+
+@pytest.fixture(scope="session")
+def economic_packet_02():
+    return load_economic_packet(ECONOMIC_CONFIG_02)
+
+
+@pytest.fixture(scope="session")
+def services_02(economic_packet_02):
+    return solve_successors(
+        model_parameters(economic_packet_02),
+        economic_packet_02.ak_root_interval,
+        economic_packet_02.partial_capital_interval,
+    )
+
+
+@pytest.fixture(scope="session")
+def i1_report_02():
+    return build_i1_report(SYNTHETIC_CONFIG, ECONOMIC_CONFIG_02, TEST_PROVENANCE, 0.0)
 
 
 @pytest.fixture(scope="session")

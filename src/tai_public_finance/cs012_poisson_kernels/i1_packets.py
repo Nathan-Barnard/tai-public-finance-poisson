@@ -8,12 +8,16 @@ Two packets exist and they are not interchangeable:
     time rather than transcribed, so a fixture that stops calling itself manufactured
     cannot silently become a scenario here. It has no economic interpretation.
 
-``P-CS012-ECO-01``
-    A *provisional illustrative* economic scenario. It is not an estimate, not a
-    country calibration, and not a baseline for any policy statement. Its judgement
-    values are inherited from the provisional marked-Poisson design ``EMP005``
-    (profile ``P-CS005-REAL-01``), which states of itself that it "is not an estimate
-    and not a country baseline".
+``P-CS012-ECO-01`` and ``P-CS012-ECO-02``
+    *Provisional illustrative* economic scenarios. Neither is an estimate, a country
+    calibration, or a baseline for any policy statement. Their judgement values are
+    inherited from the provisional marked-Poisson design ``EMP005`` (profile
+    ``P-CS005-REAL-01``), which states of itself that it "is not an estimate and not a
+    country baseline". ``ECO-02`` differs from ``ECO-01`` in exactly one primitive,
+    ``technology.A_bar``, and is a companion to it rather than a replacement: both
+    remain valid under their own fingerprints. The recognized set is closed and
+    enumerated -- an unrecognized or misspelled id is refused, so a stray file cannot
+    become a scenario by being pointed at.
 
 Time unit: years. Value unit: current goods.
 
@@ -32,6 +36,9 @@ from .extended import sha256_of_object
 
 SYNTHETIC_PACKET_ID = "P-CS012-SYN-01"
 ECONOMIC_PACKET_ID = "P-CS012-ECO-01"
+ECONOMIC_PACKET_IDS = ("P-CS012-ECO-01", "P-CS012-ECO-02")
+"""The closed set of recognized economic packet ids. Extending it is a deliberate
+edit, never a pattern match: an arbitrary ``P-CS012-ECO-*`` name is not accepted."""
 
 TIME_UNIT = "year"
 VALUE_UNIT = "current goods"
@@ -238,8 +245,11 @@ def _check_economic_consistency(packet: EconomicPacket) -> None:
 
 def load_economic_packet(path: str | Path) -> EconomicPacket:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if payload.get("packet_id") != ECONOMIC_PACKET_ID:
-        raise PacketError(f"expected {ECONOMIC_PACKET_ID}, found {payload.get('packet_id')!r}")
+    if payload.get("packet_id") not in ECONOMIC_PACKET_IDS:
+        raise PacketError(
+            f"expected one of {list(ECONOMIC_PACKET_IDS)}, found "
+            f"{payload.get('packet_id')!r}"
+        )
     tech = payload["technology"]
     rates = payload["world_rates"]
     shock = payload["shock_law"]
@@ -315,6 +325,7 @@ def load_synthetic_packet(path: str | Path) -> SyntheticPacket:
 
 __all__ = [
     "ECONOMIC_PACKET_ID",
+    "ECONOMIC_PACKET_IDS",
     "SYNTHETIC_PACKET_ID",
     "TIME_UNIT",
     "VALUE_UNIT",
