@@ -19,7 +19,7 @@ from tai_public_finance.cs012_poisson_kernels.i2_prefunding import (
     adjacent_log_log_elasticities,
     audit_mu_e_closure,
     literal_boundary,
-    successor_row,
+    unrestricted_upper_relaxation_row,
 )
 
 from .conftest import PREFUND, SYN_02
@@ -64,7 +64,7 @@ def test_the_safe_debt_sign_convention_is_negative_for_inherited_wealth(prefundi
 @pytest.mark.parametrize("F", FROZEN)
 def test_full_ak_levels_match_the_closed_form(F, services, eco02):
     q_F, K = services.q_F(), 1.0
-    row = successor_row("F", F, RHO, q_F * K, q_F * K)
+    row = unrestricted_upper_relaxation_row("F", F, RHO, q_F * K, q_F * K, wage_floor=0.0)
     assert row.worker_resources == pytest.approx(F, rel=1e-15)
     assert row.worker_consumption == pytest.approx(0.04 * F, rel=1e-14)
     assert row.successor_marginal_value == pytest.approx(EXPECTED_V_F[F], rel=1e-12)
@@ -73,7 +73,7 @@ def test_full_ak_levels_match_the_closed_form(F, services, eco02):
 
 def test_the_full_ak_elasticity_is_minus_one_everywhere(services):
     q_F = services.q_F()
-    values = tuple(successor_row("F", F, RHO, q_F, q_F).successor_marginal_value
+    values = tuple(unrestricted_upper_relaxation_row("F", F, RHO, q_F, q_F, wage_floor=0.0).successor_marginal_value
                    for F in FROZEN)
     for value in adjacent_log_log_elasticities(FROZEN, values):
         assert value == pytest.approx(-1.0, abs=1e-12)
@@ -82,7 +82,7 @@ def test_the_full_ak_elasticity_is_minus_one_everywhere(services):
 def test_the_partial_elasticity_approaches_zero_not_minus_one(services):
     K, q_P = 1.0, services.q_P(1.0)
     H_P = services.partial.H_P(K)
-    values = tuple(successor_row("P", F, RHO, H_P, q_P * K).successor_marginal_value
+    values = tuple(unrestricted_upper_relaxation_row("P", F, RHO, H_P, q_P * K, wage_floor=0.0).successor_marginal_value
                    for F in FROZEN)
     elasticities = adjacent_log_log_elasticities(FROZEN, values)
     assert all(-1.0 < e < 0.0 for e in elasticities)
@@ -127,9 +127,9 @@ def test_the_partial_branch_stays_finite_at_the_boundary():
 def test_no_code_path_regularizes_the_literal_boundary():
     """F = 0 must be refused by the finite row builder, never floored or epsilon-ed."""
     with pytest.raises(PrefundingError, match="strictly positive F"):
-        successor_row("F", 0.0, RHO, 1.0, 1.0)
+        unrestricted_upper_relaxation_row("F", 0.0, RHO, 1.0, 1.0, wage_floor=0.0)
     with pytest.raises(PrefundingError, match="strictly positive F"):
-        successor_row("F", -1e-30, RHO, 1.0, 1.0)
+        unrestricted_upper_relaxation_row("F", -1e-30, RHO, 1.0, 1.0, wage_floor=0.0)
     # And a log-log calculation refuses a zero point rather than dropping it.
     with pytest.raises(PrefundingError, match="strictly positive points"):
         adjacent_log_log_elasticities((1.0, 0.0), (1.0, 2.0))
@@ -137,7 +137,7 @@ def test_no_code_path_regularizes_the_literal_boundary():
 
 def test_non_positive_worker_resources_are_refused_not_floored():
     with pytest.raises(PrefundingError, match="not strictly positive"):
-        successor_row("P", 0.001, RHO, 1.0, 5.0)
+        unrestricted_upper_relaxation_row("P", 0.001, RHO, 1.0, 5.0, wage_floor=0.0)
 
 
 # --- SYN-02 ----------------------------------------------------------------------------

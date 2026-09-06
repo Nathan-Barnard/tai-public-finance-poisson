@@ -32,7 +32,7 @@ from .i2_prefunding import (
     audit_mu_e_closure,
     literal_boundary,
     safe_position_tvc,
-    successor_row,
+    unrestricted_upper_relaxation_row,
 )
 from .report import SPECIFICATION, git_provenance
 from .statuses import RESULT_USE
@@ -57,6 +57,17 @@ INTERPRETATION_LIMITS = [
     "P-CS012-SYN-01 is quarantined; its 'stationary-compatible' label was false",
     "CS012 v0.1 is a draft and is neither review-ready nor approved",
 ]
+
+
+def _partial_wage_floor(services: Any, K: float) -> float:
+    """The partial successor's wage at the reference capital.
+
+    Strictly positive, which is exactly why the partial unrestricted-annuity rows below
+    are an upper relaxation rather than a constrained successor value.
+    """
+    from ak_partial_ramsey.primitives import task_wage
+
+    return task_wage(K, services.params.partial_technology)
 
 
 def _syn02_section(fixture) -> dict[str, Any]:
@@ -144,10 +155,19 @@ def build_i2_report(
     partial_residual = H_P_quadrature - q_P * K
 
     levels = prefunding.levels()
+    # The partial rows are an UPPER RELAXATION at ECO-02: the wage floor is strictly
+    # positive and r_P < rho, so the unrestricted annuity is not transfer-feasible.
+    # They are labelled as such here and superseded by the I2b constrained solver.
     partial_rows = [
-        successor_row("P", F, rho, H_P_quadrature, q_P * K) for F in levels
+        unrestricted_upper_relaxation_row(
+            "P", F, rho, H_P_quadrature, q_P * K, wage_floor=_partial_wage_floor(services, K)
+        )
+        for F in levels
     ]
-    full_rows = [successor_row("F", F, rho, H_F, q_F * K) for F in levels]
+    full_rows = [
+        unrestricted_upper_relaxation_row("F", F, rho, H_F, q_F * K, wage_floor=0.0)
+        for F in levels
+    ]
 
     partial_values = tuple(r.successor_marginal_value for r in partial_rows)
     full_values = tuple(r.successor_marginal_value for r in full_rows)

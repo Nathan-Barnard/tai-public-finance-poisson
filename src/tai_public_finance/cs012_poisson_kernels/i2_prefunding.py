@@ -198,6 +198,8 @@ class SuccessorRow:
     """One mark's successor-side quantities at one positive prefunding level."""
 
     mark_id: str
+    is_exact: bool
+    relaxation_label: str
     prefunding_level: float
     event_wealth_coordinate: float
     productive_wealth: float
@@ -209,6 +211,8 @@ class SuccessorRow:
     def as_dict(self) -> dict[str, Any]:
         return {
             "mark_id": self.mark_id,
+            "is_exact": self.is_exact,
+            "relaxation_label": self.relaxation_label,
             "prefunding_level_F": self.prefunding_level,
             "event_wealth_coordinate_e_plus": self.event_wealth_coordinate,
             "productive_wealth_H": self.productive_wealth,
@@ -219,14 +223,32 @@ class SuccessorRow:
         }
 
 
-def successor_row(
+def unrestricted_upper_relaxation_row(
     mark_id: str,
     F: float,
     rho: float,
     productive_wealth: float,
     installed_capital_value: float,
+    *,
+    wage_floor: float,
 ) -> SuccessorRow:
-    """Build one successor row. Refuses non-positive worker resources outright."""
+    """The **unrestricted** annuity row: ``C = rho X``, ``V = 1/(rho X)``.
+
+    This is an economically valid successor value only where the nonnegative-transfer
+    constraint is slack for all ``t``, which by (12.6)-(12.7) requires
+    ``X >= sup_t e^{-(r-rho)t} W(K_t)/rho``. With a strictly positive wage floor that is
+    a real restriction, and where it fails the value here is an **upper relaxation
+    only** -- it prices a consumption path that would need a negative transfer.
+
+    ``wage_floor`` must therefore be supplied explicitly. A zero floor (the full-AK
+    branch, ``W_F = 0``) makes the row exact; a positive floor marks it as a relaxation,
+    and the caller must obtain a transfer-slack certificate, or use the constrained
+    solver in :mod:`~tai_public_finance.cs012_poisson_kernels.i2b_constrained`, before
+    treating it as an economic successor value.
+
+    Renamed from ``successor_row`` after review found the historical I2a partial rows
+    had used it outside its transfer-feasible domain.
+    """
     if not math.isfinite(F) or F <= 0.0:
         raise PrefundingError(
             f"mark {mark_id}: the finite branch takes strictly positive F only; "
@@ -240,6 +262,10 @@ def successor_row(
         )
     return SuccessorRow(
         mark_id=mark_id,
+        is_exact=wage_floor == 0.0,
+        relaxation_label=(
+            "exact_zero_wage_floor" if wage_floor == 0.0 else "unrestricted_upper_relaxation"
+        ),
         prefunding_level=F,
         event_wealth_coordinate=F - installed_capital_value,
         productive_wealth=productive_wealth,
@@ -377,5 +403,5 @@ __all__ = [
     "audit_mu_e_closure",
     "literal_boundary",
     "safe_position_tvc",
-    "successor_row",
+    "unrestricted_upper_relaxation_row",
 ]

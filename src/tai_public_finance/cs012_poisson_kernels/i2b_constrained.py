@@ -125,10 +125,13 @@ def build_productive_path(
         raise ConstrainedSuccessorError("the successor safe rate must be strictly positive")
     rest_wage = wage(rest_capital)
     initial_wage = wage(initial_capital)
-    scale = max(rest_wage, initial_wage) / rate
+    peak_wage = max(rest_wage, initial_wage)
     if horizon is None:
-        horizon = math.log(max(rest_wage, initial_wage) / (rate * scale * TAIL_RELATIVE_FLOOR)) / rate
-        horizon = max(horizon, 50.0)
+        if peak_wage <= 0.0:
+            # A zero wage floor (the full-AK branch) needs no tail at all.
+            horizon = 50.0
+        else:
+            horizon = max(50.0, -math.log(rate * TAIL_RELATIVE_FLOOR) / rate)
 
     def rhs(t: float, y: np.ndarray) -> list[float]:
         K = float(y[0])
