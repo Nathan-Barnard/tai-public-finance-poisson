@@ -78,7 +78,7 @@ def test_syn01_is_unchanged_and_cannot_be_accepted_as_stationary_compatible():
     from tai_public_finance.cs012_poisson_kernels.i1_packets import PacketError
     from tai_public_finance.cs012_poisson_kernels.i2_packets import load_analytic_fixture
 
-    with pytest.raises(PacketError, match="expected P-CS012-SYN-02"):
+    with pytest.raises(PacketError, match="expected one of"):
         load_analytic_fixture(SYN_01)
 
 

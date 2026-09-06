@@ -1,0 +1,65 @@
+{
+  "packet_id": "P-CS012-ECO-03",
+  "packet_kind": "provisional_illustrative_economic_scenario",
+  "time_unit": "year",
+  "value_unit": "current goods",
+  "preferences": {
+    "rho": 0.03
+  },
+  "installation": {
+    "varphi": 3.0,
+    "delta": 0.06
+  },
+  "technology": {
+    "I_0": 0.22,
+    "I_P": 0.46,
+    "Z": 0.021276517602977142,
+    "A_bar": 0.10329029481590953
+  },
+  "world_rates": {
+    "r_0_bar": 0.025,
+    "r_P_bar": 0.03,
+    "r_F_bar": 0.03
+  },
+  "shock_law": {
+    "lambda_total": 0.025,
+    "p_P": 0.65,
+    "p_F": 0.35,
+    "lambda_P": 0.01625,
+    "lambda_F": 0.00875,
+    "lambda_P_star": 0.014,
+    "lambda_F_star": 0.026
+  },
+  "inherited_state": {
+    "K_0": 1.0,
+    "q_0_rule": "exp(varphi*delta)",
+    "a_0": 1.0,
+    "public_installed_equity": 0.0,
+    "public_safe_asset": 0.0,
+    "public_safe_debt": 0.0,
+    "source_tax": 0.0,
+    "M_0": "empty_under_one_time_protection"
+  },
+  "successor_domains": {
+    "ak_root_interval": [
+      0.5,
+      3.0
+    ],
+    "partial_capital_interval": [
+      0.5,
+      2.0
+    ]
+  },
+  "diagnostics": {
+    "diagnostic_capital_grid": [
+      0.8,
+      1.0,
+      1.2,
+      1.4,
+      1.6
+    ],
+    "baseline_capital": 1.0
+  },
+  "provenance": "PROVISIONAL AND ILLUSTRATIVE. Not an estimate, not a country calibration, not a baseline for any policy statement. P-CS012-ECO-03 is P-CS012-ECO-02 with exactly one primitive changed: preferences.rho from 0.04 to 0.03 per year. rho = 3% is a provisional illustrative choice, NOT estimated: it is selected only so that r_P_bar = r_F_bar = rho = 0.03, which by equation (16.8) of research-notes/revealed-no-partial-full-automation-analytic-derivations.md makes the transfer-slack threshold finite and therefore admits a genuinely transfer-interior prefunding reference. Every other primitive is byte-identical to ECO-02, including varphi = 3.0, delta = 0.06, (r_0_bar, r_P_bar, r_F_bar) = (0.025, 0.030, 0.030), A_bar = 0.10329029481590953, both task shares, Z, the whole shock law, the inherited state, the successor domains, and the diagnostic grid. Because rho enters neither the successor price equations nor the owner portfolio condition, successor prices, payoff jumps, world kernels, owner exposure, and owner kernels must be identical to ECO-02; any disagreement is an implementation or configuration failure, not a result.",
+  "limits": "Result use is exploratory_only. Successor-side objects only, under the transfer-constrained continuation: worker resources, the constrained consumption allocation, the transfer active set, and the successor marginal value V_{P,e}. It supports NO government kernel k^G, NO relative kernel gamma, NO time-profile ratio, NO portfolio direction, NO welfare comparison, NO equilibrium claim, and NO optimal policy. A successor marginal value is not a government kernel. rho = 3% is illustrative; the pair (ECO-02, ECO-03) is a two-point comparison of one primitive, never a calibrated range or a sweep."
+}

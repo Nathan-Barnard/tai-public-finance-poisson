@@ -28,7 +28,12 @@ from .extended import sha256_of_object
 from .i1_packets import PacketError
 
 PREFUNDING_PACKET_ID = "P-CS012-PREFUND-01"
+PREFUNDING_PACKET_IDS = ("P-CS012-PREFUND-01", "P-CS012-PREFUND-02")
+"""Closed, enumerated set of prefunding packets."""
 SYNTHETIC_ANALYTIC_PACKET_ID = "P-CS012-SYN-02"
+SYNTHETIC_ANALYTIC_PACKET_IDS = ("P-CS012-SYN-02", "P-CS012-SYN-03")
+"""Closed, enumerated set of directly constructed analytic fixtures. SYN-03 is the
+rho = 3% companion to SYN-02; SYN-01 is quarantined and is not a member."""
 
 LITERAL_BOUNDARY_STATUS = "nonfinite_fiscal_kernel_at_literal_laissez_faire"
 
@@ -75,6 +80,8 @@ class PrefundingPacket:
     baseline_capital: float
     public_installed_equity: float
     source_tax: float
+    main_interior_reference: float | None
+    minimum_transfer_margin_requirement: float | None
     provenance: str
     limits: str
 
@@ -87,7 +94,7 @@ class PrefundingPacket:
         return -F
 
     def direct_fields(self) -> dict[str, Any]:
-        return {
+        fields: dict[str, Any] = {
             "packet_id": self.packet_id,
             "packet_kind": self.packet_kind,
             "time_unit": self.time_unit,
@@ -111,6 +118,14 @@ class PrefundingPacket:
             },
             "baseline_capital": self.baseline_capital,
         }
+        # Only a packet that actually designates a main reference carries these keys, so
+        # P-CS012-PREFUND-01's operative fingerprint is unchanged by their introduction.
+        if self.main_interior_reference is not None:
+            fields["main_interior_reference"] = self.main_interior_reference
+            fields["minimum_transfer_margin_requirement"] = (
+                self.minimum_transfer_margin_requirement
+            )
+        return fields
 
     @property
     def fingerprint(self) -> str:
@@ -230,9 +245,10 @@ def _check_sequence(ratios: tuple[float, ...], label: str) -> None:
 
 def load_prefunding_packet(path: str | Path) -> PrefundingPacket:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if payload.get("packet_id") != PREFUNDING_PACKET_ID:
+    if payload.get("packet_id") not in PREFUNDING_PACKET_IDS:
         raise PacketError(
-            f"expected {PREFUNDING_PACKET_ID}, found {payload.get('packet_id')!r}"
+            f"expected one of {list(PREFUNDING_PACKET_IDS)}, found "
+            f"{payload.get('packet_id')!r}"
         )
     boundary = payload["literal_boundary"]
     if boundary.get("in_finite_sequence") is not False:
@@ -243,6 +259,7 @@ def load_prefunding_packet(path: str | Path) -> PrefundingPacket:
     if convention.get("public_safe_debt_B_rule") != "-F":
         raise PacketError("the safe-debt convention must be B = -F")
     scale = payload["scale"]
+    reference = payload.get("main_interior_reference")
     packet = PrefundingPacket(
         packet_id=payload["packet_id"],
         packet_kind=payload["packet_kind"],
@@ -260,10 +277,21 @@ def load_prefunding_packet(path: str | Path) -> PrefundingPacket:
             convention["public_installed_equity_Theta"], "Theta"
         ),
         source_tax=_real(convention["source_tax_tau"], "tau"),
+        main_interior_reference=(
+            None if reference is None else _real(reference["prefunding_ratio"], "main reference")
+        ),
+        minimum_transfer_margin_requirement=(
+            None
+            if reference is None
+            else _real(reference["minimum_transfer_margin_requirement"], "margin requirement")
+        ),
         provenance=str(payload.get("provenance", "")),
         limits=str(payload.get("limits", "")),
     )
     _check_sequence(packet.prefunding_ratios, PREFUNDING_PACKET_ID)
+    if packet.main_interior_reference is not None:
+        if packet.main_interior_reference not in packet.prefunding_ratios:
+            raise PacketError("the main interior reference must be a member of the frozen sequence")
     if packet.scale_value <= 0.0:
         raise PacketError("the named scale must be strictly positive")
     if packet.public_installed_equity != 0.0 or packet.source_tax != 0.0:
@@ -276,9 +304,10 @@ def load_prefunding_packet(path: str | Path) -> PrefundingPacket:
 
 def load_analytic_fixture(path: str | Path) -> AnalyticFixture:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if payload.get("packet_id") != SYNTHETIC_ANALYTIC_PACKET_ID:
+    if payload.get("packet_id") not in SYNTHETIC_ANALYTIC_PACKET_IDS:
         raise PacketError(
-            f"expected {SYNTHETIC_ANALYTIC_PACKET_ID}, found {payload.get('packet_id')!r}"
+            f"expected one of {list(SYNTHETIC_ANALYTIC_PACKET_IDS)}, found "
+            f"{payload.get('packet_id')!r}"
         )
     if payload.get("construction") != "direct":
         raise PacketError(
@@ -353,7 +382,9 @@ __all__ = [
     "LITERAL_BOUNDARY_STATUS",
     "PREFUNDING_PACKET_ID",
     "SYN01_QUARANTINE",
+    "PREFUNDING_PACKET_IDS",
     "SYNTHETIC_ANALYTIC_PACKET_ID",
+    "SYNTHETIC_ANALYTIC_PACKET_IDS",
     "AnalyticFixture",
     "PrefundingPacket",
     "load_analytic_fixture",

@@ -1,0 +1,48 @@
+{
+  "packet_id": "P-CS012-SYN-03",
+  "packet_kind": "directly_constructed_analytic_fixture",
+  "fixture_scope": "full_ak_pure_safe_fund_benchmark",
+  "time_unit": "year",
+  "value_unit": "current goods",
+  "construction": "direct",
+  "preferences": {
+    "rho": 0.03
+  },
+  "installation": {
+    "varphi": 3.0,
+    "delta": 0.06
+  },
+  "target_growth_g": 0.02,
+  "world_rates": {
+    "r_F_bar_rule": "rho + g"
+  },
+  "derived_rules": {
+    "q_F": "exp(varphi*(g + delta))",
+    "A_bar": "q_F*(r_F_bar - g) + (q_F - 1)/varphi"
+  },
+  "analytic_expectations": {
+    "r_F_bar": 0.05,
+    "q_F": 1.2712491503214047,
+    "A_bar": 0.1285538579501104,
+    "implied_growth": 0.02,
+    "stationary_residual": 0.0,
+    "productive_tvc_margin": 0.03,
+    "note": "Stated here as well as derived from the rules. The loader recomputes each from the primitives and refuses the packet if a stated value has drifted, so the two representations pin each other."
+  },
+  "prefunding_ratio_sequence": [
+    1.0,
+    0.3,
+    0.1,
+    0.03,
+    0.01,
+    0.003,
+    0.001
+  ],
+  "literal_boundary": {
+    "prefunding_ratio": 0.0,
+    "in_finite_sequence": false,
+    "status": "nonfinite_fiscal_kernel_at_literal_laissez_faire"
+  },
+  "provenance": "A DIRECTLY CONSTRUCTED ANALYTIC FIXTURE. It does not come from, and does not claim to come from, any fixture in the pinned CS011 dependency: no genuinely stationary-compatible fixture exists at commit 6b457682c4eed8ad4e3bdd867d1292abac38f424. Every field here is written down here and the two derived quantities are computed from the stated rules rather than stored, so they cannot drift from the primitives. Stationary compatibility is the defining property: the target growth g = 0.02 and the world safe rate r_F_bar = rho + g = 0.06 make r_F_bar - rho - g = 0 exactly, so the pure-safe-fund position grows at the same rate as the economy. This is the rho = 3% companion to P-CS012-SYN-02, sharing its construction and differing only in rho (0.04 -> 0.03) and therefore in r_F_bar (0.06 -> 0.05) and A_bar. It replaces the false 'stationary-compatible' characterization carried by P-CS012-SYN-01, which is quarantined and NOT modified.",
+  "limits": "NO economic interpretation. Not a calibration, not an estimate, not an anchor, not a scenario, and NOT a two-mark configuration: it is a full-AK pure-safe-fund benchmark only, with no partial-automation mark and no owner portfolio. Its sole purpose is to check the closed-form identities C_F^W = rho*F, V_{F,e} = 1/(rho*F), the unit log-log elasticity, the zero-tax AK user-cost equation, the productive-value TVC margin, and the exact extended-real classification at F = 0. Nothing computed under this fixture may be read as an economic result, and it supplies no government kernel."
+}

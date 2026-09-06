@@ -105,7 +105,7 @@ def test_the_operative_difference_is_exactly_packet_identity_and_A_bar(
 @pytest.mark.parametrize(
     "bad_id",
     [
-        "P-CS012-ECO-03",
+        "P-CS012-ECO-04",
         "P-CS012-ECO-1",
         "P-CS012-EC0-02",
         "p-cs012-eco-02",
@@ -124,7 +124,11 @@ def test_unrecognized_or_misspelled_packet_ids_stay_rejected(tmp_path, bad_id):
 
 
 def test_the_recognized_set_is_closed_and_enumerated():
-    assert ECONOMIC_PACKET_IDS == ("P-CS012-ECO-01", "P-CS012-ECO-02")
+    assert ECONOMIC_PACKET_IDS == (
+        "P-CS012-ECO-01",
+        "P-CS012-ECO-02",
+        "P-CS012-ECO-03",
+    )
 
 
 def test_malformed_packet_rejection_is_not_weakened(tmp_path):

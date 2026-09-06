@@ -36,7 +36,7 @@ from .extended import sha256_of_object
 
 SYNTHETIC_PACKET_ID = "P-CS012-SYN-01"
 ECONOMIC_PACKET_ID = "P-CS012-ECO-01"
-ECONOMIC_PACKET_IDS = ("P-CS012-ECO-01", "P-CS012-ECO-02")
+ECONOMIC_PACKET_IDS = ("P-CS012-ECO-01", "P-CS012-ECO-02", "P-CS012-ECO-03")
 """The closed set of recognized economic packet ids. Extending it is a deliberate
 edit, never a pattern match: an arbitrary ``P-CS012-ECO-*`` name is not accepted."""
 
