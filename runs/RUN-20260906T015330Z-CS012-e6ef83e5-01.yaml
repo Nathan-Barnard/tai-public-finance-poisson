@@ -1,0 +1,400 @@
+schema_version: '1.0'
+run_id: RUN-20260906T015330Z-CS012-e6ef83e5-01
+created_utc: 2026-09-06T01:53:30Z
+status: complete
+purpose: successor_boundary_and_prefunding
+supersedes: null
+relation_to_prior_runs: >-
+  A new block, not a replacement. The I0 records and both I1 records remain valid and
+  byte-for-byte unchanged under their own hashes. This run adds the successor side of
+  I2 and stops at the government kernel.
+intended_use:
+  control_lane: fast
+  decisive_risk_dimensions:
+    - exact extended-real classification at the literal laissez-faire boundary
+    - full-AK inverse-prefunding asymptote
+    - partial-versus-full limiting contrast
+    - genuine stationary compatibility of the replacement benchmark
+    - honest refusal of a government kernel without an optimized pre-event mu_e
+  claim_or_decision: >-
+    Full automation eliminates worker human wealth, so its successor marginal value
+    diverges like 1/F as inherited public safe wealth vanishes and is exactly
+    non-finite at F = 0. Partial automation retains positive worker human wealth at
+    this baseline and has a finite limiting successor marginal value. No government
+    kernel is computed.
+  quantities_of_interest:
+    - worker resources X_j, worker consumption C_j^W, successor marginal values V_{j,e}
+    - adjacent log-log elasticities of V_{j,e} in F
+    - the exact F = 0 boundary classification
+    - SYN-02's stationary identities
+  declared_domain_or_branch: >-
+    ECO-02 baseline K_0 = 1 with the frozen positive sequence F/a_0 in
+    [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001], Theta = 0, B = -F, tau = 0. F = 0 is the
+    exact boundary and is not a sequence member.
+  result_use_target: exploratory_only
+
+specification:
+  id: CS012
+  version: '0.1'
+  status: draft
+  file_sha256: d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498
+  hash_verified_before_writing: true
+  promotion: >-
+    None. CS012 v0.1 remains a draft, neither review-ready nor approved. No activation
+    gate is closed.
+problem_id: CP012
+approach_id: CA024
+benchmark_id: CB012
+implementation_block: I2a
+
+implementation:
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-poisson.git
+  commit: e6ef83e597e5cfd34f917cf74125e930abbcf0df
+  commit_subject: 'Add CS012 I2a: laissez-faire boundary, prefunding family, SYN-02'
+  branch: cs012/i1-provisional-owner-successors
+  branch_starting_head: 84d9863e19b05b7bf1d8944232e9b306c650e9d9
+  dirty_worktree: false
+  clean_start: true
+  generated_without_allow_dirty: true
+  implementer: claude_code
+  command: >-
+    uv run python -m tai_public_finance.cs012_poisson_kernels.report_i2
+    --economic-config configs/cs012/P-CS012-ECO-02.json
+    --prefunding-config configs/cs012/P-CS012-PREFUND-01.json
+    --analytic-config configs/cs012/P-CS012-SYN-02.json
+    --output-dir outputs/cs012-i2a-successor-prefunding-eco02
+  merged: false
+  pushed: false
+
+external_dependency:
+  role: CS011 N1 successor services
+  pinned_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  resolved_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  pin_changed: false
+  note: >-
+    The pin, its commit, and its source repository are unchanged by this block. Only
+    q_P(K), H_P(K) by quadrature, H_P algebraic, and q_F are consumed from it.
+
+environment:
+  operating_system: macOS-15.6.1
+  architecture: arm64
+  runtime_versions: {python: 3.13.5, numpy: 2.5.2, scipy: 1.18.1, uv: 0.12.5, pytest: 9.1.1}
+  dependency_lock_path: uv.lock
+  dependency_lock_sha256: bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f
+
+hardware:
+  resource_lane: L1_interactive
+  lane_note: >-
+    Measured machine runtime for the material calculation was 0.39 s, far inside the
+    L1 interactive scale and the two-hour ceiling. CPU/FP64 only. No GPU, paid compute,
+    broad sweep, dependency update, or parallel fan-out.
+  machine_label: Apple M4 MacBook Air (local)
+  cpu: Apple M4
+  logical_cores: 10
+  memory_gb: 16
+  free_disk_gb_at_run: 46
+  new_tracked_output_kb: 28
+
+inputs:
+  economic_packet:
+    packet_id: P-CS012-ECO-02
+    fingerprint: 2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568
+    unchanged: true
+  prefunding_packet:
+    packet_id: P-CS012-PREFUND-01
+    fingerprint: 73a056a5786b3ce14ccdd40e2c9c6882d8ab5835b2b6a3f1a3e82ba512bb5efb
+    bound_to: P-CS012-ECO-02
+    binding_enforced: >-
+      The report refuses to build if the prefunding packet's recorded bound
+      fingerprint does not equal the supplied economic packet's fingerprint.
+    frozen_sequence: [1.0, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001]
+    scale: {name: owner_initial_wealth_a_0, value: 1.0, unit: current goods}
+    interpretation: >-
+      Different inherited public-wealth continuations, accumulated before the reference
+      date through prior fiscal surpluses. NOT free endowments, NOT a
+      common-(S_0,M_0) welfare comparison, NOT a calibration sweep. The sequence is
+      frozen and must not be extended below 0.001, refined, or reweighted.
+  analytic_fixture:
+    packet_id: P-CS012-SYN-02
+    fingerprint: f655fd974708bcdc4ade230baa8c0c8c42f1ef56005a080cd9808beadbddbe4e
+    construction: direct
+    scope: full_ak_pure_safe_fund_benchmark
+    economic_interpretation: none
+
+syn01_disposition:
+  packet_id: P-CS012-SYN-01
+  status: quarantined
+  modified: false
+  relabelled: false
+  defect: >-
+    It describes the pinned dependency's manufactured-two-mark fixture as
+    stationary-compatible. That is false: the dependency describes that fixture's state
+    as an arbitrary probe, not an equilibrium point, and no genuinely
+    stationary-compatible fixture exists at the pinned commit.
+  true_character: an arbitrary successor-service software probe with no economic interpretation
+  replacement: P-CS012-SYN-02
+  historical_outputs: unchanged and still valid under their own hashes; they support nothing
+
+closure_audit:
+  pre_event_mu_e_status: unavailable_missing_optimized_pre_event_value_gradient
+  government_kernels_permitted: false
+  method: >-
+    Read-only programmatic introspection of the installed pinned dependency, not an
+    asserted conclusion.
+  evidence:
+    - >-
+      ak_partial_ramsey.canonical supplies the four-dimensional pre-arrival costate
+      system for z = (K, e, mu_K, mu_e) as EQUATIONS only; its own module docstring
+      states that solving the transition boundary-value problem is block N4 and is
+      deliberately not implemented there.
+    - >-
+      Every mu_e-aware callable in that module accepts mu_e as a caller-supplied
+      argument and none returns one: consumption_growth, control_map_residual,
+      costate_e_dot, costate_K_dot, tax_recovery_residual.
+    - >-
+      ak_partial_ramsey.assembly.evaluate_state requires pre-event consumption C and
+      the price drift q_dot as caller-supplied inputs, so the only mu_e it could
+      express is 1/C at a supplied C, which is a fixed-policy derivative.
+    - ak_partial_ramsey.stationary, .continuation and .certificate are absent at the pinned commit.
+  candidate_rejected:
+    candidate: mu_e = 1/C from the interior consumption first-order condition
+    why_rejected: >-
+      C would have to come from a solved optimized pre-arrival continuation. Supplying
+      it by hand makes the object a fixed-policy derivative. CS012 requires the
+      derivative of the OPTIMIZED government continuation and states it is "not the
+      derivative of a rule that mechanically fixes all laissez-faire policies after a
+      marginal resource arrives".
+  forbidden_substitutes_not_used:
+    - mu_e = 1 as a normalization
+    - 1/C_0 or 1/W_0 without a solved optimized continuation
+    - the owner kernel
+    - the world kernel
+    - a fixed-policy value derivative
+    - a value from an unpinned or unapproved dependency revision
+    - a newly invented pre-event equation, terminal condition, or policy rule
+  missing_computational_object: >-
+    mu_e(K_0, e_0): the gradient in public net wealth of the optimized pre-event
+    government continuation value on the maintained zero-tax admissible branch, with its
+    boundary/terminal conditions and TVCs.
+  missing_interface: >-
+    A solved pre-arrival transition (CS011 block N4) returning the converged costate pair
+    (mu_K, mu_e) at the reference state, with the branch, terminal condition and TVC
+    certificates under which it was solved.
+  dependency_pin_change_considered: false
+  consequence: >-
+    No finite k^G and no gamma are reported. The literal full-AK divergence is still
+    classified structurally as +infinity under CS012's maintained finite-positive
+    pre-event mu_e branch, which is a boundary classification and NOT a normalized
+    finite kernel.
+
+result:
+  outcome: success
+  wall_seconds: 0.39
+  independent_checker_seconds: 0.05
+  focused_i2_tests_seconds: 0.96
+  full_tests_seconds: 11.07
+  baseline:
+    capital_K0: 1.0
+    rho: 0.04
+    q_0: 1.1972173631218102
+    q_P: 1.291347709765447
+    q_F: 1.2943388186242328
+    H_P_quadrature: 6.15844571561235
+    H_P_algebraic: 6.158445715544611
+    H_P_route_gap: 6.773959171368915e-11
+    H_P_minus_qP_K: 4.867098005846903
+    full_ak_residual_wealth: 0.0
+    full_ak_note: >-
+      On the full-AK branch productive human wealth exactly offsets installed-capital
+      value, so X_F = F identically.
+  positive_prefunding_rows:
+    full_ak:
+      - {F: 1.0,   X: 1.0,   C_W: 0.04,    V_e: 25.0}
+      - {F: 0.3,   X: 0.3,   C_W: 0.012,   V_e: 83.33333333333333}
+      - {F: 0.1,   X: 0.1,   C_W: 0.004,   V_e: 250.0}
+      - {F: 0.03,  X: 0.03,  C_W: 0.0012,  V_e: 833.3333333333333}
+      - {F: 0.01,  X: 0.01,  C_W: 0.0004,  V_e: 2500.0}
+      - {F: 0.003, X: 0.003, C_W: 0.00012, V_e: 8333.333333333332}
+      - {F: 0.001, X: 0.001, C_W: 4.0e-05, V_e: 25000.0}
+    partial_automation:
+      - {F: 1.0,   X: 5.867098005846903, V_e: 4.261050353513024}
+      - {F: 0.3,   X: 5.167098005846903, V_e: 4.838305745884748}
+      - {F: 0.1,   X: 4.967098005846903, V_e: 5.033119941884}
+      - {F: 0.03,  X: 4.897098005846903, V_e: 5.105064264625688}
+      - {F: 0.01,  X: 4.877098005846903, V_e: 5.125999101862}
+      - {F: 0.003, X: 4.870098005846903, V_e: 5.133366919}
+      - {F: 0.001, X: 4.868098005846903, V_e: 5.135475899}
+    note: >-
+      Partial rows are reported to the precision of the serialized report; the report
+      itself carries full FP64 values and the independent checker rebuilt every one.
+  asymptote_checks:
+    full_ak_consumption_identity: C_F^W = 0.04 F verified at every positive point
+    full_ak_marginal_identity: V_{F,e} = 25/F verified at every positive point
+    max_full_ak_level_relative_error: 1.1015799827873709e-13
+    full_ak_elasticity: -1 at every adjacent pair
+    max_full_ak_elasticity_absolute_error: 6.794564910705958e-14
+    partial_elasticity_first: -0.10552474039748401
+    partial_elasticity_last: -0.0003738841314477191
+    partial_elasticity_verdict: approaches zero, not minus one
+    sequence_extended_after_seeing_results: false
+  literal_boundary:
+    prefunding_level_F: 0.0
+    status: nonfinite_fiscal_kernel_at_literal_laissez_faire
+    full_ak_worker_consumption: exact zero, tagged finite
+    full_ak_successor_marginal_value: positive_infinity, tagged extended real
+    partial_worker_resources: 4.867098005846903
+    partial_successor_marginal_value: 5.136531043748698 (finite)
+    serialization: >-
+      Tagged {"kind": ..., "value": ...} objects with a null numeric slot for the
+      non-finite kind. No non-standard JSON Infinity or NaN token is emitted, no log(0)
+      is evaluated, no epsilon is substituted, nothing is capped, and the point is
+      excluded from every logarithm and finite difference.
+  transversality:
+    full_ak_F_growth_rate: -0.010000000000000002
+    utility_discounted_limit: e^{-rho t} V_{F,e} F = e^{-rho t}/rho -> 0
+    market_discounted_limit: e^{-r_F t} F(t) = F e^{-rho t} -> 0
+    holds: true
+  syn02_checks:
+    r_F_bar: 0.06
+    q_F: 1.2712491503214047
+    A_bar: 0.14126634945332445
+    implied_growth_from_price: 0.020000000000000004
+    zero_tax_user_cost_residual: -2.7755575615628914e-17
+    stationary_compatibility_residual: -3.469446951953614e-18
+    productive_tvc_margin: 0.039999999999999994
+    elasticity: -1 at every adjacent pair
+    boundary_classification: exact tagged positive infinity at F = 0
+    falsifiability_note: >-
+      SYN-02 both states its analytic expectations and derives them from its rules, and
+      the loader requires agreement. Deriving alone would have made the fixture
+      unfalsifiable, since editing any primitive would silently yield a new
+      self-consistent fixture; that defect existed in the first draft and was caught by
+      a perturbation test before any evidence was generated. Ten perturbations, of
+      primitives and of stated identities, are now each rejected.
+  independent_diagnostics:
+    standalone_checker: tools/check_cs012_i2_report.py
+    import_surface: python standard library only (hashlib, json, math, sys)
+    result: pass
+    corruption_cases_rejected: 31
+    i1_checker_rerun_on_eco02_report: pass
+    i1_checker_rerun_on_eco01_report: pass
+
+tests:
+  before_this_block: 268 passed at 84d9863 (clean tree)
+  final_full_suite: 344 passed
+  focused_cs012_i2: 76 passed
+  new_tests: 76
+  immutability_coverage:
+    - eight prior artifacts asserted byte-identical by recorded SHA-256
+    - all four prior CS012 run records asserted unchanged against the starting HEAD
+    - SYN-01 unchanged, and the SYN-02 loader refuses a packet carrying SYN-01's id
+    - the I1 ECO-02 economic section rebuilt and compared byte-for-byte
+    - no code path regularizes the literal boundary
+    - successor marginal values carry no kernel-named field
+
+error_assessment:
+  policy: computation/error-handling-and-result-use.md
+  structural_gates_passed:
+    exact_specification_version_and_hash: true
+    dependency_pin_unchanged_and_resolved: true
+    prefunding_packet_bound_to_eco02_by_fingerprint: true
+    zero_excluded_from_the_finite_sequence: true
+    balance_sheet_signs_theta_zero_B_negative_tau_zero: true
+    positive_finite_worker_resources_at_every_positive_point: true
+    exact_extended_real_classification_at_F_zero: true
+    no_regularization_of_the_boundary: true
+    government_kernel_withheld_under_an_unavailable_mu_e: true
+    prior_artifacts_unchanged: true
+    clean_start_without_allow_dirty: true
+  decision_gaps:
+    full_ak_level_max_relative_error: 1.0e-12
+    full_ak_elasticity_max_absolute_error: 1.0e-12
+    H_P_route_max_absolute_gap: 1.0e-8
+    syn02_identity_max_absolute_residual: 1.0e-12
+  credible_uncertainty:
+    max_full_ak_level_relative_error: 1.1015799827873709e-13
+    max_full_ak_elasticity_absolute_error: 6.794564910705958e-14
+    H_P_route_gap: 6.773959171368915e-11
+    syn02_max_identity_residual: 2.7755575615628914e-17
+  required_margins: {rule: 'U_q <= 0.1 * Delta_q', met: true}
+  result_use_status: exploratory_only
+  disposition: continue_exploratory
+  quarantined_outputs:
+    - P-CS012-SYN-01 and its historical outputs (unchanged, supporting nothing)
+
+deviations:
+  - id: DEV-01
+    item: I1/I2a executed before the full parameter packet is frozen
+    detail: carried forward; none of the unfrozen objects enters the successor-side calculation
+    result_use_ceiling: exploratory_only
+    owner: Nathan
+    independent_reviewer: Codex
+    expiry: before any block that computes a government kernel
+  - id: DEV-05
+    item: I2 completed only in part
+    detail: >-
+      The block delivers I2a, the successor side. The normalized government kernel and
+      gamma are not produced because the closure audit found no optimized pre-event
+      mu_e at the pinned commits. This is the anticipated bounded outcome, recorded as
+      a result rather than a failure.
+    resolution: reported; the missing object and interface are named for the next block
+
+artifacts:
+  - role: primary_output
+    location: outputs/cs012-i2a-successor-prefunding-eco02/identity_report.json
+    sha256: 347250aa380fe64cc54a4b21e4b0e7dbc4a962bcd243867efbffc022e9b5812f
+    bytes: 23790
+  - role: summary
+    location: outputs/cs012-i2a-successor-prefunding-eco02/summary.md
+    sha256: 3964b7bf4f22d23ba0220cf913e7b3ec24ccf8e9d9e50f70ad9eba379e811dda
+    bytes: 3205
+  - role: prefunding_packet
+    location: configs/cs012/P-CS012-PREFUND-01.json
+    sha256: 173fcaa123a00e75ed1c3f140e7a763fc788f15d6c3498eac0d062e30ea409db
+    bytes: 2386
+  - role: analytic_fixture
+    location: configs/cs012/P-CS012-SYN-02.json
+    sha256: e891c851148ecc04c5c202715adaa9626d14407d6dcf2b799b687632c01b7bbc
+    bytes: 2605
+  - role: independent_checker
+    location: tools/check_cs012_i2_report.py
+    sha256: f6a892c95f1efb6e10d4ba5b37f0ecc59e87f545450ba9eab06cbb2e70aee9e1
+
+timing:
+  machine_runtime_seconds: 0.39
+  machine_runtime_including_all_suites_seconds: 12.1
+  total_elapsed_implementation_minutes: 11
+  elapsed_start_utc: 2026-09-06T01:42:08Z
+  elapsed_end_utc: 2026-09-06T01:53:30Z
+  two_hour_machine_ceiling_respected: true
+
+interpretation:
+  supports_result_ids: []
+  challenges_result_ids: []
+  question_ids: [Q24]
+  assurance_or_review_artifacts: [EV13]
+  conclusion: >-
+    I2a passed. Full automation eliminates worker human wealth, so its successor
+    marginal value diverges like 1/F with an exactly unit log-log elasticity and is
+    structurally non-finite at F = 0. Partial automation retains positive worker human
+    wealth at this baseline, so its successor marginal value has a finite limit near
+    5.1365 and its elasticity approaches zero. SYN-02 supplies a genuinely
+    stationary-compatible analytic benchmark to replace SYN-01's false label. No
+    optimized pre-event mu_e exists at the pinned commits, so no normalized government
+    kernel and no gamma were computed.
+  limitations:
+    - Successor-side boundary evidence only; a successor marginal value is not a government kernel.
+    - No normalized k^G, no gamma, no portfolio direction, no welfare, no equilibrium claim, no optimal policy.
+    - The prefunding rows are different inherited continuations, not welfare-comparable to one another.
+    - The economic packet is provisional and illustrative, not an estimate or a country calibration.
+    - The partial branch's finite limit is a property of this baseline K_0 = 1; it is not a general result.
+    - SYN-02 has no economic interpretation and is not a two-mark scenario.
+    - CS012 v0.1 remains a draft, neither review-ready nor approved.
+  next_decision: >-
+    Independent review by Codex. The narrowest justified next step is to obtain
+    mu_e(K_0, e_0) from a solved pre-arrival transition (CS011 block N4) with its branch,
+    terminal condition and TVC certificates. That is a CS011 deliverable and a new
+    dependency pin, not a CS012 edit; nothing else in I2 can advance without it.
+  integration_owner: Nathan
+  review_state: ready for independent review
+  accepted: false

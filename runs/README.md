@@ -16,6 +16,32 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260906T015330Z-CS012-e6ef83e5-01.yaml`](RUN-20260906T015330Z-CS012-e6ef83e5-01.yaml)
+  — **CS012 block I2a: literal laissez-faire boundary and the positive-prefunding
+  family (exploratory only).** A new block, not a replacement: every earlier
+  record stays valid and unchanged. Executed 2026-09-06 from a clean tree at
+  commit `e6ef83e5`, same unchanged CS011 pin `6b457682…`. **The substantive
+  result is a structural contrast at the boundary.** On the full-AK branch
+  productive human wealth exactly offsets installed-capital value, so worker
+  resources are just the inherited buffer, `X_F = F`; consumption is `ρF` and the
+  successor marginal value `1/(ρF)` diverges like `1/F`, with a log-log
+  elasticity of exactly −1 at all seven frozen points. Partial automation retains
+  `H_P(K₀) − q_P(K₀)K₀ = 4.867098006` of worker human wealth, so its marginal
+  value has a **finite** limit near 5.1365 and its elasticity approaches zero
+  (−0.1055 → −0.00037). At `F = 0` exactly, full-AK worker consumption is zero
+  and the successor marginal value is a tagged positive infinity — never a
+  sentinel, never logged, never floored. **The block deliberately stops short of
+  a government kernel.** The read-only closure audit reports
+  `unavailable_missing_optimized_pre_event_value_gradient`: the pinned dependency
+  supplies the pre-arrival costate system as equations only and defers the solve
+  to CS011 block N4, so no `k^G` and no `γ` are computed rather than
+  approximated. Also lands `P-CS012-SYN-02`, a directly constructed and genuinely
+  stationary-compatible analytic benchmark replacing the false label carried by
+  `P-CS012-SYN-01`, which is quarantined and unmodified. Output
+  `outputs/cs012-i2a-successor-prefunding-eco02/` (`347250aa…`, 23 790 bytes,
+  plus `summary.md`). Ready for independent review; not accepted, not merged, not
+  pushed.
+
 - [`RUN-20260906T011740Z-CS012-c42cbfd3-01.yaml`](RUN-20260906T011740Z-CS012-c42cbfd3-01.yaml)
   — **CS012 I1 parameter-only rerun under `P-CS012-ECO-02` (exploratory only).**
   A companion to the ECO-01 run below, not a replacement: ECO-01 and its outputs
