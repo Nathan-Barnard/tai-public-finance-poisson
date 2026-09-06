@@ -1,0 +1,425 @@
+schema_version: '1.0'
+run_id: RUN-20260906T011740Z-CS012-c42cbfd3-01
+created_utc: 2026-09-06T01:17:40Z
+status: complete
+purpose: owner_branch_parameter_rerun
+supersedes: null
+relation_to_prior_runs: >-
+  Companion to RUN-20260906T001240Z-CS012-ca8a63a6-01 (block I1 under
+  P-CS012-ECO-01). It does not supersede it. ECO-01 and all of its outputs remain
+  valid and byte-for-byte unchanged under their own recorded hashes. The two runs
+  are a two-point comparison of a single primitive, never a calibrated range and
+  never a sweep. The I0 records are untouched and unaffected.
+intended_use:
+  control_lane: fast
+  decisive_risk_dimensions:
+    - single-primitive isolation between ECO-01 and ECO-02
+    - correct AK branch separation under a changed productivity level
+    - owner root interiority and positive wealth under a reversed payoff sign structure
+    - containment of the quarantined synthetic subsection
+  claim_or_decision: >-
+    Raising full-AK productivity to the level implied by a target full-AK growth of
+    0.026 per year reverses the marked payoff sign structure and the sign of the
+    domestic owner's optimal exposure, from a levered long position to an interior
+    short one. No economic conclusion is drawn.
+  quantities_of_interest:
+    - selected q_F and the retained rejected upper root, with strict-TVC margins
+    - q_P(K) on the certified domain and the marked payoff jumps
+    - owner exposure pi, wealth multipliers, world and owner kernels, and D_K
+  declared_domain_or_branch: >-
+    The same provisional pre-arrival state as ECO-01 (K_0=1, q_0=exp(varphi*delta),
+    a_0=1, zero public equity, safe asset, safe debt and source tax, empty M_0) with
+    the same five-point diagnostic capital grid inside the certified partial domain.
+  result_use_target: exploratory_only
+
+specification:
+  id: CS012
+  version: '0.1'
+  status: draft
+  file_sha256: d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498
+  promotion: >-
+    None. CS012 v0.1 remains a draft. This run does not make it review-ready or
+    approved and closes no activation gate.
+problem_id: CP012
+approach_id: CA024
+benchmark_id: CB012
+implementation_block: I1
+
+implementation:
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-poisson.git
+  commit: c42cbfd3b1e5642f6f33834e9d8045f098f9a0e2
+  commit_subject: Render an unbounded exposure endpoint in the I1 summary
+  parameter_commit: b1726ba097c2d6036f0d11ee2757b3cb03fec68c
+  parameter_commit_subject: >-
+    Add P-CS012-ECO-02: a parameter-only I1 rerun at higher full-AK productivity
+  branch: cs012/i1-provisional-owner-successors
+  branch_starting_head: d88a847f6987f1046c28d3da5e27f961254586e9
+  dirty_worktree: false
+  clean_start: true
+  generated_without_allow_dirty: true
+  implementer: claude_code
+  command: >-
+    uv run python -m tai_public_finance.cs012_poisson_kernels.report_i1
+    --synthetic-config configs/cs012/P-CS012-SYN-01.json
+    --economic-config configs/cs012/P-CS012-ECO-02.json
+    --output-dir outputs/cs012-i1-provisional-owner-successors-eco02
+  merged: false
+  pushed: false
+  two_implementation_commits_note: >-
+    The dispatch anticipated one implementation commit. A second was required and is
+    recorded rather than folded in: the summary renderer formatted both exposure
+    interval endpoints as floats, which was safe only because ECO-01 happened to have
+    opposite-signed payoffs and hence two finite endpoints. ECO-02 makes both payoffs
+    positive, so the upper endpoint is unbounded and serialized as null, and the
+    renderer raised TypeError. Nothing was amended. The partial output directory
+    written before that failure was deleted, not kept, and the report was regenerated
+    from the clean second commit.
+
+external_dependency:
+  role: CS011 N1 successor services
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey.git
+  pinned_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  resolved_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  resolution_evidence: >-
+    Read back at runtime from the installed distribution's direct_url.json and
+    asserted equal to the packet pin before the report is built.
+  unchanged_from_prior_run: true
+
+environment:
+  operating_system: macOS-15.6.1
+  architecture: arm64
+  runtime_versions: {python: 3.13.5, numpy: 2.5.2, scipy: 1.18.1, uv: 0.12.5, pytest: 9.1.1}
+  dependency_lock_path: uv.lock
+  dependency_lock_sha256: bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f
+
+hardware:
+  resource_lane: L0_smoke
+  machine_label: Apple M4 MacBook Air (local)
+  cpu: Apple M4
+  logical_cores: 10
+  memory_gb: 16
+  new_tracked_output_kb: 46
+
+parameter_change:
+  base_packet: P-CS012-ECO-01
+  new_packet: P-CS012-ECO-02
+  operative_difference_is_exactly:
+    - packet_id
+    - technology.A_bar
+  A_bar_before: 0.10
+  A_bar_after: 0.10329029481590953
+  derivation: >-
+    Provisional illustrative parameter choice, derived and not measured. Fixing a
+    target full-AK capital growth g_F = 0.026 per year gives the stationary AK price
+    q_F = exp[varphi*(g_F + delta)] = 1.2943388186242377; inverting the zero-tax
+    world-user-cost equation gives A_bar = q_F*(r_F_bar - g_F) + (q_F - 1)/varphi =
+    0.10329029481590953. Nothing about g_F = 0.026 is estimated. It is chosen so the
+    full-AK mark raises installed-equity value rather than lowering it, the case
+    ECO-01 does not exhibit.
+  unchanged_primitives_confirmed_by_test: >-
+    A test walks both packets' operative direct fields and asserts the only
+    differences are packet_id and technology.A_bar. varphi=3.0, delta=0.06,
+    (r_0_bar,r_P_bar,r_F_bar)=(0.025,0.030,0.030), both task shares, Z, the whole
+    shock law, the inherited state and balance sheets, the successor domains, and the
+    diagnostic grid are all identical.
+  loader_change: >-
+    The loader recognized one hard-coded economic packet id and now recognizes a
+    closed, enumerated set of two. It is a set, not a pattern: P-CS012-ECO-03, a
+    lowercase variant, a whitespace-padded variant and five other misspellings are
+    all still refused, and eight malformed-packet structural checks were re-tested to
+    show none was weakened.
+  fingerprints:
+    P-CS012-ECO-01: 7524e29731dcfe46d6e18d6e129f72b0bbd8f7c4d7374b20c7e03b06b7fc4c2f
+    P-CS012-ECO-02: 2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568
+
+preflight:
+  tests_command: uv run pytest tests/cs012_i1 && uv run pytest
+  tests_status: passed
+  tests_before_this_task: 245 passed at d88a847 (clean tree)
+  independent_expectations_supplied_by_dispatch:
+    q_0: 1.1972173631218102
+    q_P: 1.291347709765447
+    g_P: 0.02522880308958336
+    q_F: 1.2943388186242377
+    g_F: 0.026
+    J_P: 0.07862427454124687
+    J_F: 0.08112265867008306
+    q_F_upper: 1.3256524605639481
+    g_F_upper: 0.03396825376828801
+    pi_owner: -4.7887390064
+  agreement: >-
+    Every value reproduced. The solved q_F is 1.2943388186242328 against the analytic
+    1.2943388186242377, a 4.9e-15 absolute difference that is bracketing-solver
+    precision, and the rejected upper root is 1.325652460563979 against 1.3256524605639481,
+    a 3.1e-14 difference of the same kind. No parameter was tuned to obtain agreement.
+
+result:
+  outcome: success
+  wall_seconds: 0.59
+  report_build_seconds: 0.171
+  independent_checker_seconds: 0.03
+  focused_tests_seconds: 1.71
+  full_tests_seconds: 10.41
+  baseline:
+    capital_K0: 1.0
+    q_0: 1.1972173631218102
+    q_P_K0: 1.291347709765447
+    q_F: 1.2943388186242328
+    g_0: 0.0
+    g_P: 0.025228803089583363
+    g_F: 0.025999999999998746
+    ordering_growth: g_F > g_P > g_0 = 0
+    ordering_price: q_F > q_P > q_0
+    J_P: 0.07862427454124687
+    J_F: 0.08112265867007906
+    owner_exposure_pi: -4.788739006432858
+    exposure_interval_lower: -12.3270121615089
+    exposure_interval_upper: unbounded
+    exposure_is_interior: true
+    derivative_at_root: -0.00041238996431763083
+    residual_at_root: 0.0
+    X_K_P: 0.6234888696518452
+    X_K_F: 0.6115247601210536
+    both_wealth_multipliers_positive: true
+    k_world_P: 0.8615384615384615
+    k_world_F: 2.971428571428571
+    k_owner_P: 1.6038778696376692
+    k_owner_F: 1.6352567634416737
+    d_owner_total: 0.0
+  ak_root_enumeration:
+    declared_interval: [0.5, 3.0]
+    n_enumerated: 2
+    n_accepted: 1
+    selected:
+      q: 1.2943388186242328
+      branch: lower_strict_tvc
+      reason: accepted_strict_productive_value_tvc
+      tvc_margin: 0.0040000000000012526
+    retained_rejected:
+      q: 1.325652460563979
+      branch: upper_tvc_violating
+      reason: productive_value_tvc_violated
+      tvc_margin: -0.003968253768295765
+      g: 0.033968253768295764
+    branch_separation: >-
+      The two roots straddle the analytic minimiser q_m = exp[varphi*(r_F_bar+delta)];
+      branch identity is that position, never a sorted index. The selected margin is
+      exactly r_F_bar - g_F = 0.004 and the rejected margin is negative, so the strict
+      productive-value TVC separates them by 0.00797 in total.
+  partial_successor:
+    certified_domain: [0.5, 2.0]
+    covers_declared_interval: true
+    extrapolation_possible: false
+    max_ivp_bvp_difference: 1.7474872660017127e-09
+    wealth_route_max_gap: 1.1893159346243465e-08
+    derivative_identity_max_gap: 4.950917143808908e-06
+    manifold_invariance_max_residual: 3.195358436181017e-07
+    rest_point_slope_gap: 8.699940212686386e-10
+    note: unchanged from the ECO-01 run; A_bar does not enter the partial successor
+  diagnostic_grid:
+    points: [0.8, 1.0, 1.2, 1.4, 1.6]
+    valid_rows: 5
+    quarantined_rows: 0
+    quarantined: []
+    observation: >-
+      J_F is constant across the grid at +0.0811226587 because the selected AK price is
+      constant in K. J_P still falls monotonically and crosses zero between K = 1.2 and
+      K = 1.4, so the two upper grid points return to opposite-signed payoffs and the
+      exposure interval becomes two-sided again there. Owner exposure stays negative and
+      interior at every point. This is grid sensitivity only; K_0 = 1 is the baseline.
+  maxima:
+    max_owner_root_residual_normalized: 4.336808689942018e-19
+    max_independent_exposure_residual: 4.336808689942018e-19
+    max_independent_kernel_absolute_error: 0.0
+    max_independent_d_owner_normalized_error: 0.0
+  failure_code: null
+  failure_detail: null
+
+quarantine:
+  - subsection: synthetic
+    packet: P-CS012-SYN-01
+    status: quarantined
+    defect: >-
+      P-CS012-SYN-01 describes the dependency fixture manufactured-two-mark as
+      stationary-compatible. The pinned CS011 commit describes that fixture's state as
+      an arbitrary probe, not an equilibrium point, and no genuinely
+      manufactured-stationary-compatible fixture exists at that commit. The packet's
+      characterization is therefore wrong.
+    disposition: >-
+      Not repaired or reinterpreted in this task. No claim of any kind is made on the
+      synthetic subsection of this run. Its three fixtures did each reproduce at the
+      pinned commit, but that fact is recorded as quarantined and supports nothing.
+    repair_trigger: bundled with I2; must be closed before any I2 result run
+    containment_evidence:
+      structural: >-
+        report_i1._economic_scenario takes only (packet, tolerances). Its source
+        contains no reference to the synthetic packet, any fixture, or get_fixture. A
+        test asserts both the signature and the absence of those names.
+      behavioural: >-
+        A test rebuilds the whole ECO-02 report against a second synthetic packet
+        naming a different primary fixture and a different regression set, confirms the
+        synthetic subsections differ, and asserts the economic subsections are
+        byte-identical under sorted-key serialization.
+      conclusion: >-
+        The ECO-02 economic section is independent of the selected synthetic fixture.
+        Containment is demonstrated, so evidence generation was permitted.
+
+tests:
+  before_this_task: 245 passed
+  final_full_suite: 268 passed
+  focused_cs012_i1: 81 passed
+  new_tests: 23
+  new_coverage:
+    - ECO-02 loads and reports the new A_bar
+    - the two packets' operative fingerprints differ
+    - the operative difference is exactly packet_id and technology.A_bar
+    - seven misspelled or unrecognized packet ids stay rejected
+    - the recognized id set is closed and enumerated
+    - eight malformed-packet structural rejections are unweakened
+    - A_bar propagates: six swept target growth rates, each matching the analytic inverse and strictly increasing in A_bar
+    - the ECO-02 baseline matches every independent expectation
+    - the growth and price orderings hold
+    - exactly one AK root accepted, upper root retained with its margin
+    - the owner exposure is interior, negative, with both multipliers positive
+    - the owner position sign reverses between ECO-01 and ECO-02
+    - no ECO-02 economic row is quarantined and every quantity is finite
+    - synthetic containment, structural and behavioural
+    - ECO-01 keeps its own fingerprint and A_bar
+
+error_assessment:
+  policy: computation/error-handling-and-result-use.md
+  structural_gates_passed:
+    exact_specification_version_and_hash: true
+    dependency_pinned_and_resolved: true
+    single_primitive_isolation_verified_by_test: true
+    physical_versus_risk_neutral_intensity_separation: true
+    single_ak_root_selected_rejected_root_retained: true
+    strict_tvc_and_growth_price_orderings: true
+    owner_root_interior_with_positive_wealth_in_both_marks: true
+    no_extrapolation_outside_certified_domain: true
+    independent_reconstruction_passed: true
+    no_government_object_constructed: true
+    prior_artifacts_unchanged: true
+    clean_start_without_allow_dirty: true
+  decision_gaps:
+    owner_root_residual_normalized: 1.0e-10
+    production_versus_independent_normalized: 1.0e-10
+    min_abs_payoff: 1.0e-3
+  credible_uncertainty:
+    max_owner_root_residual: 4.336808689942018e-19
+    max_production_versus_independent: 0.0
+    min_abs_baseline_payoff: 0.07862427454124687
+  required_margins: {rule: 'U_q <= 0.1 * Delta_q', met: true}
+  result_use_status: exploratory_only
+  disposition: continue_exploratory
+  quarantined_outputs:
+    - the synthetic subsection of outputs/cs012-i1-provisional-owner-successors-eco02/identity_report.json
+  well_conditioned_containment: >-
+    Unchanged from the ECO-01 run and re-asserted by the shared containment test: every
+    intensity-payoff product exceeds the smallest normal double by more than twelve
+    orders of magnitude and every exposure is far inside FP64 bracketing reach. The I0
+    ultra-subnormal root-status defect is unreachable from this packet and the I0 root
+    algorithm was not modified.
+
+prior_artifact_integrity:
+  configs/cs012/P-CS012-ECO-01.json:
+    sha256: bcdc33be61a801c3b84346893020e2d60249c33311b4a9e39f2d31ae644ccd03
+    unchanged: true
+  outputs/cs012-i1-provisional-owner-successors/identity_report.json:
+    sha256: e078541c1cc664e33573bf13af4078aef64561e5e7db9fe8b77922919982c349
+    unchanged: true
+  outputs/cs012-i1-provisional-owner-successors/summary.md:
+    sha256: 3d4304af3788e75a9f76cc0138c0d2ffec3bc13896d417ea207318db10ba71ad
+    unchanged: true
+  reproducibility_caveat: >-
+    The committed ECO-01 files are untouched on disk and remain valid under the hashes
+    above. They are not, however, byte-reproducible from the current commit. The report
+    embeds the code commit that produced it, so regenerating ECO-01 from c42cbfd3 gives
+    a different identity_report.json hash; and the summary renderer repair changes the
+    ECO-01 summary prose as well. Both are ordinary consequences of provenance-bearing
+    output rather than defects, and are recorded here so a later reader does not read a
+    hash mismatch as tampering.
+
+deviations:
+  - id: DEV-01
+    item: I1 executed before the full I1-I3 parameter packet is frozen
+    standard_path_varied: >-
+      CS012 v0.1 states that I1 waits for the complete I1-I3 parameter packet. This run,
+      like the ECO-01 run, executes I1 before the public-prefunding sequence, the
+      continuation horizon, the terminal condition, and the government-kernel thresholds
+      are frozen.
+    reason: none of those objects enters the I1 successor or owner-side calculation
+    compensating_restriction: >-
+      No government kernel, time path, portfolio direction, welfare, equilibrium, or
+      optimal-policy result is produced. Government fields are absent by construction.
+    result_use_ceiling: exploratory_only
+    owner: Nathan
+    independent_reviewer: Codex
+    expiry: before any I2 implementation or result run
+  - id: DEV-02
+    item: CLI module name
+    detail: carried forward unchanged from the ECO-01 record
+    resolution: reported, not silently reconciled
+  - id: DEV-04
+    item: second implementation commit for the summary renderer
+    detail: >-
+      See implementation.two_implementation_commits_note. Reporting layer only; no
+      successor equation, root solver, owner FOC, manifold, or kernel formula changed,
+      and identity_report.json content is unaffected by it.
+    resolution: recorded, not amended into the first commit
+
+artifacts:
+  - role: primary_output
+    location: outputs/cs012-i1-provisional-owner-successors-eco02/identity_report.json
+    sha256: d9e70c606e49bb392570d0435aba9a420c994738f550097e181204fed583d4d3
+    bytes: 42619
+  - role: summary
+    location: outputs/cs012-i1-provisional-owner-successors-eco02/summary.md
+    sha256: 421ed4299fc1c6f34fbe5d810a83b5333e43f984adef81504c7d7b72295250ad
+    bytes: 3194
+  - role: economic_packet
+    location: configs/cs012/P-CS012-ECO-02.json
+    sha256: 9d1c2ff7d30218d0b7fd2d284935360c4ec90511c1e022fcac49387b1c7b7940
+    bytes: 3854
+  - role: synthetic_packet_quarantined
+    location: configs/cs012/P-CS012-SYN-01.json
+    sha256: 74cc08c122876593dab557c6c0626e906ef383eeb4e72ba3cbc0f98444895ba3
+    disposition: known provenance defect; supports nothing in this run
+
+timing:
+  machine_runtime_seconds: 0.59
+  machine_runtime_including_tests_seconds: 12.7
+  total_elapsed_minutes: 9
+  elapsed_start_utc: 2026-09-06T01:09:13Z
+  elapsed_end_utc: 2026-09-06T01:17:40Z
+
+interpretation:
+  supports_result_ids: []
+  challenges_result_ids: []
+  question_ids: [Q24]
+  assurance_or_review_artifacts: [EV13]
+  conclusion: >-
+    Changing one primitive, full-AK productivity, from 0.10 to 0.10329029481590953
+    moves full-AK growth above partial growth, turns both marked payoffs positive, and
+    reverses the domestic owner's optimal exposure from a levered long position of
+    +11.02 to an interior short position of -4.79, with both wealth multipliers strictly
+    positive and the owner pricing equation satisfied to 4.3e-19 normalized residual. The
+    AK block still enumerates two roots and accepts only the lower strict-TVC branch.
+    This is an owner-side pricing calculation under a provisional illustrative scenario,
+    not an economic conclusion.
+  limitations:
+    - Both scenarios are provisional and illustrative; neither is an estimate or a country calibration, and the pair is a two-point comparison of one primitive, not a range.
+    - The pre-arrival state is a named provisional state, not a solved equilibrium.
+    - No government kernel, fiscal marginal value, prefunding path, time path, portfolio direction, welfare number, or optimal policy exists at I1.
+    - The owner exposure satisfies the stated owner pricing equation and wealth conditions at this state; it is not an optimal government portfolio and must never be described as one.
+    - The synthetic subsection is quarantined for a known provenance defect and supports nothing.
+    - The checker does not re-derive the partial stable manifold; that evidence comes from the pinned dependency.
+    - CS012 v0.1 remains a draft, neither review-ready nor approved.
+  next_decision: >-
+    Independent review by Codex. Before I2: repair the P-CS012-SYN-01 stationary-compatible
+    mischaracterization, and freeze the strictly positive public-prefunding sequence with
+    its stopping threshold and accounting treatment, the continuation horizon and terminal
+    condition, and the quantity-specific government-kernel thresholds.
+  integration_owner: Nathan
+  review_state: ready for independent review
+  accepted: false

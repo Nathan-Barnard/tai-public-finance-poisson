@@ -16,6 +16,31 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260906T011740Z-CS012-c42cbfd3-01.yaml`](RUN-20260906T011740Z-CS012-c42cbfd3-01.yaml)
+  — **CS012 I1 parameter-only rerun under `P-CS012-ECO-02` (exploratory only).**
+  A companion to the ECO-01 run below, not a replacement: ECO-01 and its outputs
+  remain valid and byte-for-byte unchanged, and the two together are a two-point
+  comparison of one primitive, never a sweep or a calibrated range. Executed
+  2026-09-06 from a clean tree at commit `c42cbfd3` (parameter commit
+  `b1726ba0`), same pinned CS011 dependency `6b457682…`. ECO-02 differs from
+  ECO-01 in exactly one operative field, `technology.A_bar` (0.10 →
+  0.10329029481590953), derived by inverting the zero-tax world-user-cost
+  equation at a target full-AK growth `g_F = 0.026` — a provisional illustrative
+  choice, not an estimate. The consequence is economically substantive: full-AK
+  growth now exceeds partial growth (`g_F = 0.026 > g_P = 0.0252 > 0`,
+  `q_F > q_P > q_0`), both marked payoffs turn positive
+  (`J_P = +0.0786`, `J_F = +0.0811`), and the domestic owner's optimal exposure
+  reverses from a levered long `+11.02` under ECO-01 to an interior short
+  `-4.7887390064`, with both wealth multipliers strictly positive and the owner
+  residual at 4.3e-19. The AK block still enumerates two roots and accepts only
+  the lower strict-TVC branch, whose margin is exactly `r_F_bar - g_F = 0.004`.
+  Output `outputs/cs012-i1-provisional-owner-successors-eco02/` (`d9e70c60…`,
+  42 619 bytes, plus `summary.md`). **The synthetic subsection is quarantined**
+  for a known provenance defect in `P-CS012-SYN-01` and supports nothing; its
+  repair is bundled with I2. **Still no government kernel, prefunding path, time
+  path, portfolio direction, welfare number, equilibrium claim, or optimal
+  policy.** Ready for independent review; not accepted, not merged, not pushed.
+
 - [`RUN-20260906T001240Z-CS012-ca8a63a6-01.yaml`](RUN-20260906T001240Z-CS012-ca8a63a6-01.yaml)
   — **CS012 block I1: successor services and the laissez-faire owner branch
   (exploratory only).** A different block from the I0 records below; it extends
