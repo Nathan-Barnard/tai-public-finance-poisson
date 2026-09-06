@@ -16,6 +16,30 @@ Never edit a completed record; supersede with a new one and cross-link. Keep
 large arrays, checkpoints, and figures out of git — reference them by content
 hash and size instead.
 
+- [`RUN-20260906T001240Z-CS012-ca8a63a6-01.yaml`](RUN-20260906T001240Z-CS012-ca8a63a6-01.yaml)
+  — **CS012 block I1: successor services and the laissez-faire owner branch
+  (exploratory only).** A different block from the I0 records below; it extends
+  and does not supersede them. Executed 2026-09-06 from a clean tree at commit
+  `ca8a63a6` under draft CS012 v0.1, SHA-256 `d345f07c…`. The reviewed CS011 N1
+  successor package is consumed as a uv VCS dependency pinned by full commit
+  `6b457682c4eed8ad4e3bdd867d1292abac38f424`, verified at runtime against the
+  installed distribution rather than the request; its N2/N3 stationary machinery
+  and its own private-portfolio solver are deliberately not imported and no CS011
+  equation is copied. Under the frozen provisional illustrative packet
+  `P-CS012-ECO-01`, at `K_0 = 1`: the AK block enumerates two roots and selects
+  the lower strict-TVC branch `q_F = 1.1517472652` with the upper root retained
+  and its rejection reason; the partial stable manifold covers the whole declared
+  `K ∈ [0.5, 2.0]` and refuses extrapolation; payoff jumps are
+  `J_P = +0.0786243` and `J_F = -0.0379798`; and the owner exposure
+  `pi = 11.0160820` solves the unmultiplied owner FOC to a 2.2e-19 normalized
+  residual. Output `outputs/cs012-i1-provisional-owner-successors/`
+  (`e078541c…`, 42 406 bytes, plus `summary.md`). **No government kernel,
+  prefunding path, time path, portfolio direction, welfare number, equilibrium
+  claim, or optimal policy** — those are I2 onward, and DEV-01 records that I1
+  ran before their inputs were frozen precisely because none of them enters this
+  calculation. Ready for independent review; not accepted, not merged, not
+  pushed.
+
 - [`RUN-20260905T222042Z-CS012-8c738c6d-01.yaml`](RUN-20260905T222042Z-CS012-8c738c6d-01.yaml)
   — **preferred CS012 I0 evidence record (bounded independent-review repair;
   exploratory only).** Supersedes `RUN-20260905T210214Z-CS012-09830d98-01`

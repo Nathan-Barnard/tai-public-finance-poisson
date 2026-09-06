@@ -1,0 +1,492 @@
+schema_version: '1.0'
+run_id: RUN-20260906T001240Z-CS012-ca8a63a6-01
+created_utc: 2026-09-06T00:12:40Z
+status: complete
+purpose: successor_and_owner_branch
+supersedes: null
+relation_to_prior_runs: >-
+  Extends, and does not supersede, the CS012 I0 records
+  RUN-20260905T210214Z-CS012-09830d98-01 and its repair
+  RUN-20260905T222042Z-CS012-8c738c6d-01. I0 remains accepted only for its stated
+  well-conditioned exploratory domain. This run is a different block on the same
+  branch and neither withdraws nor revalidates I0.
+intended_use:
+  control_lane: fast
+  decisive_risk_dimensions:
+    - correct successor branch selection with all rejected roots retained
+    - exact marked payoff convention and mark labelling
+    - owner pricing equation solved on the true positive-wealth interval
+    - independent reconstruction of every owner-side quantity
+    - containment of the government side out of an owner-side block
+  claim_or_decision: >-
+    Under one frozen provisional illustrative scenario, the two absorbing successors
+    solve on their declared domains, the marked payoff jumps are of opposite sign,
+    and the domestic log owner's exposure and pricing kernels follow from the
+    unmultiplied owner FOC. No economic conclusion is drawn.
+  quantities_of_interest:
+    - selected q_F and every enumerated AK root with its rejection reason
+    - partial stable manifold q_P(K) on the certified domain
+    - marked payoff jumps J_P and J_F
+    - owner exposure pi, wealth multipliers X^K_j, kernels k^w_j and k^K_j
+    - mark-level and aggregate D_K
+  declared_domain_or_branch: >-
+    One provisional pre-arrival state (K_0=1, q_0=exp(varphi*delta), a_0=1) with zero
+    public installed equity, zero public safe asset, zero public safe debt, zero
+    source tax, and empty M_0 under the one-time-protection convention, plus a
+    five-point diagnostic capital grid inside the certified partial domain.
+  result_use_target: exploratory_only
+
+specification:
+  id: CS012
+  version: '0.1'
+  status: draft
+  file_sha256: d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498
+  hash_verified_before_writing: true
+  canonical_inputs_verified:
+    CP012_sha256: 5a5892a1f2d3d82ba9c6114cc801554d8c686f941d7f98aeb6d285b3142c4fb2
+    CD016_sha256: 7351f14d31d0074a613c27ff8ddfc2e160b050a4e4b3a4ec06e1a006a91d3e49
+    EMP005_sha256: fde8a1736affeb53b6071edffe57f9462954114e12f70047032ec1dc4bb37d59
+  promotion: >-
+    None. CS012 v0.1 remains a draft. This run does not make it review-ready or
+    approved and does not close any activation gate.
+problem_id: CP012
+approach_id: CA024
+benchmark_id: CB012
+implementation_block: I1
+
+implementation:
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-poisson.git
+  commit: ca8a63a61991d5d123e0a8a73074cb275f66892a
+  commit_subject: Add the CS012 I1 successor services and laissez-faire owner branch
+  branch: cs012/i1-provisional-owner-successors
+  branch_base_commit: 710796688db4b60b648cb1650a2d5d65afad93e7
+  worktree: /Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0
+  dirty_worktree: false
+  clean_start: true
+  implementer: claude_code
+  entrypoint: tai_public_finance.cs012_poisson_kernels.report_i1
+  command: >-
+    uv run python -m tai_public_finance.cs012_poisson_kernels.report_i1
+    --synthetic-config configs/cs012/P-CS012-SYN-01.json
+    --economic-config configs/cs012/P-CS012-ECO-01.json
+    --output-dir outputs/cs012-i1-provisional-owner-successors
+  merged: false
+  pushed: false
+
+external_dependency:
+  role: CS011 N1 successor services
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey.git
+  pinned_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  resolved_commit: 6b457682c4eed8ad4e3bdd867d1292abac38f424
+  resolution_evidence: >-
+    Read back at runtime from the installed distribution's direct_url.json, not from
+    the request, and asserted equal to the packet's pinned commit before the report
+    is built. uv.lock records rev=6b457682... and the same commit as the resolved
+    revision.
+  mechanism: uv VCS dependency pinned by full commit; not vendored, not a local path
+  permitted_imports:
+    - ak_partial_ramsey.params
+    - ak_partial_ramsey.tolerances
+    - ak_partial_ramsey.successors.ak
+    - ak_partial_ramsey.successors.partial
+    - ak_partial_ramsey.fixtures
+    - ak_partial_ramsey.errors
+  excluded_imports:
+    - ak_partial_ramsey.stationary
+    - ak_partial_ramsey.continuation
+    - ak_partial_ramsey.certificate
+    - ak_partial_ramsey.rows
+    - ak_partial_ramsey.profiles
+    - ak_partial_ramsey.derivatives
+    - ak_partial_ramsey.assembly
+    - ak_partial_ramsey.evaluator
+    - ak_partial_ramsey.recovery
+    - ak_partial_ramsey.exposure
+  exclusion_notes: >-
+    The N2/N3 stationary machinery is not used and is not needed: I1 evaluates at a
+    given pre-arrival state and requires no equilibrium solve and no pre-arrival
+    costate. ak_partial_ramsey.exposure is excluded deliberately even though it
+    contains a private-portfolio solver, because the owner root is a CS012 object
+    and is solved with the reviewed CS012 I0 functions. recovery.py is excluded
+    because its implementation margins predate the CS011 v0.6 instrument-profile
+    distinction. A test asserts no excluded module is imported.
+  no_equations_copied: true
+
+environment:
+  operating_system: macOS-15.6.1
+  architecture: arm64
+  runtime_versions:
+    python: 3.13.5
+    numpy: 2.5.2
+    scipy: 1.18.1
+    uv: 0.12.5
+    pytest: 9.1.1
+    ak_partial_ramsey: 0.1.0
+  dependency_lock_path: uv.lock
+  dependency_lock_sha256: bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f
+
+hardware:
+  resource_lane: L0_smoke
+  machine_label: Apple M4 MacBook Air (local)
+  cpu: Apple M4
+  logical_cores: 10
+  memory_gb: 16
+  accelerator: null
+  free_disk_gb_at_run: 56
+  new_tracked_output_kb: 48
+
+budget:
+  wall_seconds_limit: 60
+  cash_limit_usd: 0
+  actual_cash_usd: 0
+
+randomness:
+  deterministic_requested: true
+  seeds: []
+  nondeterminism_notes: >-
+    The I1 report is deterministic. No seeded generator feeds it.
+
+inputs:
+  packets:
+    - packet_id: P-CS012-SYN-01
+      kind: stationary_compatible_software_packet
+      path: configs/cs012/P-CS012-SYN-01.json
+      sha256: 74cc08c122876593dab557c6c0626e906ef383eeb4e72ba3cbc0f98444895ba3
+      bytes: 1728
+      fingerprint: c0c7c644c606fca74acdbc447a5e8336d1a956920bc9e6eee176e0057459b591
+      economic_interpretation: >-
+        NONE. Names fixtures inside the pinned dependency and carries their own
+        provenance strings verbatim, read at load time. Not a calibration, not an
+        estimate, not an anchor, not a scenario.
+    - packet_id: P-CS012-ECO-01
+      kind: provisional_illustrative_economic_scenario
+      path: configs/cs012/P-CS012-ECO-01.json
+      sha256: bcdc33be61a801c3b84346893020e2d60249c33311b4a9e39f2d31ae644ccd03
+      bytes: 3286
+      fingerprint: 7524e29731dcfe46d6e18d6e129f72b0bbd8f7c4d7374b20c7e03b06b7fc4c2f
+      economic_interpretation: >-
+        PROVISIONAL AND ILLUSTRATIVE ONLY. Not an estimate, not a country
+        calibration. Judgement values rho, delta, varphi, I_0, lambda_total,
+        (p_P,p_F), (lambda_P_star,lambda_F_star) and the three world rates are
+        inherited unchanged from EMP005 profile P-CS005-REAL-01, which states of
+        itself that it is not an estimate and not a country baseline. I_P = 0.46 is
+        EMP005's high mark I_H relabelled to CS012's partial-automation mark; the
+        EMP005 (L,H) marks map to CS012 (P,F) in that order and EMP005's
+        intermediate I_L = 0.32 is unused. A_bar, K_0 and a_0 come from the I1
+        handoff. Z is a units normalization fixing K_P_star = 1.25 exactly, not an
+        estimate.
+  time_unit: year
+  value_unit: current goods
+  physical_and_risk_neutral_intensities_separate: true
+
+solver:
+  packages_and_versions:
+    scipy: 1.18.1
+    ak_partial_ramsey: 0.1.0
+  method: >-
+    AK successor by scanned bracket plus bracketing solve with analytic discriminant
+    and Lambert-W cross-checks; partial successor by backward IVP from a linearised
+    offset with an independent two-point collocation comparison; owner exposure by
+    the reviewed CS012 I0 analytic-existence test plus scipy brentq on the
+    unmultiplied owner FOC over the open positive-wealth interval.
+  precision: float64
+
+preflight:
+  tests_command: uv sync --locked && uv run pytest
+  tests_status: passed
+  tests_before_writing: 187 passed at 710796688 (clean tree)
+  independent_smoke_values_supplied_by_handoff:
+    q_0: 1.1972173631218102
+    K_P_star: 1.25
+    q_P_K0: 1.2913477098
+    q_F: 1.1517472652
+    J_P: 0.07862427454
+    J_F: -0.03797981832
+    exposure: 11.016082014
+    X_P: 1.8661314566
+    X_F: 0.5816112065
+  smoke_agreement: >-
+    Every value reproduced to the precision supplied, before any code was written and
+    again in the committed test suite. No parameter was changed to obtain agreement.
+
+result:
+  outcome: success
+  wall_seconds: 0.58
+  report_build_seconds: 0.35
+  independent_checker_seconds: 0.03
+  focused_i0_tests_seconds: 0.62
+  focused_i1_tests_seconds: 0.68
+  full_tests_seconds: 9.81
+  baseline:
+    capital_K0: 1.0
+    q_0: 1.1972173631218102
+    q_P_K0: 1.291347709765447
+    q_F: 1.15174726517848
+    ak_branch: lower_strict_tvc
+    ak_tvc_margin: 0.04290661655374719
+    J_P: 0.07862427454124687
+    J_F: -0.03797981832201669
+    owner_exposure_pi: 11.016082013989644
+    exposure_interval: [-12.718718307224464, 26.329773131650438]
+    lower_boundary_distance: 23.734800321214108
+    upper_boundary_distance: 15.313691117660794
+    derivative_at_root: -6.615775e-05
+    X_K_P: 1.8661314566368135
+    X_K_F: 0.5816112064882376
+    k_world_P: 0.8615384615384615
+    k_world_F: 2.971428571428571
+    k_owner_P: 0.5358679295842448
+    k_owner_F: 1.7193616437310235
+    owner_wealth_after_P: 1.8661314566368135
+    owner_wealth_after_F: 0.5816112064882376
+    d_owner_contribution_P: -4.160912e-04
+    d_owner_contribution_F: 4.160912e-04
+    d_owner_total: 1.0842021724855044e-19
+  ak_root_enumeration:
+    declared_interval: [0.5, 3.0]
+    n_enumerated: 2
+    n_accepted: 1
+    selected: {q: 1.15174726517848, branch: lower_strict_tvc, tvc_margin: 0.04290661655374719}
+    retained_rejected:
+      - q: 1.4748268544257426
+        branch: upper_tvc_violating
+        reason: productive_value_tvc_violated
+        tvc_margin: -0.039513532023801645
+  partial_successor:
+    declared_interval: [0.5, 2.0]
+    certified_domain: [0.5, 2.0]
+    covers_declared_interval: true
+    K_P_star: 1.25
+    extrapolation_possible: false
+    max_ivp_bvp_difference: 1.7474872660017127e-09
+    wealth_route_max_gap: 1.1893159346243465e-08
+    derivative_identity_max_gap: 4.950917143808908e-06
+    manifold_invariance_max_residual: 3.195358436181017e-07
+    rest_point_slope_gap: 8.699940212686386e-10
+  diagnostic_grid:
+    points: [0.8, 1.0, 1.2, 1.4, 1.6]
+    valid_rows: 5
+    quarantined_rows: 0
+    quarantined: []
+    observed_regime_change: >-
+      J_P falls monotonically across the grid and crosses zero between K = 1.2 and
+      K = 1.4 (J_P = +0.0136 at K = 1.2, -0.0360 at K = 1.4). At K = 1.4 and 1.6 both
+      marked payoffs are negative, so the admissible exposure interval is unbounded
+      below and only the upper positive-wealth edge binds. That is a reported
+      diagnostic of the grid, not a baseline finding: K_0 = 1 remains the baseline.
+  synthetic_regressions:
+    fixtures_run: 3
+    reproduced: 3
+    refused: 0
+    detail:
+      - fixture: single-ak-two-root
+        provenance: theory_supplied
+        scope: ak_only
+        n_enumerated: 2
+        n_accepted: 1
+      - fixture: manufactured-two-mark
+        provenance: manufactured
+        scope: ak_and_partial
+        n_enumerated: 2
+        n_accepted: 1
+      - fixture: manufactured-single-ak-support
+        provenance: manufactured
+        scope: ak_and_partial
+        n_enumerated: 2
+        n_accepted: 1
+  independent_diagnostics:
+    standalone_checker: tools/check_cs012_i1_report.py
+    import_surface: python standard library only (hashlib, json, math, sys)
+    result: pass
+    reconstructed:
+      - q_0 from the installation primitives
+      - both J_j from the serialized successor prices
+      - each k^w_j from the separate intensity fields
+      - each k^K_j from the reported before/after owner wealth
+      - every D_K contribution, the aggregate, and the residual at the reported exposure
+      - the exposure interval, its interiority at zero, and both boundary distances
+      - the AK level-equation residual and the strict-TVC classification of every root
+      - both packet fingerprints from their own direct fields
+      - all status counts and reported maxima
+    not_reconstructed:
+      - the partial-automation stable manifold
+    independence_scope_note: >-
+      q_P(K) and H_P(K) are treated by the checker as serialized data. Manifold
+      construction is evidenced by the pinned dependency's own IVP-versus-collocation
+      and quadrature-versus-algebraic comparisons, both reported and bounded here, and
+      by that dependency's 204-test suite at the pinned commit. Calling the checker a
+      second manifold route would be false and it does not claim to be one.
+    in_process_wealth_ratio_route_degeneracy: >-
+      At a_0 = 1 the before/after owner-wealth route reduces to the same FP64
+      expression as 1/(1+pi*J), so its in-process agreement is exactly zero and
+      carries no information. A committed test re-runs the same branch at a_0 = 3.7,
+      where the two routes are numerically distinct, and confirms agreement within
+      1e-10. The standalone checker is the primary independent evidence.
+  maxima:
+    max_owner_root_residual_normalized: 2.168404344971009e-19
+    max_independent_exposure_residual: 2.168404344971009e-19
+    max_independent_kernel_absolute_error: 0.0
+    max_independent_d_owner_normalized_error: 0.0
+  reliable_region: >-
+    The certified partial-successor domain K in [0.5, 2.0] at the frozen packet.
+    Outside it the interpolants raise rather than extrapolate.
+  failure_code: null
+  failure_detail: null
+
+tests:
+  before_this_block: 187 passed
+  final_full_suite: 245 passed
+  focused_i0: 113 passed
+  focused_i1: 58 passed
+  acceptance_coverage:
+    - all 187 pre-existing tests still pass
+    - the pinned dependency resolves to the exact required commit, asserted from installed metadata and from uv.lock
+    - all three dependency fixtures reproduce, including the theory_supplied single-ak-two-root
+    - exactly one AK root is selected and the rejected upper root is retained with its reason
+    - the partial manifold covers the whole declared [0.5, 2.0] interval
+    - extrapolation outside the certified domain raises DomainError
+    - owner-root residual, independently normalized, is 2.2e-19 against a 1e-10 bound
+    - production-versus-independent owner kernels and D_K agree within 1e-10
+    - every baseline owner wealth multiplier is strictly positive
+    - each baseline |J_j| clears the 1e-3 weak-identification floor, and a weak payoff is refused
+    - every reported quantity is finite and the report parses under a rejecting parse_constant
+    - the checker rejects corruption of a payoff, wealth multiplier, root status, dependency commit, and configuration fingerprint, plus twenty further corruptions
+    - deep immutability of every public result object and of both packets
+    - no government field appears anywhere in the report
+
+error_assessment:
+  policy: computation/error-handling-and-result-use.md
+  structural_gates_passed:
+    exact_specification_version_and_hash: true
+    dependency_pinned_and_resolved_to_that_commit: true
+    physical_versus_risk_neutral_intensity_separation: true
+    marks_labelled_and_never_sorted_by_payoff: true
+    single_ak_root_selected_all_rejected_roots_retained: true
+    no_extrapolation_outside_certified_domain: true
+    positive_owner_wealth_multipliers: true
+    unmultiplied_owner_foc_no_division_by_a_payoff_component: true
+    independent_reconstruction_of_every_owner_quantity: true
+    no_government_object_constructed: true
+    clean_start_lock_immutable_output_complete_provenance: true
+  decision_gaps:
+    owner_root_residual_normalized: 1.0e-10
+    production_versus_independent_normalized: 1.0e-10
+    min_abs_payoff: 1.0e-3
+  credible_uncertainty:
+    max_owner_root_residual: 2.168404344971009e-19
+    max_production_versus_independent: 0.0
+    min_abs_baseline_payoff: 0.03797981832201669
+  required_margins:
+    rule: U_q <= 0.1 * Delta_q
+    met: true
+  result_use_status: exploratory_only
+  disposition: continue_exploratory
+  quarantined_outputs: []
+  well_conditioned_containment: >-
+    The previously identified ultra-subnormal FP64 root-status defect in the I0 root
+    algorithm is outside this packet's declared domain and was NOT modified here. A
+    committed test asserts containment directly: on every valid row every
+    lambda_j*J_j, lambda_j*J_j^2 and D_K contribution exceeds the smallest normal
+    double by more than twelve orders of magnitude, and every reported exposure is
+    below 2**60, far inside the bracketing reach. The defect cannot be reached from
+    this packet.
+
+deviations:
+  - id: DEV-01
+    item: I1 executed before the full I1-I3 parameter packet is frozen
+    standard_path_varied: >-
+      CS012 v0.1 states that I1 waits for the complete I1-I3 parameter packet. This
+      run executes I1 before the public-prefunding sequence, continuation horizon,
+      terminal condition, and government-kernel thresholds are frozen.
+    reason: >-
+      None of those objects enters the I1 successor or owner-side calculation. The
+      owner residual depends only on the physical and risk-neutral intensities, the
+      marked payoff jumps, and owner wealth; the successors depend only on the
+      technology, installation, and world-rate primitives.
+    compensating_restriction: >-
+      No government kernel, time path, portfolio direction, welfare, equilibrium, or
+      optimal-policy result is produced. Government fields are absent by
+      construction, not merely unreported.
+    result_use_ceiling: exploratory_only
+    owner: Nathan
+    independent_reviewer: Codex
+    expiry: before any I2 implementation or result run
+  - id: DEV-02
+    item: CLI module name
+    detail: >-
+      The block's CLI is report_i1 inside the existing cs012_poisson_kernels package,
+      matching the handoff's frozen command exactly. This continues the I0 record's
+      DEV-01 divergence from CLAUDE.md's scaffold convention
+      (<package>.<subpackage>.cli with --config/--output-dir/--run-id). No
+      mathematical or output contract was changed for interface convenience.
+    resolution: reported, not silently reconciled
+  - id: DEV-03
+    item: unbounded exposure endpoint serialization repaired during implementation
+    detail: >-
+      The first draft emitted a non-standard JSON Infinity token for the lower
+      boundary distance at the two diagnostic grid points where both payoffs are
+      negative. That is the exact failure mode CS012 forbids for the laissez-faire
+      boundary. It was found by the block's own finiteness test before any evidence
+      was generated, and is now serialized as null plus an explicit unbounded flag,
+      with the report written under allow_nan=False and a test that parses it back
+      with a rejecting parse_constant.
+    resolution: fixed inside the single implementation commit; no I0 code touched
+
+artifacts:
+  - role: primary_output
+    location: outputs/cs012-i1-provisional-owner-successors/identity_report.json
+    sha256: e078541c1cc664e33573bf13af4078aef64561e5e7db9fe8b77922919982c349
+    bytes: 42406
+  - role: summary
+    location: outputs/cs012-i1-provisional-owner-successors/summary.md
+    sha256: 3d4304af3788e75a9f76cc0138c0d2ffec3bc13896d417ea207318db10ba71ad
+    bytes: 3350
+  - role: synthetic_packet
+    location: configs/cs012/P-CS012-SYN-01.json
+    sha256: 74cc08c122876593dab557c6c0626e906ef383eeb4e72ba3cbc0f98444895ba3
+    bytes: 1728
+  - role: economic_packet
+    location: configs/cs012/P-CS012-ECO-01.json
+    sha256: bcdc33be61a801c3b84346893020e2d60249c33311b4a9e39f2d31ae644ccd03
+    bytes: 3286
+  - role: independent_checker
+    location: tools/check_cs012_i1_report.py
+    sha256: d8dee0793ab3bb15e5a5fc16ade7f45469003cd7bc0d51a85bd3906958a42680
+
+timing:
+  machine_runtime_seconds: 0.58
+  machine_runtime_including_tests_seconds: 11.1
+  total_elapsed_implementation_minutes: 16
+  elapsed_start_utc: 2026-09-05T23:57:00Z
+  elapsed_end_utc: 2026-09-06T00:12:40Z
+
+interpretation:
+  supports_result_ids: []
+  challenges_result_ids: []
+  question_ids: [Q24]
+  assurance_or_review_artifacts: [EV13]
+  conclusion: >-
+    Under one frozen provisional illustrative scenario the two absorbing successors
+    solve on their declared domains with a single admissible AK branch and the
+    rejected branch retained; the marked payoff jumps have opposite signs at the
+    baseline; and the domestic log owner's exposure solves the unmultiplied pricing
+    equation to 2.2e-19 normalized residual on the correct open positive-wealth
+    interval. Every owner-side quantity was reconstructed independently from the
+    serialized report by a standard-library-only checker. This is an owner-side
+    pricing calculation, not an economic conclusion.
+  limitations:
+    - The scenario is provisional and illustrative, not an estimate or a country calibration.
+    - The pre-arrival state is a named provisional state, not a solved equilibrium; locating one is CS011 N2/N4 work.
+    - No government kernel, fiscal marginal value, prefunding path, time path, public-portfolio direction, welfare number, or optimal policy exists at I1.
+    - The owner exposure is an equilibrium portfolio only in the sense that the stated owner pricing equation and all wealth conditions pass at this state; it is not an optimal government portfolio and must never be described as one.
+    - The diagnostic capital grid is sensitivity only; the J_P sign change between K=1.2 and K=1.4 is a grid diagnostic, not a baseline result.
+    - The checker does not re-derive the partial stable manifold; that evidence comes from the pinned dependency.
+    - CS012 v0.1 remains a draft and is neither review-ready nor approved.
+  next_decision: >-
+    Independent review of this block by Codex. I2 additionally requires the frozen
+    strictly positive public-prefunding sequence with its stopping threshold and
+    accounting treatment, the continuation horizon and terminal condition, and the
+    quantity-specific government-kernel thresholds, none of which exists yet.
+  integration_owner: Nathan
+  review_state: ready for independent review
+  accepted: false
