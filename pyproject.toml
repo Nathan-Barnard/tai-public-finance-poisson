@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "ak-partial-ramsey",
     "matplotlib>=3.11.1",
     "numpy>=2.5.2",
     "pyyaml>=6.0.3",
@@ -20,6 +21,9 @@ build-backend = "uv_build"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv.sources]
+ak-partial-ramsey = { git = "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey", rev = "6b457682c4eed8ad4e3bdd867d1292abac38f424" }
 
 [dependency-groups]
 dev = [

@@ -7,6 +7,15 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "ak-partial-ramsey"
+version = "0.1.0"
+source = { git = "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey?rev=6b457682c4eed8ad4e3bdd867d1292abac38f424#6b457682c4eed8ad4e3bdd867d1292abac38f424" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+
+[[package]]
 name = "anyio"
 version = "4.14.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1951,6 +1960,7 @@ name = "tai-public-finance"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "ak-partial-ramsey" },
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pyyaml" },
@@ -1966,6 +1976,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "ak-partial-ramsey", git = "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey?rev=6b457682c4eed8ad4e3bdd867d1292abac38f424" },
     { name = "matplotlib", specifier = ">=3.11.1" },
     { name = "numpy", specifier = ">=2.5.2" },
     { name = "pyyaml", specifier = ">=6.0.3" },
