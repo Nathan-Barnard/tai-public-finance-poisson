@@ -52,14 +52,29 @@ def test_every_prior_artifact_is_byte_identical():
         assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, relative
 
 
-def test_prior_run_records_are_unchanged():
+def test_prior_run_records_are_neither_edited_nor_deleted():
+    """Adding a run record is how a block finishes; editing or deleting one is not.
+
+    ``--diff-filter=MD`` is the distinction: a plain ``--name-only`` diff also lists
+    the records this block legitimately added, which is why the first version of this
+    test failed on its own evidence commit.
+    """
     completed = subprocess.run(
-        ["git", "-C", str(REPOSITORY), "diff", "--name-only",
+        ["git", "-C", str(REPOSITORY), "diff", "--name-only", "--diff-filter=MD",
          "c325aee0b92e4101ba085c74183c8e293c2ef2ef", "HEAD", "--", "runs/"],
         capture_output=True, text=True,
     )
-    edited = [line for line in completed.stdout.split() if line.endswith(".yaml")]
-    assert edited == [], f"a prior run record was edited: {edited}"
+    touched = [line for line in completed.stdout.split() if line.endswith(".yaml")]
+    assert touched == [], f"a prior run record was modified or deleted: {touched}"
+
+    added = subprocess.run(
+        ["git", "-C", str(REPOSITORY), "diff", "--name-only", "--diff-filter=A",
+         "c325aee0b92e4101ba085c74183c8e293c2ef2ef", "HEAD", "--", "runs/"],
+        capture_output=True, text=True,
+    ).stdout.split()
+    assert all("265a45c5" in name for name in added), (
+        f"only this block's own run records may be added: {added}"
+    )
 
 
 @pytest.mark.parametrize(("checker", "artifact"), PINNED_CHECKS)
