@@ -1,0 +1,31 @@
+{
+  "packet_id": "P-CS012-PREFUND-01",
+  "packet_kind": "frozen_public_prefunding_family",
+  "time_unit": "year",
+  "value_unit": "current goods",
+  "bound_economic_packet": {
+    "packet_id": "P-CS012-ECO-02",
+    "fingerprint": "2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568"
+  },
+  "scale": {
+    "name": "owner_initial_wealth_a_0",
+    "value": 1.0,
+    "unit": "current goods"
+  },
+  "prefunding_ratio_sequence": [1.0, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001],
+  "literal_boundary": {
+    "prefunding_ratio": 0.0,
+    "in_finite_sequence": false,
+    "status": "nonfinite_fiscal_kernel_at_literal_laissez_faire",
+    "excluded_from_logarithms_and_finite_differences": true
+  },
+  "balance_sheet_convention": {
+    "public_installed_equity_Theta": 0.0,
+    "public_safe_debt_B_rule": "-F",
+    "source_tax_tau": 0.0,
+    "event_map_rule": "e_j_plus = F - q_j(K)*K"
+  },
+  "baseline_capital": 1.0,
+  "provenance": "Frozen before any result was seen and bound by fingerprint to P-CS012-ECO-02. The sequence F/a_0 = [1, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001] is a predeclared one-sided continuation in the inherited public buffer, measured against the named scale a_0 = 1 current good. Positive F is inherited public external safe wealth accumulated before the reference date through prior fiscal surpluses. These are different inherited public-wealth continuations, NOT free endowments, NOT a common-(S_0,M_0) welfare comparison, and NOT a calibration sweep: each row is its own inherited state and the rows are not welfare-comparable to one another. F = 0 is represented separately as the exact literal laissez-faire boundary and is not a member of the finite sequence.",
+  "limits": "Result use is exploratory_only, and successor-side only. This packet supports the absorbing successors' worker resources, worker consumption, and successor marginal values V_{j,e}, plus the exact extended-real classification at F = 0. It does NOT supply the pre-event optimized government marginal value mu_e, so it supports no normalized government kernel k^G, no relative kernel gamma, no portfolio direction, no welfare statement, no equilibrium claim, and no optimal policy. A successor marginal value V_{j,e} is not a government kernel and must never be relabelled as one. The sequence is frozen: it must not be extended below 0.001, refined, or reweighted after seeing results."
+}

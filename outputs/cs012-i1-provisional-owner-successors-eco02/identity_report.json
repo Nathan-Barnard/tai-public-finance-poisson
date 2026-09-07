@@ -1,0 +1,1009 @@
+{
+  "block": "I1",
+  "configs": {
+    "economic": {
+      "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/P-CS012-ECO-02.json",
+      "sha256": "9d1c2ff7d30218d0b7fd2d284935360c4ec90511c1e022fcac49387b1c7b7940"
+    },
+    "synthetic": {
+      "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/P-CS012-SYN-01.json",
+      "sha256": "74cc08c122876593dab557c6c0626e906ef383eeb4e72ba3cbc0f98444895ba3"
+    }
+  },
+  "deviations": [
+    {
+      "compensating_restriction": "No government kernel, time path, portfolio direction, welfare, equilibrium, or optimal-policy result is produced. Government fields are absent by construction, not merely unreported.",
+      "expiry": "before any I2 implementation or result run",
+      "id": "DEV-01",
+      "independent_reviewer": "Codex",
+      "owner": "Nathan",
+      "reason": "None of those objects enters the I1 successor or owner-side calculation. The owner residual depends only on the physical and risk-neutral intensities, the marked payoff jumps, and owner wealth; the successors depend only on the technology, installation, and world-rate primitives.",
+      "result_use_ceiling": "exploratory_only",
+      "standard_path_varied": "CS012 v0.1 states that I1 waits for the complete I1-I3 parameter packet. This run executes I1 before the public-prefunding sequence, continuation horizon, terminal condition, and government-kernel thresholds are frozen."
+    }
+  ],
+  "economic": {
+    "ak_successor": {
+      "candidates": [
+        {
+          "accepted": true,
+          "bracket_width": 1e-14,
+          "branch": "lower_strict_tvc",
+          "g": 0.025999999999998746,
+          "installation_margin": 0.43144627287474424,
+          "iota": 0.09811293954141094,
+          "q": 1.2943388186242328,
+          "reason": "accepted_strict_productive_value_tvc",
+          "residual_level": -3.469446951953614e-17,
+          "residual_polynomial": 0.0,
+          "tvc_margin": 0.0040000000000012526
+        },
+        {
+          "accepted": false,
+          "bracket_width": 1e-14,
+          "branch": "upper_tvc_violating",
+          "g": 0.033968253768295764,
+          "installation_margin": 0.4418841535213263,
+          "iota": 0.108550820187993,
+          "q": 1.325652460563979,
+          "reason": "productive_value_tvc_violated",
+          "residual_level": -8.326672684688674e-17,
+          "residual_polynomial": 0.0,
+          "tvc_margin": -0.003968253768295765
+        }
+      ],
+      "declared_interval": [
+        0.5,
+        3.0
+      ],
+      "diagnostics": {
+        "coefficients": {
+          "a": 1.3098708844477285,
+          "discriminant": -9.356628551882018e-05,
+          "q_m": 1.3099644507332473,
+          "u": 0.27
+        },
+        "declared_interval": {
+          "q_hi": 3.0,
+          "q_lo": 0.5
+        },
+        "lambert_roots": {
+          "q_lower": 1.2943388186242342,
+          "q_upper": 1.3256524605639697
+        },
+        "max_lambert_disagreement": 9.325873406851315e-15,
+        "n_lambert_roots_inside_declared_interval": 2,
+        "n_roots_expected_from_discriminant": 2,
+        "n_roots_found": 2,
+        "scan": {
+          "interval": [
+            0.5,
+            3.0
+          ],
+          "label": "AK price equation",
+          "min_abs_at": 1.2937500000000002,
+          "min_abs_value": 7.199776036026506e-06,
+          "n_exact_zeros_on_grid": 0,
+          "n_non_evaluable_points": 0,
+          "n_points": 2001,
+          "n_sign_change_brackets": 2,
+          "step": 0.00125
+        },
+        "scan_agrees_with_discriminant": true
+      },
+      "full_bgp_residual": -0.03599999999999875,
+      "g_F": 0.025999999999998746,
+      "installation_margin": 0.43144627287474424,
+      "iota_F": 0.09811293954141094,
+      "n_accepted": 1,
+      "n_roots_enumerated": 2,
+      "recovered_tau_F": 1.1102230246251565e-16,
+      "residual_level": -3.469446951953614e-17,
+      "residual_polynomial": 0.0,
+      "selected_branch": "lower_strict_tvc",
+      "selected_q_F": 1.2943388186242328,
+      "tvc_margin": 0.0040000000000012526
+    },
+    "baseline": {
+      "capital": 1.0,
+      "d_owner": 0.0,
+      "derivative_at_root": -0.00041238996431763083,
+      "exposure": -4.788739006432858,
+      "exposure_interval": {
+        "lower": -12.3270121615089,
+        "lower_is_finite": true,
+        "upper": null,
+        "upper_is_finite": false,
+        "zero_is_interior": true
+      },
+      "independent": {
+        "d_owner_normalized_error": 0.0,
+        "exposure_residual_normalized": 0.0,
+        "kernel_max_absolute_error": 0.0,
+        "one_mark_analytic_relative_error": null,
+        "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+      },
+      "label": "baseline_K0",
+      "limit_at_unbounded_end": -0.0032099289689995116,
+      "lower_boundary_distance": 7.538273155076042,
+      "lower_boundary_is_unbounded": false,
+      "marks": [
+        {
+          "d_owner_contribution": 0.0009484458331591557,
+          "k_owner": 1.6038778696376692,
+          "k_world": 0.8615384615384615,
+          "lambda_physical": 0.01625,
+          "lambda_risk_neutral": 0.014,
+          "mark_id": "P",
+          "owner_wealth_after": 0.6234888696518452,
+          "owner_wealth_before": 1.0,
+          "payoff_jump": 0.07862427454124687,
+          "wealth_multiplier": 0.6234888696518452
+        },
+        {
+          "d_owner_contribution": -0.0009484458331591557,
+          "k_owner": 1.6352567634416737,
+          "k_world": 2.971428571428571,
+          "lambda_physical": 0.00875,
+          "lambda_risk_neutral": 0.026,
+          "mark_id": "F",
+          "owner_wealth_after": 0.6115247601210536,
+          "owner_wealth_before": 1.0,
+          "payoff_jump": 0.08112265867007906,
+          "wealth_multiplier": 0.6115247601210536
+        }
+      ],
+      "q_0": 1.1972173631218102,
+      "residual_at_root": 0.0,
+      "residual_at_zero_exposure": -0.001222461244341058,
+      "root_status": "unique_interior_root",
+      "upper_boundary_distance": null,
+      "upper_boundary_is_unbounded": true
+    },
+    "counts": {
+      "ak_roots_accepted": 1,
+      "ak_roots_enumerated": 2,
+      "grid_rows": 5,
+      "quarantined_rows": 0,
+      "valid_rows": 5
+    },
+    "diagnostic_grid": [
+      {
+        "J_F": 0.08112265867007906,
+        "J_P": 0.16897338678944118,
+        "capital": 0.8,
+        "d_owner": 2.168404344971009e-19,
+        "exposure": -1.487392461896101,
+        "flags": {
+          "branch": "lower_strict_tvc",
+          "inside_certified_domain": true,
+          "interpolated": true,
+          "note": "inside the certified partial-successor domain",
+          "quarantined": false,
+          "reliable_domain": true,
+          "valid": true
+        },
+        "is_baseline": false,
+        "k_owner_F": 1.1372181407756612,
+        "k_owner_P": 1.3357015174696816,
+        "k_world_F": 2.971428571428571,
+        "k_world_P": 0.8615384615384615,
+        "lower_boundary_distance": 4.430699250653322,
+        "owner": {
+          "capital": 0.8,
+          "d_owner": 2.168404344971009e-19,
+          "derivative_at_root": -0.0009022381204784144,
+          "exposure": -1.487392461896101,
+          "exposure_interval": {
+            "lower": -5.918091712549423,
+            "lower_is_finite": true,
+            "upper": null,
+            "upper_is_finite": false,
+            "zero_is_interior": true
+          },
+          "independent": {
+            "d_owner_normalized_error": 0.0,
+            "exposure_residual_normalized": 2.168404344971009e-19,
+            "kernel_max_absolute_error": 0.0,
+            "one_mark_analytic_relative_error": null,
+            "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+          },
+          "label": "grid_K=0.8",
+          "limit_at_unbounded_end": -0.004474816540474233,
+          "lower_boundary_distance": 4.430699250653322,
+          "lower_boundary_is_unbounded": false,
+          "marks": [
+            {
+              "d_owner_contribution": 0.0013019652335808543,
+              "k_owner": 1.3357015174696816,
+              "k_world": 0.8615384615384615,
+              "lambda_physical": 0.01625,
+              "lambda_risk_neutral": 0.014,
+              "mark_id": "P",
+              "owner_wealth_after": 0.748670258228331,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.16897338678944118,
+              "wealth_multiplier": 0.748670258228331
+            },
+            {
+              "d_owner_contribution": -0.001301965233580854,
+              "k_owner": 1.1372181407756612,
+              "k_world": 2.971428571428571,
+              "lambda_physical": 0.00875,
+              "lambda_risk_neutral": 0.026,
+              "mark_id": "F",
+              "owner_wealth_after": 0.8793387690051541,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.08112265867007906,
+              "wealth_multiplier": 0.8793387690051541
+            }
+          ],
+          "q_0": 1.1972173631218102,
+          "residual_at_root": 2.168404344971009e-19,
+          "residual_at_zero_exposure": -0.0010191757417826208,
+          "root_status": "unique_interior_root",
+          "upper_boundary_distance": null,
+          "upper_boundary_is_unbounded": true
+        },
+        "payoff_signs": {
+          "F": "positive",
+          "P": "positive"
+        },
+        "q_F": 1.2943388186242328,
+        "q_P": 1.3995152356916267,
+        "q_P_derivative": -0.6493465809202109,
+        "residual_at_root": 2.168404344971009e-19,
+        "upper_boundary_distance": null,
+        "wealth_multiplier_F": 0.8793387690051541,
+        "wealth_multiplier_P": 0.748670258228331
+      },
+      {
+        "J_F": 0.08112265867007906,
+        "J_P": 0.07862427454124687,
+        "capital": 1.0,
+        "d_owner": 0.0,
+        "exposure": -4.788739006432858,
+        "flags": {
+          "branch": "lower_strict_tvc",
+          "inside_certified_domain": true,
+          "interpolated": true,
+          "note": "inside the certified partial-successor domain",
+          "quarantined": false,
+          "reliable_domain": true,
+          "valid": true
+        },
+        "is_baseline": true,
+        "k_owner_F": 1.6352567634416737,
+        "k_owner_P": 1.6038778696376692,
+        "k_world_F": 2.971428571428571,
+        "k_world_P": 0.8615384615384615,
+        "lower_boundary_distance": 7.538273155076042,
+        "owner": {
+          "capital": 1.0,
+          "d_owner": 0.0,
+          "derivative_at_root": -0.00041238996431763083,
+          "exposure": -4.788739006432858,
+          "exposure_interval": {
+            "lower": -12.3270121615089,
+            "lower_is_finite": true,
+            "upper": null,
+            "upper_is_finite": false,
+            "zero_is_interior": true
+          },
+          "independent": {
+            "d_owner_normalized_error": 0.0,
+            "exposure_residual_normalized": 0.0,
+            "kernel_max_absolute_error": 0.0,
+            "one_mark_analytic_relative_error": null,
+            "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+          },
+          "label": "grid_K=1.0",
+          "limit_at_unbounded_end": -0.0032099289689995116,
+          "lower_boundary_distance": 7.538273155076042,
+          "lower_boundary_is_unbounded": false,
+          "marks": [
+            {
+              "d_owner_contribution": 0.0009484458331591557,
+              "k_owner": 1.6038778696376692,
+              "k_world": 0.8615384615384615,
+              "lambda_physical": 0.01625,
+              "lambda_risk_neutral": 0.014,
+              "mark_id": "P",
+              "owner_wealth_after": 0.6234888696518452,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.07862427454124687,
+              "wealth_multiplier": 0.6234888696518452
+            },
+            {
+              "d_owner_contribution": -0.0009484458331591557,
+              "k_owner": 1.6352567634416737,
+              "k_world": 2.971428571428571,
+              "lambda_physical": 0.00875,
+              "lambda_risk_neutral": 0.026,
+              "mark_id": "F",
+              "owner_wealth_after": 0.6115247601210536,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.08112265867007906,
+              "wealth_multiplier": 0.6115247601210536
+            }
+          ],
+          "q_0": 1.1972173631218102,
+          "residual_at_root": 0.0,
+          "residual_at_zero_exposure": -0.001222461244341058,
+          "root_status": "unique_interior_root",
+          "upper_boundary_distance": null,
+          "upper_boundary_is_unbounded": true
+        },
+        "payoff_signs": {
+          "F": "positive",
+          "P": "positive"
+        },
+        "q_F": 1.2943388186242328,
+        "q_P": 1.291347709765447,
+        "q_P_derivative": -0.4517188300650315,
+        "residual_at_root": 0.0,
+        "upper_boundary_distance": null,
+        "wealth_multiplier_F": 0.6115247601210536,
+        "wealth_multiplier_P": 0.6234888696518452
+      },
+      {
+        "J_F": 0.08112265867007906,
+        "J_P": 0.013584402787171657,
+        "capital": 1.2,
+        "d_owner": -2.303929616531697e-19,
+        "exposure": -8.061790718700664,
+        "flags": {
+          "branch": "lower_strict_tvc",
+          "inside_certified_domain": true,
+          "interpolated": true,
+          "note": "inside the certified partial-successor domain",
+          "quarantined": false,
+          "reliable_domain": true,
+          "valid": true
+        },
+        "is_baseline": false,
+        "k_owner_F": 2.8901224301715867,
+        "k_owner_P": 1.1229830537619987,
+        "k_world_F": 2.971428571428571,
+        "k_world_P": 0.8615384615384615,
+        "lower_boundary_distance": 4.265221442808237,
+        "owner": {
+          "capital": 1.2,
+          "d_owner": -2.303929616531697e-19,
+          "derivative_at_root": -0.0004847592839428953,
+          "exposure": -8.061790718700664,
+          "exposure_interval": {
+            "lower": -12.3270121615089,
+            "lower_is_finite": true,
+            "upper": null,
+            "upper_is_finite": false,
+            "zero_is_interior": true
+          },
+          "independent": {
+            "d_owner_normalized_error": 0.0,
+            "exposure_residual_normalized": 2.303929616531697e-19,
+            "kernel_max_absolute_error": 0.0,
+            "one_mark_analytic_relative_error": null,
+            "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+          },
+          "label": "grid_K=1.2",
+          "limit_at_unbounded_end": -0.002299370764442459,
+          "lower_boundary_distance": 4.265221442808237,
+          "lower_boundary_is_unbounded": false,
+          "marks": [
+            {
+              "d_owner_contribution": 5.7712990518501116e-05,
+              "k_owner": 1.1229830537619987,
+              "k_world": 0.8615384615384615,
+              "lambda_physical": 0.01625,
+              "lambda_risk_neutral": 0.014,
+              "mark_id": "P",
+              "owner_wealth_after": 0.8904853876912882,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.013584402787171657,
+              "wealth_multiplier": 0.8904853876912882
+            },
+            {
+              "d_owner_contribution": -5.7712990518501346e-05,
+              "k_owner": 2.8901224301715867,
+              "k_world": 2.971428571428571,
+              "lambda_physical": 0.00875,
+              "lambda_risk_neutral": 0.026,
+              "mark_id": "F",
+              "owner_wealth_after": 0.3460061032572347,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.08112265867007906,
+              "wealth_multiplier": 0.3460061032572347
+            }
+          ],
+          "q_0": 1.1972173631218102,
+          "residual_at_root": -2.303929616531697e-19,
+          "residual_at_zero_exposure": -0.0013688009557877273,
+          "root_status": "unique_interior_root",
+          "upper_boundary_distance": null,
+          "upper_boundary_is_unbounded": true
+        },
+        "payoff_signs": {
+          "F": "positive",
+          "P": "positive"
+        },
+        "q_F": 1.2943388186242328,
+        "q_P": 1.2134808460062523,
+        "q_P_derivative": -0.3361970481592564,
+        "residual_at_root": -2.303929616531697e-19,
+        "upper_boundary_distance": null,
+        "wealth_multiplier_F": 0.3460061032572347,
+        "wealth_multiplier_P": 0.8904853876912882
+      },
+      {
+        "J_F": 0.08112265867007906,
+        "J_P": -0.035972394008341846,
+        "capital": 1.4,
+        "d_owner": -4.336808689942018e-19,
+        "exposure": -8.076408065933078,
+        "flags": {
+          "branch": "lower_strict_tvc",
+          "inside_certified_domain": true,
+          "interpolated": true,
+          "note": "inside the certified partial-successor domain",
+          "quarantined": false,
+          "reliable_domain": true,
+          "valid": true
+        },
+        "is_baseline": false,
+        "k_owner_F": 2.9000612346699817,
+        "k_owner_P": 0.7748767998828401,
+        "k_world_F": 2.971428571428571,
+        "k_world_P": 0.8615384615384615,
+        "lower_boundary_distance": 4.250604095575822,
+        "owner": {
+          "capital": 1.4,
+          "d_owner": -4.336808689942018e-19,
+          "derivative_at_root": -0.0004969171366825527,
+          "exposure": -8.076408065933078,
+          "exposure_interval": {
+            "lower": -12.3270121615089,
+            "lower_is_finite": true,
+            "upper": 27.79909504405251,
+            "upper_is_finite": true,
+            "zero_is_interior": true
+          },
+          "independent": {
+            "d_owner_normalized_error": 0.0,
+            "exposure_residual_normalized": 4.336808689942018e-19,
+            "kernel_max_absolute_error": 0.0,
+            "one_mark_analytic_relative_error": null,
+            "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+          },
+          "label": "grid_K=1.4",
+          "limit_at_unbounded_end": -0.0016055756093052696,
+          "lower_boundary_distance": 4.250604095575822,
+          "lower_boundary_is_unbounded": false,
+          "marks": [
+            {
+              "d_owner_contribution": 5.0658195875521384e-05,
+              "k_owner": 0.7748767998828401,
+              "k_world": 0.8615384615384615,
+              "lambda_physical": 0.01625,
+              "lambda_risk_neutral": 0.014,
+              "mark_id": "P",
+              "owner_wealth_after": 1.2905277331198948,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": -0.035972394008341846,
+              "wealth_multiplier": 1.2905277331198948
+            },
+            {
+              "d_owner_contribution": -5.065819587552182e-05,
+              "k_owner": 2.9000612346699817,
+              "k_world": 2.971428571428571,
+              "lambda_physical": 0.00875,
+              "lambda_risk_neutral": 0.026,
+              "mark_id": "F",
+              "owner_wealth_after": 0.34482030518703755,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.08112265867007906,
+              "wealth_multiplier": 0.34482030518703755
+            }
+          ],
+          "q_0": 1.1972173631218102,
+          "residual_at_root": -4.336808689942018e-19,
+          "residual_at_zero_exposure": -0.0014803037485776327,
+          "root_status": "unique_interior_root",
+          "upper_boundary_distance": 35.87550310998559,
+          "upper_boundary_is_unbounded": false
+        },
+        "payoff_signs": {
+          "F": "positive",
+          "P": "negative"
+        },
+        "q_F": 1.2943388186242328,
+        "q_P": 1.1541505884219643,
+        "q_P_derivative": -0.26211045078238915,
+        "residual_at_root": -4.336808689942018e-19,
+        "upper_boundary_distance": 35.87550310998559,
+        "wealth_multiplier_F": 0.34482030518703755,
+        "wealth_multiplier_P": 1.2905277331198948
+      },
+      {
+        "J_F": 0.08112265867007906,
+        "J_P": -0.07527496939102973,
+        "capital": 1.6,
+        "d_owner": 5.421010862427522e-20,
+        "exposure": -7.558545224778726,
+        "flags": {
+          "branch": "lower_strict_tvc",
+          "inside_certified_domain": true,
+          "interpolated": true,
+          "note": "inside the certified partial-successor domain",
+          "quarantined": false,
+          "reliable_domain": true,
+          "valid": true
+        },
+        "is_baseline": false,
+        "k_owner_F": 2.5851101255536357,
+        "k_owner_P": 0.6373611167641065,
+        "k_world_F": 2.971428571428571,
+        "k_world_P": 0.8615384615384615,
+        "lower_boundary_distance": 4.768466936730174,
+        "owner": {
+          "capital": 1.6,
+          "d_owner": 5.421010862427522e-20,
+          "derivative_at_root": -0.00042221833556719103,
+          "exposure": -7.558545224778726,
+          "exposure_interval": {
+            "lower": -12.3270121615089,
+            "lower_is_finite": true,
+            "upper": 13.284628450731281,
+            "upper_is_finite": true,
+            "zero_is_interior": true
+          },
+          "independent": {
+            "d_owner_normalized_error": 0.0,
+            "exposure_residual_normalized": 5.421010862427522e-20,
+            "kernel_max_absolute_error": 0.0,
+            "one_mark_analytic_relative_error": null,
+            "route": "owner kernels rebuilt as a_0/a_j^+ from reported wealth levels"
+          },
+          "label": "grid_K=1.6",
+          "limit_at_unbounded_end": -0.0010553395539476393,
+          "lower_boundary_distance": 4.768466936730174,
+          "lower_boundary_is_unbounded": false,
+          "marks": [
+            {
+              "d_owner_contribution": 0.00027421781994834327,
+              "k_owner": 0.6373611167641065,
+              "k_world": 0.8615384615384615,
+              "lambda_physical": 0.01625,
+              "lambda_risk_neutral": 0.014,
+              "mark_id": "P",
+              "owner_wealth_after": 1.5689692604359324,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": -0.07527496939102973,
+              "wealth_multiplier": 1.5689692604359324
+            },
+            {
+              "d_owner_contribution": -0.0002742178199483432,
+              "k_owner": 2.5851101255536357,
+              "k_world": 2.971428571428571,
+              "lambda_physical": 0.00875,
+              "lambda_risk_neutral": 0.026,
+              "mark_id": "F",
+              "owner_wealth_after": 0.3868307156879194,
+              "owner_wealth_before": 1.0,
+              "payoff_jump": 0.08112265867007906,
+              "wealth_multiplier": 0.3868307156879194
+            }
+          ],
+          "q_0": 1.1972173631218102,
+          "residual_at_root": 5.421010862427522e-20,
+          "residual_at_zero_exposure": -0.0015687345431886807,
+          "root_status": "unique_interior_root",
+          "upper_boundary_distance": 20.84317367551001,
+          "upper_boundary_is_unbounded": false
+        },
+        "payoff_signs": {
+          "F": "positive",
+          "P": "negative"
+        },
+        "q_F": 1.2943388186242328,
+        "q_P": 1.1070968627584066,
+        "q_P_derivative": -0.2113899931456161,
+        "residual_at_root": 5.421010862427522e-20,
+        "upper_boundary_distance": 20.84317367551001,
+        "wealth_multiplier_F": 0.3868307156879194,
+        "wealth_multiplier_P": 1.5689692604359324
+      }
+    ],
+    "government_objects_present": false,
+    "maxima": {
+      "max_independent_d_owner_error": 0.0,
+      "max_independent_exposure_residual": 4.336808689942018e-19,
+      "max_independent_kernel_error": 0.0,
+      "max_owner_root_residual": 4.336808689942018e-19
+    },
+    "packet": {
+      "direct_fields": {
+        "diagnostics": {
+          "baseline_capital": 1.0,
+          "diagnostic_capital_grid": [
+            0.8,
+            1.0,
+            1.2,
+            1.4,
+            1.6
+          ]
+        },
+        "inherited_state": {
+          "K_0": 1.0,
+          "M_0": "empty_under_one_time_protection",
+          "a_0": 1.0,
+          "public_installed_equity": 0.0,
+          "public_safe_asset": 0.0,
+          "public_safe_debt": 0.0,
+          "q_0_rule": "exp(varphi*delta)",
+          "source_tax": 0.0
+        },
+        "installation": {
+          "delta": 0.06,
+          "varphi": 3.0
+        },
+        "packet_id": "P-CS012-ECO-02",
+        "packet_kind": "provisional_illustrative_economic_scenario",
+        "preferences": {
+          "rho": 0.04
+        },
+        "shock_law": {
+          "lambda_F": 0.00875,
+          "lambda_F_star": 0.026,
+          "lambda_P": 0.01625,
+          "lambda_P_star": 0.014,
+          "lambda_total": 0.025,
+          "p_F": 0.35,
+          "p_P": 0.65
+        },
+        "successor_domains": {
+          "ak_root_interval": [
+            0.5,
+            3.0
+          ],
+          "partial_capital_interval": [
+            0.5,
+            2.0
+          ]
+        },
+        "technology": {
+          "A_bar": 0.10329029481590953,
+          "I_0": 0.22,
+          "I_P": 0.46,
+          "Z": 0.021276517602977142
+        },
+        "time_unit": "year",
+        "value_unit": "current goods",
+        "world_rates": {
+          "r_0_bar": 0.025,
+          "r_F_bar": 0.03,
+          "r_P_bar": 0.03
+        }
+      },
+      "fingerprint": "2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568",
+      "limits": "Result use is exploratory_only. This packet supports owner-side I1 objects only: successor prices, marked payoff jumps, the world kernel, the owner kernel, the owner exposure, and the owner residual D_K. It does NOT support a government kernel, a fiscal marginal value, a prefunding path, a time path, a public-portfolio direction, a welfare statement, an equilibrium claim, or an optimal policy. The zero public installed-equity, safe-asset, and safe-debt positions are the I1 owner-side state only and must never be used to form a finite government kernel; the strictly positive prefunding family is frozen separately before I2. The inherited state is a named provisional state, not a solved pre-arrival equilibrium. The diagnostic capital grid is sensitivity only; K_0 = 1 remains the baseline whatever the grid shows. ECO-02 is a single-parameter companion to ECO-01, not a replacement for it and not a sweep: ECO-01 and its outputs remain valid and unchanged under their own fingerprint, and the pair is a two-point comparison of one primitive, never a calibrated range.",
+      "packet_id": "P-CS012-ECO-02",
+      "packet_kind": "provisional_illustrative_economic_scenario",
+      "provenance": "PROVISIONAL AND ILLUSTRATIVE. Not an estimate, not a country calibration, not a baseline for any policy statement. P-CS012-ECO-02 is P-CS012-ECO-01 with exactly one primitive changed: technology.A_bar moves from 0.10 to 0.10329029481590953 year^-1. Every other primitive is byte-identical to ECO-01, including varphi = 3.0, delta = 0.06, (r_0_bar, r_P_bar, r_F_bar) = (0.025, 0.030, 0.030), both task shares, the whole shock law, the inherited state and balance sheets, the successor domains, and the diagnostic capital grid. The judgement values behind those unchanged fields are still inherited from the provisional marked-Poisson first-run calibration design EMP005, profile P-CS005-REAL-01 (SHA-256 fde8a1736affeb53b6071edffe57f9462954114e12f70047032ec1dc4bb37d59), which states of itself that it 'is not an estimate and not a country baseline'. The new A_bar is a PROVISIONAL ILLUSTRATIVE PARAMETER CHOICE derived analytically, not measured: fixing a target full-AK capital growth rate g_F = 0.026 year^-1 gives the stationary AK price q_F = exp[varphi*(g_F + delta)] = 1.2943388186242377, and inverting the zero-tax world-user-cost equation gives A_bar = q_F*(r_F_bar - g_F) + (q_F - 1)/varphi = 0.10329029481590953. Nothing about g_F = 0.026 is estimated; it is chosen so that the full-AK mark raises installed-equity value instead of lowering it, which is the case ECO-01 does not exhibit. Z = 0.021276517602977142 remains a units normalization fixing the partial rest point at K_P_star = 1.25 exactly, not an estimate of anything.",
+      "time_unit": "year",
+      "value_unit": "current goods"
+    },
+    "partial_successor": {
+      "H_anchor": 6.468808537643129,
+      "certified_domain": [
+        0.5,
+        2.0
+      ],
+      "covers_declared_interval": true,
+      "declared_interval": [
+        0.5,
+        2.0
+      ],
+      "independence_note": "These are the pinned dependency's own IVP-versus-collocation and quadrature-versus-algebraic comparisons. They are genuinely two routes to the same object inside CS011. The CS012 standalone checker does NOT re-derive the stable manifold: it treats q_P(K) and H_P(K) as serialized data. Manifold construction is evidenced by CS011's own 204-test suite at the pinned commit, not by this block.",
+      "independent_route_diagnostics": {
+        "collocation_checks": [
+          {
+            "K_node": 0.8,
+            "horizon": 109.55474227035995,
+            "ivp_bvp_difference": 1.7474872660017127e-09,
+            "max_residual": 9.991551161633842e-11,
+            "message": "The algorithm converged to the desired accuracy.",
+            "n_nodes": 637,
+            "q_node": 1.399515237439114,
+            "q_node_ivp": 1.3995152356916267,
+            "status": 0,
+            "success": true,
+            "terminal_distance_to_rest_point": 3.3760301983090874e-06,
+            "terminal_unstable_component": 1.5188211304687903e-16
+          },
+          {
+            "K_node": 1.25,
+            "horizon": 109.55474227035995,
+            "ivp_bvp_difference": 3.12194714524594e-13,
+            "max_residual": 1.5202354861220382e-17,
+            "message": "The algorithm converged to the desired accuracy.",
+            "n_nodes": 61,
+            "q_node": 1.1972173631218102,
+            "q_node_ivp": 1.197217363121498,
+            "status": 0,
+            "success": true,
+            "terminal_distance_to_rest_point": 0.0,
+            "terminal_unstable_component": 0.0
+          },
+          {
+            "K_node": 1.7000000000000002,
+            "horizon": 109.55474227035995,
+            "ivp_bvp_difference": 3.844096152505472e-10,
+            "max_residual": 9.965636865166394e-11,
+            "message": "The algorithm converged to the desired accuracy.",
+            "n_nodes": 652,
+            "q_node": 1.086965433657592,
+            "q_node_ivp": 1.0869654332731824,
+            "status": 0,
+            "success": true,
+            "terminal_distance_to_rest_point": 2.589761386877701e-06,
+            "terminal_unstable_component": 1.3822360089328503e-16
+          }
+        ],
+        "derivative_identity_max_gap": 4.950917143808908e-06,
+        "manifold_invariance_max_residual": 3.195358436181017e-07,
+        "max_ivp_bvp_difference": 1.7474872660017127e-09,
+        "max_offset_size_spread": 7.835799120670117e-09,
+        "n_interpolation_nodes": 3000,
+        "rest_point_slope_gap": 8.699940212686386e-10,
+        "wealth_route_max_gap": 1.1893159346243465e-08
+      },
+      "linearization": {
+        "characteristic_residual": -3.469446951953614e-18,
+        "jacobian": [
+          [
+            0.0,
+            0.3480292547546967
+          ],
+          [
+            0.043915237315599334,
+            0.03
+          ]
+        ],
+        "manifold_slope": -0.31472722534291114,
+        "nu_minus": -0.10953428168710685,
+        "nu_plus": 0.13953428168710688,
+        "spectral_gap": 0.10953428168710685,
+        "stable_eigenvector": [
+          1.0,
+          -0.31472722534291125
+        ],
+        "unstable_left_eigenvector": [
+          -0.3002098588011197,
+          -0.9538731785088687
+        ]
+      },
+      "stationary_point": {
+        "K_star": 1.25,
+        "U_P": 0.10165564193425769,
+        "iota_delta": 0.06573912104060338,
+        "q_delta": 1.1972173631218102,
+        "residual_K": 0.0,
+        "residual_q": -4.163336342344337e-17
+      }
+    },
+    "q_0": 1.1972173631218102,
+    "quarantined_rows": []
+  },
+  "interpretation_limits": [
+    "owner-side pricing objects only: successor prices, marked payoff jumps, world and owner kernels, owner exposure, and the owner residual D_K",
+    "no government kernel, fiscal marginal value, prefunding path, time path, public-portfolio direction, welfare number, equilibrium claim, or optimal policy",
+    "the economic packet is provisional and illustrative, not an estimate or a country calibration",
+    "the inherited state is a named provisional state, not a solved pre-arrival equilibrium",
+    "the diagnostic capital grid is sensitivity only; K_0 remains the baseline",
+    "CS012 v0.1 is a draft and is neither review-ready nor approved"
+  ],
+  "machine_runtime_seconds": 0.17116041702684015,
+  "provenance": {
+    "branch": "cs012/i1-provisional-owner-successors",
+    "clean_start": true,
+    "code_commit": "c42cbfd3b1e5642f6f33834e9d8045f098f9a0e2",
+    "cs011_dependency": {
+      "distribution": "ak-partial-ramsey",
+      "resolved": {
+        "commit_id": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+        "requested_revision": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+        "url": "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey",
+        "vcs": "git"
+      },
+      "version": "0.1.0"
+    },
+    "dependency_lock_path": "uv.lock",
+    "dependency_lock_sha256": "bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f",
+    "machine": "arm64",
+    "numpy_version": "2.5.2",
+    "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "python_version": "3.13.5",
+    "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance-poisson.git",
+    "scipy_version": "1.18.1"
+  },
+  "result_use": "exploratory_only",
+  "schema": "cs012-i1-owner-branch-report/1",
+  "specification": {
+    "path": "computation/specifications/laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md",
+    "sha256": "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
+    "specification_id": "CS012",
+    "status": "draft",
+    "superseded_specification_sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+    "supersession_note": "The 2026-09-05 report at the earlier CS012 hash remains valid historical exploratory evidence under that hash; it is not edited or withdrawn. The intervening specification change concerns the downstream signed-safe CS011 v0.6 scope and does not alter any I0 formula.",
+    "version": "0.1",
+    "workspace": "TAI public finnace codex"
+  },
+  "synthetic": {
+    "counts": {
+      "fixtures_run": 3,
+      "refused": 0,
+      "reproduced": 3
+    },
+    "packet": {
+      "direct_fields": {
+        "dependency_commit": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+        "dependency_repository": "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey.git",
+        "packet_id": "P-CS012-SYN-01",
+        "packet_kind": "stationary_compatible_software_packet",
+        "primary_fixture": "manufactured-two-mark",
+        "regression_fixtures": [
+          "single-ak-two-root",
+          "manufactured-two-mark",
+          "manufactured-single-ak-support"
+        ]
+      },
+      "fingerprint": "c0c7c644c606fca74acdbc447a5e8336d1a956920bc9e6eee176e0057459b591",
+      "limits": "This packet has NO economic interpretation. It is not a calibration, not an estimate, not an anchor, and not a scenario. Its states are arbitrary probes chosen to exercise code paths, not equilibrium points, and their implementation margins are not expected to be strict. Nothing computed under this packet may be read as an economic result of any kind. Do not relabel it.",
+      "packet_id": "P-CS012-SYN-01",
+      "packet_kind": "stationary_compatible_software_packet",
+      "provenance": "Every parameter value used under this packet lives in the pinned CS011 dependency's own fixtures module at commit 6b457682c4eed8ad4e3bdd867d1292abac38f424. Nothing is transcribed here: the report reads each fixture's provenance, source_locator, economic_interpretation, manufactured_fields, and notes verbatim at load time, so a fixture that changed its own self-description could not be silently relabelled by this packet. 'manufactured-two-mark' is the primary stationary-compatible software probe: its partial-successor capital window is frozen as the interval [K_P*/1.5, K_P*x1.5] around the manufactured partial rest point, which is what makes it stationary-compatible in the only sense the dependency defines. 'single-ak-two-root' is the dependency's theory_supplied fixture and is run here purely as a regression that the pinned commit still reproduces its documented AK roots."
+    },
+    "regressions": [
+      {
+        "ak": {
+          "candidates": [
+            {
+              "accepted": true,
+              "branch": "lower_strict_tvc",
+              "q": 1.0600839471281598,
+              "reason": "accepted_strict_productive_value_tvc"
+            },
+            {
+              "accepted": false,
+              "branch": "upper_tvc_violating",
+              "q": 1.4881237110913363,
+              "reason": "productive_value_tvc_violated"
+            }
+          ],
+          "n_accepted": 1,
+          "n_roots_enumerated": 2,
+          "selected_branch": "lower_strict_tvc",
+          "selected_q_F": 1.0600839471281598,
+          "tvc_margin": 0.07166075984315615
+        },
+        "fixture": {
+          "economic_interpretation": "None. The packet presents this as a falsification of 'any scalar root is admissible', not as numerical evidence of global existence and not as a calibration.",
+          "manufactured_fields": [
+            "pre_arrival_technology.Z",
+            "pre_arrival_technology.I",
+            "rates.r0_bar",
+            "intensities.lambda_total",
+            "intensities.lambda_F_star",
+            "ak_root_interval.q_lo",
+            "ak_root_interval.q_hi"
+          ],
+          "name": "single-ak-two-root",
+          "notes": "Both roots pass the scalar equation, current positivity, balance-sheet solvency, finite-log-value, and the gross-position checks. The upper root is rejected only because discounted installed-capital value grows instead of vanishing, so reproducing the rejection is as much a part of G0 as reproducing the selection.",
+          "provenance": "theory_supplied",
+          "source_locator": "research-notes/single-ak-small-open-full-automation-solution.md section '4. Admissible and rejected scalar-root fixtures'"
+        },
+        "is_primary": false,
+        "partial": null,
+        "scope": "ak_only",
+        "status": "reproduced"
+      },
+      {
+        "ak": {
+          "candidates": [
+            {
+              "accepted": true,
+              "branch": "lower_strict_tvc",
+              "q": 1.0600839471281598,
+              "reason": "accepted_strict_productive_value_tvc"
+            },
+            {
+              "accepted": false,
+              "branch": "upper_tvc_violating",
+              "q": 1.4881237110913363,
+              "reason": "productive_value_tvc_violated"
+            }
+          ],
+          "n_accepted": 1,
+          "n_roots_enumerated": 2,
+          "selected_branch": "lower_strict_tvc",
+          "selected_q_F": 1.0600839471281598,
+          "tvc_margin": 0.07166075984315615
+        },
+        "fixture": {
+          "economic_interpretation": "None. Chosen to exercise both successor services and the two-mark exposure geometry. Not a calibration, not an anchor, not a scenario.",
+          "manufactured_fields": [
+            "all"
+          ],
+          "name": "manufactured-two-mark",
+          "notes": "Every number here exists to exercise a code path. The state in particular is an arbitrary probe, not an equilibrium point, and its implementation margins are not expected to be strict: a strictly interior pre-arrival state is an equilibrium object and locating one requires blocks N2 and N4. Searching for one and freezing it here would amount to inventing the economic scenario that CS011 activation gate 2 leaves open.",
+          "provenance": "manufactured",
+          "source_locator": "ak_partial_ramsey.fixtures (this module)"
+        },
+        "is_primary": true,
+        "partial": {
+          "K_P_star": 320.2402599858991,
+          "certified_domain": [
+            213.49350665726607,
+            480.3603899788487
+          ],
+          "max_ivp_bvp_difference": 1.675573013670828e-10,
+          "wealth_route_max_gap": 1.2898294698970858e-07
+        },
+        "scope": "ak_and_partial",
+        "status": "reproduced"
+      },
+      {
+        "ak": {
+          "candidates": [
+            {
+              "accepted": true,
+              "branch": "lower_strict_tvc",
+              "q": 1.0600839471281598,
+              "reason": "accepted_strict_productive_value_tvc"
+            },
+            {
+              "accepted": false,
+              "branch": "upper_tvc_violating",
+              "q": 1.4881237110913363,
+              "reason": "productive_value_tvc_violated"
+            }
+          ],
+          "n_accepted": 1,
+          "n_roots_enumerated": 2,
+          "selected_branch": "lower_strict_tvc",
+          "selected_q_F": 1.0600839471281598,
+          "tvc_margin": 0.07166075984315615
+        },
+        "fixture": {
+          "economic_interpretation": "None. The exact support restriction p_P = lambda_P_star = 0 of the manufactured two-mark configuration, retained as a first-class branch.",
+          "manufactured_fields": [
+            "all"
+          ],
+          "name": "manufactured-single-ak-support",
+          "notes": "The partial technology stays present so that the collapse is exercised through the two-mark code path with a genuinely inactive mark, rather than by removing the mark from the configuration.",
+          "provenance": "manufactured",
+          "source_locator": "ak_partial_ramsey.fixtures (this module)"
+        },
+        "is_primary": false,
+        "partial": {
+          "K_P_star": 320.2402599858991,
+          "certified_domain": [
+            213.49350665726607,
+            480.3603899788487
+          ],
+          "max_ivp_bvp_difference": 1.675573013670828e-10,
+          "wealth_route_max_gap": 1.2898294698970858e-07
+        },
+        "scope": "ak_and_partial",
+        "status": "reproduced"
+      }
+    ]
+  },
+  "tolerance_policy": {
+    "min_abs_payoff": 0.001,
+    "normalized_error": "abs(lhs-rhs)/max(1, sum(abs(term)))",
+    "owner_root_residual_max": 1e-10,
+    "production_versus_independent_max": 1e-10
+  }
+}

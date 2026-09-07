@@ -1,0 +1,285 @@
+# RUN-20260906T030126Z-CS012-265a45c5-01
+{
+  "approach_id": "CA024",
+  "artifacts": [
+    {
+      "bytes": 242695,
+      "location": "outputs/cs012-i2b-transfer-constrained-prefunding-eco02/identity_report.json",
+      "role": "primary_output",
+      "sha256": "1d5438f1b3893f70887f4f0b226fbbd021515fa85128cfee446a105a6e372556"
+    },
+    {
+      "bytes": 2270,
+      "location": "outputs/cs012-i2b-transfer-constrained-prefunding-eco02/summary.md",
+      "role": "summary",
+      "sha256": "267f03ed340515cf623ab9424e5ab5854e2de0fa367d221da39cd2ce7bcaf4e5"
+    },
+    {
+      "location": "tools/check_cs012_i2b_report.py",
+      "role": "independent_checker",
+      "sha256": "65cf9545ef635bffdcc3019216c065cbcd0e373cffab6810e5bca55a79721f5d"
+    }
+  ],
+  "benchmark_id": "CB012",
+  "closure_audit": {
+    "consequence": "no k^G and no gamma; V_{j,e} is a numerator only and is never relabelled as a government kernel",
+    "government_kernels_permitted": false,
+    "pre_event_mu_e_status": "unavailable_missing_optimized_pre_event_value_gradient"
+  },
+  "command": "uv run python -m tai_public_finance.cs012_poisson_kernels.report_i2b --economic-config configs/cs012/P-CS012-ECO-02.json --prefunding-config configs/cs012/P-CS012-PREFUND-01.json --analytic-config configs/cs012/P-CS012-SYN-02.json --output-dir outputs/cs012-i2b-transfer-constrained-prefunding-eco02",
+  "created_utc": "2026-09-06T03:01:26Z",
+  "deviations": [
+    {
+      "detail": "carried forward; none of the unfrozen objects enters the constrained successor calculation",
+      "expiry": "before any block that computes a government kernel",
+      "id": "DEV-01",
+      "independent_reviewer": "Codex",
+      "item": "I2b executed before the full parameter packet is frozen",
+      "owner": "Nathan",
+      "result_use_ceiling": "exploratory_only"
+    },
+    {
+      "detail": "the immutable-output guard correctly refused the second run once the first had made the tree dirty. The first output directory was moved to a scratch path outside the repository, the second run executed from the clean commit, and the first was moved back unchanged. Its SHA-256 was recorded before and after the move and is identical (1d5438f1...). Both runs therefore executed from 265a45c5 with a clean tree and neither used --allow-dirty.",
+      "id": "DEV-06",
+      "item": "two evidence runs from one clean implementation commit",
+      "resolution": "reported, not worked around by weakening the guard"
+    }
+  ],
+  "economic_object": {
+    "full_ak": "W_F = 0, so transfers are strictly positive for every F > 0 and C_F(0) = rho F, V_{F,e} = 1/(rho F) are exact",
+    "government_optimizes": "the timing of transfers and safe saving, subject to T(t) >= 0",
+    "is_not": [
+      "the unconstrained comprehensive-wealth relaxation",
+      "an unrestricted Ramsey successor",
+      "a tax or portfolio reoptimization"
+    ],
+    "marginal_value": "V_{P,e} = 1/A where differentiable; one-sided at F = 0",
+    "productive_path": "the selected zero-tax strict-productive-TVC successor path, retained",
+    "public_installed_equity_Theta": 0.0,
+    "solution": "C_t = max{W_P(K_t), A e^{(r_P-rho)t}} (16.15), A exhausting the PV transfer budget",
+    "source_tax_tau": 0.0,
+    "worker_consumption": "wages plus nonnegative transfers"
+  },
+  "environment": {
+    "architecture": "arm64",
+    "dependency_lock_path": "uv.lock",
+    "dependency_lock_sha256": "bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f",
+    "operating_system": "macOS-15.6.1",
+    "runtime_versions": {
+      "numpy": "2.5.2",
+      "pytest": "9.1.1",
+      "python": "3.13.5",
+      "scipy": "1.18.1",
+      "uv": "0.12.5"
+    }
+  },
+  "error_assessment": {
+    "decision_gaps": {
+      "complementarity_and_switching_max_residual": 1e-09,
+      "full_ak_elasticity_max_absolute_error": 1e-12,
+      "full_ak_max_relative_error": 1e-12,
+      "production_versus_independent_V_max_relative_error": 1e-08,
+      "pv_transfer_budget_max_absolute_error": 1e-10,
+      "pv_wage_route_max_absolute_gap": 1e-08
+    },
+    "disposition": "continue_exploratory",
+    "policy": "computation/error-handling-and-result-use.md",
+    "required_margins": {
+      "met": true,
+      "rule": "U_q <= 0.1 * Delta_q"
+    },
+    "result_use_status": "exploratory_only"
+  },
+  "external_dependency": {
+    "pin_changed": false,
+    "pinned_commit": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+    "resolved_commit": "6b457682c4eed8ad4e3bdd867d1292abac38f424"
+  },
+  "hardware": {
+    "accelerator": null,
+    "cash_usd": 0,
+    "cpu": "Apple M4",
+    "gpu_or_external_quota": "none",
+    "logical_cores": 10,
+    "machine_label": "Apple M4 MacBook Air (local)",
+    "memory_gb": 16,
+    "parallelization_disposition": "keep_serial",
+    "resource_lane": "L1_interactive"
+  },
+  "i2a_quarantine": {
+    "defect": "the unrestricted annuity was applied outside its transfer-feasible domain",
+    "edited_or_deleted": false,
+    "output": "outputs/cs012-i2a-successor-prefunding-eco02/",
+    "quarantined_scope": [
+      "partial-automation consumption rows",
+      "partial V_{P,e} rows",
+      "partial elasticities",
+      "the reported partial F = 0 limit 5.136531043748698",
+      "prose derived from those quantities"
+    ],
+    "retained_scope": [
+      "full-AK identities and their unit elasticity",
+      "price data q_0, q_P, q_F",
+      "the H_P quadrature-versus-algebraic route check",
+      "configuration provenance",
+      "the absence of government kernels"
+    ],
+    "run_id": "RUN-20260906T015330Z-CS012-e6ef83e5-01"
+  },
+  "implementation": {
+    "assigned_base_commit": "c325aee0b92e4101ba085c74183c8e293c2ef2ef",
+    "branch": "cs012/i2b-transfer-constrained-prefunding",
+    "checkpoint_commit": "df93f5b08e369c80a90c9c614be4ade7c509e369",
+    "clean_start": true,
+    "commit": "265a45c5ac2c41c034ce2740293ca36e14e76503",
+    "commit_subject": "Implement the CS012 I2b transfer-constrained successor and the rho=3% scenario",
+    "dirty_worktree": false,
+    "generated_without_allow_dirty": true,
+    "implementer": "claude_code",
+    "merged": false,
+    "pushed": false,
+    "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance-poisson.git"
+  },
+  "implementation_block": "I2b",
+  "inputs": {
+    "analytic_fixture": {
+      "fingerprint": "f655fd974708bcdc4ade230baa8c0c8c42f1ef56005a080cd9808beadbddbe4e",
+      "packet_id": "P-CS012-SYN-02"
+    },
+    "economic_packet": {
+      "fingerprint": "2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568",
+      "packet_id": "P-CS012-ECO-02",
+      "unchanged": true
+    },
+    "prefunding_packet": {
+      "fingerprint": "73a056a5786b3ce14ccdd40e2c9c6882d8ab5835b2b6a3f1a3e82ba512bb5efb",
+      "note": "its operative fingerprint is deliberately unchanged: the new main-reference keys are fingerprinted only when a packet designates one",
+      "packet_id": "P-CS012-PREFUND-01",
+      "unchanged": true
+    }
+  },
+  "interpretation": {
+    "accepted": false,
+    "cannot_establish": [
+      "a normalized government kernel",
+      "a time-profile ratio",
+      "a portfolio direction",
+      "an equilibrium claim",
+      "a welfare result",
+      "an optimal government portfolio"
+    ],
+    "independent_reviewer": "Codex",
+    "integration_owner": "Nathan",
+    "review_state": "ready for independent review"
+  },
+  "problem_id": "CP012",
+  "purpose": "transfer_constrained_successor_prefunding",
+  "result": {
+    "active_set_counts": {
+      "globally_transfer_interior": 0,
+      "transfer_boundary_active": 7
+    },
+    "independent_checker_seconds": 0.06,
+    "maxima": {
+      "max_full_ak_elasticity_error": 4.440892098500626e-16,
+      "max_pv_transfer_budget_error": 4.440892098500626e-16,
+      "max_pv_wage_route_gap": 9.635048314748929e-11
+    },
+    "one_sided_boundary_limit": {
+      "rule": "1/W_P(K_0)",
+      "supersedes_quarantined_i2a_value": 5.136531043748698,
+      "value": 7.428500854527598
+    },
+    "outcome": "success",
+    "productive_path": {
+      "H_P_minus_qP_K": 4.867098005846903,
+      "W_P_0": 0.13461666352108043,
+      "W_P_inf": 0.14916860501222598,
+      "integration_horizon_years": 1345.0,
+      "pv_wage_route_gap": 9.635048314748929e-11
+    },
+    "rows": [
+      {
+        "F": 1.0,
+        "V_Pe": 4.566452712931412,
+        "switch_years": 38.540165
+      },
+      {
+        "F": 0.3,
+        "V_Pe": 5.632941236820002,
+        "switch_years": 18.693219
+      },
+      {
+        "F": 0.1,
+        "V_Pe": 6.292818583452,
+        "switch_years": 9.773173
+      },
+      {
+        "F": 0.03,
+        "V_Pe": 6.76371071649,
+        "switch_years": 4.980143
+      },
+      {
+        "F": 0.01,
+        "V_Pe": 7.03008519969,
+        "switch_years": 2.766176
+      },
+      {
+        "F": 0.003,
+        "V_Pe": 7.20492603347,
+        "switch_years": 1.478958
+      },
+      {
+        "F": 0.001,
+        "V_Pe": 7.297762159179195,
+        "switch_years": 0.843375
+      }
+    ],
+    "rows_note": "reported to the precision of this record; the report carries full FP64",
+    "transfer_slack": {
+      "F_min": null,
+      "rule": "(16.8): r_P = 0.03 < rho = 0.04, so the threshold is infinite",
+      "threshold_underline_X": "positive_infinity"
+    },
+    "wall_seconds": 0.47
+  },
+  "run_id": "RUN-20260906T030126Z-CS012-265a45c5-01",
+  "scenario": "P-CS012-ECO-02 (rho = 0.04, r_P = 0.03)",
+  "schema_version": "1.0",
+  "specification": {
+    "canonical_inputs_verified": {
+      "CD016_sha256": "7351f14d31d0074a613c27ff8ddfc2e160b050a4e4b3a4ec06e1a006a91d3e49",
+      "analytic_derivations_sha256": "6d213509b2d19060d9922b56a9af50413755f3d207defc9fdb0ff7365a4086f8",
+      "overnight_template_sha256": "15d852c63bdcb21975285bef91a601313fcaac1fc236bd222f6abd1e24167ff4"
+    },
+    "file_sha256": "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
+    "hash_verified_before_writing": true,
+    "id": "CS012",
+    "promotion": "none; CS012 v0.1 remains a draft, neither review-ready nor approved",
+    "status": "draft",
+    "version": "0.1"
+  },
+  "status": "complete",
+  "tests": {
+    "before_this_block": "344 passed at c325aee0 (clean tree)",
+    "focused_command": "uv run pytest tests/cs012_i2b",
+    "focused_result": "63 passed",
+    "full_command": "uv run pytest",
+    "full_result": "407 passed",
+    "inherited_checkers_rerun": [
+      "tools/check_cs012_i1_report.py on the I1 ECO-01 report: pass",
+      "tools/check_cs012_i1_report.py on the I1 ECO-02 report: pass",
+      "tools/check_cs012_i2_report.py on the pinned I2a report: pass"
+    ]
+  },
+  "timing": {
+    "checkpoint_note": "the 40-minute checkpoint row committed at df93f5b recorded '46 min elapsed' from an unmeasured estimate; the measured elapsed time at that commit was about 7 minutes. The checkpoint record is immutable and was not amended; this is the correction.",
+    "cumulative_cap_seconds": 3600,
+    "cumulative_material_numerical_runtime_seconds": 1.04,
+    "elapsed_end_utc": "2026-09-06T03:01:26Z",
+    "elapsed_start_utc": "2026-09-06T02:43:22Z",
+    "machine_runtime_including_all_suites_seconds": 12.5,
+    "machine_runtime_seconds": 0.47,
+    "total_elapsed_implementation_minutes": 18
+  }
+}

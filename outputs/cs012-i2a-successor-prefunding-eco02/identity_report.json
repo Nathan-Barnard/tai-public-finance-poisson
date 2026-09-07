@@ -1,0 +1,520 @@
+{
+  "block": "I2a",
+  "block_scope": "successor boundary and positive prefunding; normalized government kernels are gated on the pre-event mu_e closure audit",
+  "closure_audit": {
+    "detail": "No optimized pre-event government value gradient exists at the pinned commits. The pre-arrival costate system is available only as equations; solving it is CS011 block N4, which is not implemented at the pinned commit. The single candidate, mu_e = 1/C from the interior consumption first-order condition, requires C from a solved optimized pre-arrival continuation; supplying C by hand would make it a fixed-policy derivative, which CS012 explicitly excludes -- the specification requires the derivative of the *optimized* government continuation, 'not the derivative of a rule that mechanically fixes all laissez-faire policies after a marginal resource arrives'. No substitute was used and no finite government kernel is reported.",
+    "evidence": [
+      "ak_partial_ramsey.canonical supplies the four-dimensional pre-arrival costate system for z = (K, e, mu_K, mu_e) as EQUATIONS only; its own module docstring states that solving the transition boundary-value problem is block N4 and is deliberately not implemented there (docstring confirms 'not implemented here')",
+      "every mu_e-aware callable there accepts mu_e as a caller-supplied argument and none returns it: ['consumption_growth', 'control_map_residual', 'costate_K_dot', 'costate_e_dot', 'tax_identity_residual']",
+      "ak_partial_ramsey.assembly.evaluate_state requires pre-event consumption C and the price drift q_dot as caller-supplied inputs, so the only mu_e it could express is 1/C at a supplied C -- a fixed-policy derivative, not an optimized one",
+      "ak_partial_ramsey.stationary is absent at the pinned commit",
+      "ak_partial_ramsey.continuation is absent at the pinned commit",
+      "ak_partial_ramsey.certificate is absent at the pinned commit"
+    ],
+    "forbidden_substitutes_not_used": [
+      "unit normalization mu_e = 1",
+      "1/C_0 or 1/W_0 without a solved optimized continuation",
+      "the domestic owner's kernel",
+      "the world kernel",
+      "a fixed-policy value derivative",
+      "a value from an unpinned or unapproved dependency revision",
+      "a newly invented pre-event equation, terminal condition, or policy rule"
+    ],
+    "government_kernels_permitted": false,
+    "missing_computational_object": "mu_e(K_0, e_0): the gradient in public net wealth of the optimized pre-event government continuation value, on the maintained zero-tax admissible branch with its boundary/terminal conditions and TVCs",
+    "missing_interface": "a solved pre-arrival transition (CS011 block N4) returning the converged costate pair (mu_K, mu_e) at the reference state, together with the branch, terminal condition and TVC certificates under which it was solved",
+    "pre_event_mu_e_status": "unavailable_missing_optimized_pre_event_value_gradient"
+  },
+  "configs": {
+    "analytic": {
+      "fingerprint": "f655fd974708bcdc4ade230baa8c0c8c42f1ef56005a080cd9808beadbddbe4e",
+      "packet_id": "P-CS012-SYN-02",
+      "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/P-CS012-SYN-02.json",
+      "sha256": "e891c851148ecc04c5c202715adaa9626d14407d6dcf2b799b687632c01b7bbc"
+    },
+    "economic": {
+      "fingerprint": "2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568",
+      "packet_id": "P-CS012-ECO-02",
+      "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/P-CS012-ECO-02.json",
+      "sha256": "9d1c2ff7d30218d0b7fd2d284935360c4ec90511c1e022fcac49387b1c7b7940"
+    },
+    "prefunding": {
+      "fingerprint": "73a056a5786b3ce14ccdd40e2c9c6882d8ab5835b2b6a3f1a3e82ba512bb5efb",
+      "packet_id": "P-CS012-PREFUND-01",
+      "path": "/Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0/configs/cs012/P-CS012-PREFUND-01.json",
+      "sha256": "173fcaa123a00e75ed1c3f140e7a763fc788f15d6c3498eac0d062e30ea409db"
+    }
+  },
+  "economic_scenario": {
+    "balance_sheet_convention": {
+      "public_installed_equity_Theta": 0.0,
+      "safe_debt_B_examples": {
+        "0.001": -0.001,
+        "0.003": -0.003,
+        "0.01": -0.01,
+        "0.03": -0.03,
+        "0.1": -0.1,
+        "0.3": -0.3,
+        "1.0": -1.0
+      },
+      "source_tax_tau": 0.0
+    },
+    "baseline_capital": 1.0,
+    "elasticities": {
+      "full_ak": [
+        -1.0000000000000002,
+        -0.999999999999999,
+        -0.9999999999999997,
+        -1.0000000000000009,
+        -1.0000000000000302,
+        -1.000000000000068
+      ],
+      "full_ak_expected": -1.0,
+      "partial": [
+        -0.10552474039748401,
+        -0.035932102576192955,
+        -0.011788456773993565,
+        -0.003725075682610743,
+        -0.0011929760739672435,
+        -0.0003738841314477191
+      ],
+      "partial_limit_expected": "approaches zero, not minus one"
+    },
+    "full_rows": [
+      {
+        "event_wealth_coordinate_e_plus": -0.29433881862423283,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 1.0,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 24.999999999999996,
+        "worker_consumption_C_W": 0.04000000000000001,
+        "worker_resources_X": 1.0000000000000002
+      },
+      {
+        "event_wealth_coordinate_e_plus": -0.9943388186242328,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.3,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 83.33333333333331,
+        "worker_consumption_C_W": 0.012000000000000002,
+        "worker_resources_X": 0.30000000000000004
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.1943388186242327,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.1,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 249.99999999999977,
+        "worker_consumption_C_W": 0.0040000000000000036,
+        "worker_resources_X": 0.10000000000000009
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.2643388186242328,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.03,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 833.3333333333325,
+        "worker_consumption_C_W": 0.0012000000000000012,
+        "worker_resources_X": 0.030000000000000027
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.2843388186242328,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.01,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 2499.9999999999977,
+        "worker_consumption_C_W": 0.00040000000000000034,
+        "worker_resources_X": 0.010000000000000009
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.291338818624233,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.003,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 8333.333333333634,
+        "worker_consumption_C_W": 0.00011999999999999567,
+        "worker_resources_X": 0.0029999999999998916
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.293338818624233,
+        "installed_capital_value_qK": 1.2943388186242328,
+        "mark_id": "F",
+        "prefunding_level_F": 0.001,
+        "productive_wealth_H": 1.2943388186242328,
+        "successor_marginal_value_V_e": 25000.00000000275,
+        "worker_consumption_C_W": 3.99999999999956e-05,
+        "worker_resources_X": 0.0009999999999998899
+      }
+    ],
+    "literal_boundary": {
+      "contrast": "Full automation eliminates worker human wealth, so worker consumption is exactly zero at F = 0 and the successor marginal value is positive infinity. Partial automation retains strictly positive worker human wealth net of installed-capital value (4.867098005846903), so its successor marginal value has a finite limit. The two branches are structurally different at the boundary, not merely different in scale.",
+      "excluded_from_logarithms_and_finite_differences": true,
+      "full_ak": {
+        "successor_marginal_value": {
+          "kind": "positive_infinity",
+          "value": null
+        },
+        "worker_consumption": {
+          "kind": "finite",
+          "value": 0.0
+        }
+      },
+      "partial_automation": {
+        "successor_marginal_value": {
+          "kind": "finite",
+          "value": 5.136531043748698
+        },
+        "worker_resources_X": {
+          "kind": "finite",
+          "value": 4.867098005846903
+        }
+      },
+      "prefunding_level_F": 0.0,
+      "status": "nonfinite_fiscal_kernel_at_literal_laissez_faire"
+    },
+    "maxima": {
+      "H_P_route_gap": 6.773959171368915e-11,
+      "max_full_ak_elasticity_absolute_error": 6.794564910705958e-14,
+      "max_full_ak_level_relative_error": 1.1015799827873709e-13,
+      "max_partial_elasticity_magnitude": 0.10552474039748401
+    },
+    "packet_fingerprint": "2d792f4843a8024517c267cc551f2008eb86ecf1a6e7d6fc9906b0093e100568",
+    "packet_id": "P-CS012-ECO-02",
+    "partial_rows": [
+      {
+        "event_wealth_coordinate_e_plus": -0.2913477097654471,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 1.0,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 4.261050348074304,
+        "worker_consumption_C_W": 0.23468392023387613,
+        "worker_resources_X": 5.867098005846903
+      },
+      {
+        "event_wealth_coordinate_e_plus": -0.9913477097654471,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.3,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 4.838305751450988,
+        "worker_consumption_C_W": 0.2066839202338761,
+        "worker_resources_X": 5.167098005846903
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.191347709765447,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.1,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 5.033119936544807,
+        "worker_consumption_C_W": 0.1986839202338761,
+        "worker_resources_X": 4.9670980058469025
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.261347709765447,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.03,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 5.1050642584957835,
+        "worker_consumption_C_W": 0.19588392023387613,
+        "worker_resources_X": 4.897098005846903
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.281347709765447,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.01,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 5.125999102340938,
+        "worker_consumption_C_W": 0.1950839202338761,
+        "worker_resources_X": 4.877098005846903
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.2883477097654472,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.003,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 5.133366919923521,
+        "worker_consumption_C_W": 0.19480392023387613,
+        "worker_resources_X": 4.870098005846903
+      },
+      {
+        "event_wealth_coordinate_e_plus": -1.2903477097654472,
+        "installed_capital_value_qK": 1.291347709765447,
+        "mark_id": "P",
+        "prefunding_level_F": 0.001,
+        "productive_wealth_H": 6.15844571561235,
+        "successor_marginal_value_V_e": 5.135475902492795,
+        "worker_consumption_C_W": 0.19472392023387614,
+        "worker_resources_X": 4.868098005846903
+      }
+    ],
+    "prefunding_levels": [
+      1.0,
+      0.3,
+      0.1,
+      0.03,
+      0.01,
+      0.003,
+      0.001
+    ],
+    "prices": {
+      "q_0": 1.1972173631218102,
+      "q_F": 1.2943388186242328,
+      "q_P": 1.291347709765447
+    },
+    "productive_wealth": {
+      "H_F_equals_qF_K": 1.2943388186242328,
+      "H_P_algebraic": 6.158445715544611,
+      "H_P_minus_qP_K": 4.867098005846903,
+      "H_P_quadrature": 6.15844571561235,
+      "H_P_route_gap": 6.773959171368915e-11,
+      "full_ak_residual_wealth": 0.0,
+      "note": "On the full-AK branch productive human wealth exactly offsets installed-capital value, so X_F = F identically. The partial branch keeps a strictly positive residual at this baseline."
+    },
+    "r_F_bar": 0.03,
+    "r_P_bar": 0.03,
+    "rho": 0.04,
+    "safe_position_tvc": {
+      "F_growth_rate": -0.010000000000000002,
+      "detail": "e^{-rho t} V_{F,e}(t) F(t) = e^{-rho t}/rho -> 0 and e^{-r_bar t} F(t) = F e^{-rho t} -> 0, both for rho > 0",
+      "market_discounted_limit_exponent": -0.04,
+      "market_discounted_tvc_holds": true,
+      "utility_discounted_limit_exponent": -0.04,
+      "utility_discounted_tvc_holds": true
+    }
+  },
+  "government_kernels": {
+    "gamma": null,
+    "k_government": null,
+    "note": "Not computed and not approximated. k^G_j = V_{j,e}/mu_e requires the pre-event optimized government marginal value, which the closure audit did not find at the pinned commits. The successor marginal values below are numerators only.",
+    "reason": "unavailable_missing_optimized_pre_event_value_gradient",
+    "reported": false
+  },
+  "interpretation_limits": [
+    "successor-side boundary and prefunding evidence only",
+    "a successor marginal value V_{j,e} is NOT a government kernel and is never relabelled as one",
+    "no normalized government kernel k^G, no relative kernel gamma, no portfolio direction",
+    "no welfare statement, no equilibrium claim, no optimal policy, no dynamic Ramsey solve",
+    "the prefunding rows are different inherited public-wealth continuations, not free endowments and not a common-(S_0,M_0) welfare comparison",
+    "the economic packet is provisional and illustrative, not an estimate or a country calibration",
+    "P-CS012-SYN-01 is quarantined; its 'stationary-compatible' label was false",
+    "CS012 v0.1 is a draft and is neither review-ready nor approved"
+  ],
+  "machine_runtime_seconds": 0.05259316600859165,
+  "provenance": {
+    "branch": "cs012/i1-provisional-owner-successors",
+    "clean_start": true,
+    "code_commit": "e6ef83e597e5cfd34f917cf74125e930abbcf0df",
+    "cs011_dependency": {
+      "distribution": "ak-partial-ramsey",
+      "resolved": {
+        "commit_id": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+        "requested_revision": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+        "url": "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey",
+        "vcs": "git"
+      },
+      "version": "0.1.0"
+    },
+    "dependency_lock_path": "uv.lock",
+    "dependency_lock_sha256": "bd25591ec444ad9409acd39504b2cbbfb56e3478ab31f1cb7ee1b6c50c631b4f",
+    "machine": "arm64",
+    "numpy_version": "2.5.2",
+    "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "python_version": "3.13.5",
+    "repository_url": "https://github.com/Nathan-Barnard/tai-public-finance-poisson.git",
+    "scipy_version": "1.18.1"
+  },
+  "result_use": "exploratory_only",
+  "schema": "cs012-i2a-successor-prefunding-report/1",
+  "specification": {
+    "path": "computation/specifications/laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md",
+    "sha256": "d345f07cdeaf6901fd1ea985cb2566d8c717e4b4dce5ba9fa489375b895d0498",
+    "specification_id": "CS012",
+    "status": "draft",
+    "superseded_specification_sha256": "275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8",
+    "supersession_note": "The 2026-09-05 report at the earlier CS012 hash remains valid historical exploratory evidence under that hash; it is not edited or withdrawn. The intervening specification change concerns the downstream signed-safe CS011 v0.6 scope and does not alter any I0 formula.",
+    "version": "0.1",
+    "workspace": "TAI public finnace codex"
+  },
+  "syn01_quarantine": {
+    "defect": "P-CS012-SYN-01 describes the pinned dependency's manufactured-two-mark fixture as stationary-compatible. That characterization is false: the dependency describes that fixture's state as an arbitrary probe, not an equilibrium point, and no genuinely stationary-compatible fixture exists at commit 6b457682c4eed8ad4e3bdd867d1292abac38f424.",
+    "disposition": "not modified, not relabelled, and not deleted; its historical outputs stand under their own hashes and support nothing",
+    "packet_id": "P-CS012-SYN-01",
+    "replacement": "P-CS012-SYN-02",
+    "status": "quarantined",
+    "true_character": "an arbitrary successor-service software probe with no economic interpretation"
+  },
+  "syn02": {
+    "analytic_checks": {
+      "growth_recovery_residual": 3.469446951953614e-18,
+      "productive_tvc_margin": 0.039999999999999994,
+      "stationary_compatibility_residual": -3.469446951953614e-18,
+      "zero_tax_user_cost_residual": -2.7755575615628914e-17
+    },
+    "construction": "direct",
+    "derived": {
+      "A_bar": 0.14126634945332445,
+      "implied_growth_from_price": 0.020000000000000004,
+      "q_F": 1.2712491503214047,
+      "r_F_bar": 0.06
+    },
+    "direct_fields": {
+      "analytic_expectations": {
+        "A_bar": 0.14126634945332445,
+        "implied_growth": 0.02,
+        "productive_tvc_margin": 0.04,
+        "q_F": 1.2712491503214047,
+        "r_F_bar": 0.06,
+        "stationary_residual": 0.0
+      },
+      "construction": "direct",
+      "derived_rules": {
+        "A_bar": "q_F*(r_F_bar - g) + (q_F - 1)/varphi",
+        "q_F": "exp(varphi*(g + delta))"
+      },
+      "fixture_scope": "full_ak_pure_safe_fund_benchmark",
+      "installation": {
+        "delta": 0.06,
+        "varphi": 3.0
+      },
+      "literal_boundary": {
+        "in_finite_sequence": false,
+        "prefunding_ratio": 0.0,
+        "status": "nonfinite_fiscal_kernel_at_literal_laissez_faire"
+      },
+      "packet_id": "P-CS012-SYN-02",
+      "packet_kind": "directly_constructed_analytic_fixture",
+      "preferences": {
+        "rho": 0.04
+      },
+      "prefunding_ratio_sequence": [
+        1.0,
+        0.3,
+        0.1,
+        0.03,
+        0.01,
+        0.003,
+        0.001
+      ],
+      "target_growth_g": 0.02,
+      "world_rates": {
+        "r_F_bar_rule": "rho + g"
+      }
+    },
+    "elasticities": [
+      -1.0000000000000002,
+      -0.9999999999999998,
+      -1.0000000000000004,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "fingerprint": "f655fd974708bcdc4ade230baa8c0c8c42f1ef56005a080cd9808beadbddbe4e",
+    "fixture_scope": "full_ak_pure_safe_fund_benchmark",
+    "limits": "NO economic interpretation. Not a calibration, not an estimate, not an anchor, not a scenario, and NOT a two-mark configuration: it is a full-AK pure-safe-fund benchmark only, with no partial-automation mark and no owner portfolio. Its sole purpose is to check the closed-form identities C_F^W = rho*F, V_{F,e} = 1/(rho*F), the unit log-log elasticity, the zero-tax AK user-cost equation, the productive-value TVC margin, and the exact extended-real classification at F = 0. Nothing computed under this fixture may be read as an economic result, and it supplies no government kernel.",
+    "literal_boundary": {
+      "contrast": "Both branches lose worker resources at F = 0 under this baseline, so both successor marginal values diverge.",
+      "excluded_from_logarithms_and_finite_differences": true,
+      "full_ak": {
+        "successor_marginal_value": {
+          "kind": "positive_infinity",
+          "value": null
+        },
+        "worker_consumption": {
+          "kind": "finite",
+          "value": 0.0
+        }
+      },
+      "partial_automation": {
+        "successor_marginal_value": {
+          "kind": "positive_infinity",
+          "value": null
+        },
+        "worker_resources_X": {
+          "kind": "finite",
+          "value": 0.0
+        }
+      },
+      "prefunding_level_F": 0.0,
+      "status": "nonfinite_fiscal_kernel_at_literal_laissez_faire"
+    },
+    "packet_id": "P-CS012-SYN-02",
+    "packet_kind": "directly_constructed_analytic_fixture",
+    "provenance": "A DIRECTLY CONSTRUCTED ANALYTIC FIXTURE. It does not come from, and does not claim to come from, any fixture in the pinned CS011 dependency: no genuinely stationary-compatible fixture exists at commit 6b457682c4eed8ad4e3bdd867d1292abac38f424. Every field here is written down here and the two derived quantities are computed from the stated rules rather than stored, so they cannot drift from the primitives. Stationary compatibility is the defining property: the target growth g = 0.02 and the world safe rate r_F_bar = rho + g = 0.06 make r_F_bar - rho - g = 0 exactly, so the pure-safe-fund position grows at the same rate as the economy. This replaces the false 'stationary-compatible' characterization carried by P-CS012-SYN-01, which is quarantined and NOT modified.",
+    "rows": [
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 1.0,
+        "successor_marginal_value_V_e": 25.0,
+        "worker_consumption_C_W": 0.04
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.3,
+        "successor_marginal_value_V_e": 83.33333333333333,
+        "worker_consumption_C_W": 0.012
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.1,
+        "successor_marginal_value_V_e": 250.0,
+        "worker_consumption_C_W": 0.004
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.03,
+        "successor_marginal_value_V_e": 833.3333333333334,
+        "worker_consumption_C_W": 0.0012
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.01,
+        "successor_marginal_value_V_e": 2500.0,
+        "worker_consumption_C_W": 0.0004
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.003,
+        "successor_marginal_value_V_e": 8333.333333333334,
+        "worker_consumption_C_W": 0.00012
+      },
+      {
+        "consumption_identity_residual": 0.0,
+        "marginal_value_identity_residual": 0.0,
+        "prefunding_level_F": 0.001,
+        "successor_marginal_value_V_e": 24999.999999999996,
+        "worker_consumption_C_W": 4e-05
+      }
+    ],
+    "safe_position_tvc": {
+      "F_growth_rate": 0.019999999999999997,
+      "detail": "e^{-rho t} V_{F,e}(t) F(t) = e^{-rho t}/rho -> 0 and e^{-r_bar t} F(t) = F e^{-rho t} -> 0, both for rho > 0",
+      "market_discounted_limit_exponent": -0.04,
+      "market_discounted_tvc_holds": true,
+      "utility_discounted_limit_exponent": -0.04,
+      "utility_discounted_tvc_holds": true
+    }
+  },
+  "tolerance_policy": {
+    "H_P_route_max_absolute_gap": 1e-08,
+    "full_ak_elasticity_max_absolute_error": 1e-12,
+    "full_ak_level_max_relative_error": 1e-12,
+    "syn02_identity_max_absolute_residual": 1e-12
+  }
+}

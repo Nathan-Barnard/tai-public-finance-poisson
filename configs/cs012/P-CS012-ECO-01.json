@@ -1,0 +1,44 @@
+{
+  "packet_id": "P-CS012-ECO-01",
+  "packet_kind": "provisional_illustrative_economic_scenario",
+  "time_unit": "year",
+  "value_unit": "current goods",
+  "preferences": { "rho": 0.04 },
+  "installation": { "varphi": 3.0, "delta": 0.06 },
+  "technology": {
+    "I_0": 0.22,
+    "I_P": 0.46,
+    "Z": 0.021276517602977142,
+    "A_bar": 0.10
+  },
+  "world_rates": { "r_0_bar": 0.025, "r_P_bar": 0.030, "r_F_bar": 0.030 },
+  "shock_law": {
+    "lambda_total": 0.025,
+    "p_P": 0.65,
+    "p_F": 0.35,
+    "lambda_P": 0.01625,
+    "lambda_F": 0.00875,
+    "lambda_P_star": 0.014,
+    "lambda_F_star": 0.026
+  },
+  "inherited_state": {
+    "K_0": 1.0,
+    "q_0_rule": "exp(varphi*delta)",
+    "a_0": 1.0,
+    "public_installed_equity": 0.0,
+    "public_safe_asset": 0.0,
+    "public_safe_debt": 0.0,
+    "source_tax": 0.0,
+    "M_0": "empty_under_one_time_protection"
+  },
+  "successor_domains": {
+    "ak_root_interval": [0.5, 3.0],
+    "partial_capital_interval": [0.5, 2.0]
+  },
+  "diagnostics": {
+    "diagnostic_capital_grid": [0.8, 1.0, 1.2, 1.4, 1.6],
+    "baseline_capital": 1.0
+  },
+  "provenance": "PROVISIONAL AND ILLUSTRATIVE. Not an estimate, not a country calibration, not a baseline for any policy statement. The judgement values rho=0.04, delta=0.06, varphi=3.0, I_0=0.22, lambda_total=0.025, (p_P,p_F)=(0.65,0.35), (lambda_P_star,lambda_F_star)=(0.014,0.026), and (r_0_bar,r_P_bar,r_F_bar)=(0.025,0.030,0.030) are inherited unchanged from the provisional marked-Poisson first-run calibration design EMP005, profile P-CS005-REAL-01 (SHA-256 fde8a1736affeb53b6071edffe57f9462954114e12f70047032ec1dc4bb37d59), which states of itself that it 'is not an estimate and not a country baseline' and records every entry as judgement. I_P = 0.46 is EMP005's high automation mark I_H, relabelled to the CS012 partial-automation mark; EMP005's intermediate I_L = 0.32 is unused because CS012's second mark is full AK rather than a second finite task share. EMP005's (L,H) marks map to CS012's (P,F) in that order. A_bar = 0.10 year^-1 and the K_0 = 1, a_0 = 1 inherited state are stated directly in the I1 handoff and are not drawn from EMP005. Z = 0.021276517602977142 is a UNITS NORMALIZATION, not an estimate: it is chosen analytically so that the partial-automation rest point is exactly K_P_star = 1.25 under the stated r_P_bar, delta, and varphi.",
+  "limits": "Result use is exploratory_only. This packet supports owner-side pricing objects only: successor prices, marked payoff jumps, the world kernel, the owner kernel, the owner exposure, and the owner residual D_K. It does NOT support a government kernel, a fiscal marginal value, a prefunding path, a time path, a public-portfolio direction, a welfare statement, an equilibrium claim, or an optimal policy. The zero public installed-equity, safe-asset, and safe-debt positions are the I1 owner-side state only and must never be used to form a finite government kernel: the strictly positive prefunding family is frozen separately before I2. The inherited state is a named provisional state, not a solved pre-arrival equilibrium; locating an equilibrium pre-arrival state is CS011 N2/N4 work and is out of scope here. The diagnostic capital grid is sensitivity only; K_0 = 1 remains the baseline whatever the grid shows."
+}

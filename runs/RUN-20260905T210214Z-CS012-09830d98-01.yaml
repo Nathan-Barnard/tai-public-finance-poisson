@@ -1,0 +1,408 @@
+schema_version: '1.0'
+run_id: RUN-20260905T210214Z-CS012-09830d98-01
+created_utc: 2026-09-05T21:02:14Z
+status: complete
+purpose: identity_core
+intended_use:
+  control_lane: fast
+  decisive_risk_dimensions:
+    - exact equation identity
+    - explicit non-finite boundary classification
+    - independent term-by-term reconstruction
+    - write isolation and provenance
+  claim_or_decision: >-
+    The production and independent routes implement the same CS012 jump
+    pricing-kernel identities, the owner portfolio-pricing root is unique on the
+    declared open positive-wealth interval where one exists, and literal
+    laissez-faire is a structurally non-finite fiscal-kernel boundary rather than
+    a large finite number. No economic claim is made.
+  quantities_of_interest:
+    - D_owner, D_government, D_government_owner, D_relative and their term contributions
+    - owner exposure interval and portfolio-pricing root
+    - intensity-weighted marketed projection and orthogonal fiscal gap
+    - safe money-market account payoff rank
+    - literal laissez-faire extended-real boundary status
+  declared_domain_or_branch: >-
+    Parameter-free manufactured fixtures only. Finite maintained branch plus one
+    explicitly declared literal laissez-faire boundary fixture. No economic
+    scenario, successor, transition, prefunding family, or portfolio grid.
+  result_use_target: exploratory_only
+
+parallel_campaign: null
+
+specification:
+  id: CS012
+  version: '0.1'
+  status: draft
+  path: >-
+    /Users/nathanbarnard/Documents/TAI public finnace codex/computation/specifications/laissez-faire-poisson-relative-valuation-and-public-portfolio-laboratory--CS012.md
+  file_sha256: 275cf384a6aa8f12831bd0e7b8b8ea4291e49402f3578a9c301baf91fe2930e8
+  hash_verified_before_writing: true
+  fingerprint_sha256: 7a1394fdff96d7190a541e6c36516bd4e8b5daae8ef6de9a888ba67c4dff849c
+  fingerprint_scope: >-
+    Specification id/version/hash, formula convention CS012-I0-v0.1, tolerance
+    policy, mark ordering, and the direct fixture fields. Excludes paths, prose,
+    timestamps, and every computed residual.
+  draft_authorization: >-
+    CS012 is a draft. Nathan explicitly authorized this parameter-free bounded
+    exploratory block. This run does not promote the specification and makes no
+    policy, welfare, existence, or optimality claim.
+problem_id: CP012
+approach_id: CA024
+benchmark_id: CB012
+implementation_block: I0
+
+implementation:
+  repository_url: https://github.com/Nathan-Barnard/tai-public-finance-poisson.git
+  repository_local_path: /Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0
+  primary_checkout_path: /Users/nathanbarnard/Documents/TAI public finnace poisson shock claude
+  commit: 09830d98650a399e7012f37ea22f7541dfe5d893
+  commit_subject: Add the CS012 I0 Poisson pricing-kernel identity core
+  ancestry_base_commit: 74c736f8753e65f444eb30443a16adbb62f9c35c
+  ancestry_base_is_parent: true
+  branch: cs012/i0-pricing-kernel-identities
+  worktree: /Users/nathanbarnard/Documents/TAI public finnace poisson-kernels-cs012-i0
+  dirty_worktree: false
+  clean_start: true
+  implementer: claude_code
+  entrypoint: tai_public_finance.cs012_poisson_kernels.report
+  command: >-
+    uv run python -m tai_public_finance.cs012_poisson_kernels.report
+    --fixtures configs/cs012/i0_manufactured_fixtures.json
+    --output outputs/cs012-i0-pricing-kernel-identities/identity_report.json
+  merged: false
+  pushed: false
+
+environment:
+  operating_system: macOS-15.6.1
+  architecture: arm64
+  runtime_versions:
+    python: 3.13.5
+    numpy: 2.5.2
+    scipy: 1.18.1
+    uv: 0.12.5
+    pytest: 9.1.1
+  dependency_lock_path: uv.lock
+  dependency_lock_sha256: 3c59dc4b381ad68cd634a6f917f1ce4fa1080d9ce43e2344064acb6109f76c4a
+  lock_sync_command: uv sync --locked
+  container_or_image: null
+
+hardware:
+  resource_lane: L0_smoke
+  machine_label: Apple M4 MacBook Air (local)
+  cpu: Apple M4
+  logical_cores: 10
+  memory_gb: 16
+  accelerator: null
+  accelerator_memory_gb: null
+  free_disk_gb_at_run: 70
+  detected_at_runtime: true
+
+budget:
+  wall_seconds_limit: 60
+  cash_limit_usd: 0
+  estimated_cash_usd: 0
+  actual_cash_usd: 0
+  estimated_admin_minutes: 0
+  checkpoint_interval_seconds: null
+  early_stop_rule: >-
+    Progress update at three hours; stop optional work and return the clean
+    recoverable state at four hours.
+  user_approval_reference: >-
+    computation/laissez-faire-poisson-pricing-kernels-i0-claude-handoff--CS012.md
+
+randomness:
+  deterministic_requested: true
+  seeds:
+    - name: property_case_generator
+      value: 20260905
+      library: python_random
+  nondeterminism_notes: >-
+    The report generator itself is deterministic. The only seeded component is
+    the property-test generator, which does not feed the report.
+
+inputs:
+  parameter_set_id: CS012-I0-MANUFACTURED-01
+  parameter_fingerprint_sha256: 7a1394fdff96d7190a541e6c36516bd4e8b5daae8ef6de9a888ba67c4dff849c
+  experiment_ids: [E09]
+  input_artifacts:
+    - role: manufactured_fixtures
+      location: configs/cs012/i0_manufactured_fixtures.json
+      sha256: 5d116074672d0470d916e55e44e3a9aa00625f3d7bb0db85d52b21b39eb8f58d
+      bytes: 6523
+  domain:
+    marks_per_fixture: 1..2
+    branches: [finite_maintained_branch, literal_laissez_faire]
+    economic_calibration: none
+  discretization: {}
+  formula_convention: CS012-I0-v0.1
+
+solver:
+  packages_and_versions:
+    scipy: 1.18.1
+  method: >-
+    Analytic kernel evaluation, closed-form residual sums with math.fsum, and
+    scipy.optimize.brentq bracketing for the owner portfolio-pricing root. The
+    bracket is found by geometric approach to an interval endpoint, strictly
+    inside the open admissible interval, so no pole is evaluated; an unbounded
+    endpoint uses the analytic limit -sum_j lambda_star_j J_j rather than a
+    far-field probe.
+  tolerances:
+    brentq_xtol: 1.0e-15
+    brentq_rtol: 8.881784197001252e-16
+    wealth_route_agreement: 1.0e-12
+    weighted_payoff_norm_resolution_floor: 1.0e-12
+  initialization: zero exposure, which is always interior to a correctly constructed interval
+  continuation: null
+  precision: float64
+
+preflight:
+  tests_command: uv sync --locked && uv run pytest
+  tests_status: passed
+  tests_before_writing: 74 passed (baseline at 74c736f8, clean tree)
+  exact_or_manufactured_benchmark: >-
+    Hand-solvable one-mark alignment fixture (all three kernels 0.5, gamma_F = 1,
+    zero residuals, analytic owner exposure (lambda/lambda_star - 1)/J = 2) and a
+    constructed two-mark fixture with zero marketed projection and a nonzero
+    orthogonal fiscal gap.
+
+result:
+  outcome: success
+  wall_seconds: 0.37
+  report_build_seconds: 0.00086
+  independent_checker_seconds: 0.03
+  focused_tests_seconds: 0.68
+  full_tests_seconds: 10.19
+  peak_memory_gb: null
+  checkpoints_recovered: false
+  solver_reported_metrics:
+    fixtures: 6
+    kernel_status_counts:
+      finite_maintained_branch: 5
+      nonfinite_fiscal_kernel_at_literal_laissez_faire: 1
+    owner_root_status_counts:
+      unique_interior_root: 3
+      no_interior_root_boundary_limit: 1
+      zero_payoff_unidentified: 1
+    projection_status_counts:
+      projection_resolved: 4
+      zero_payoff_norm_refused: 1
+    refusal_counts:
+      kernel_non_finite_branch: 1
+      owner_root_unidentified_or_boundary: 2
+      projection_refused: 1
+  independent_diagnostics:
+    in_package_alternative_route: >-
+      Expanded-form residual sums, consumption-ratio owner kernel, plain
+      left-to-right summation. Does not import the production kernel, portfolio,
+      or projection modules.
+    standalone_checker: tools/check_cs012_i0_report.py
+    standalone_checker_import_surface: python standard library only (json, math, sys)
+    standalone_checker_result: pass
+    corrupted_report_tests: 19 corruption cases, all rejected by the checker
+    max_decomposition_error: 1.3877787807814457e-17
+    max_relative_identity_error: 3.469446951953614e-18
+    max_owner_root_residual: 6.661338147750939e-18
+    max_orthogonality_error: 1.6653345369377347e-17
+    max_production_versus_independent_error: 1.0408340855860843e-17
+  economic_quantities:
+    note: >-
+      No economic quantity was computed. Every number below is a manufactured
+      algebraic value with no sourced primitive behind it.
+    one_mark_alignment:
+      kernels: {k_world: 0.5, k_owner: 0.5, k_government: 0.5, gamma: 1.0}
+      residuals: {D_owner: 0.0, D_government: 0.0, D_government_owner: 0.0, D_relative: 0.0}
+      owner_root: 2.0
+      owner_root_status: unique_interior_root
+      analytic_root_agreement: exact to 1e-15
+      exposure_interval: (-2.0, +inf)
+      boundary_margin: 4.0
+    two_mark_orthogonal_gap:
+      kernels: {k_world: [1.0, 1.0], k_owner: [1.0, 1.0], k_government: [1.2, 1.8], gamma: [1.2, 1.8]}
+      residuals: {D_owner: 0.0, D_government: -7.0e-18, D_government_owner: -7.0e-18, D_relative: -7.0e-18}
+      fiscal_gap: [0.2, 0.8]
+      projection_alpha: -1.2335811384723962e-16
+      weighted_norm_orthogonal: 0.2683281572999748
+      owner_root: 0.0
+      owner_root_status: unique_interior_root
+      exposure_interval: (-2.0, 4.0)
+    two_mark_one_zero_payoff:
+      residuals: {D_owner: 0.014, D_government: 0.0, D_government_owner: -0.014, D_relative: -0.014}
+      owner_root: 1.6666666666666656
+      owner_root_status: unique_interior_root
+      analytic_root_agreement: within 1e-12
+      exposure_interval: (-2.5, +inf)
+      boundary_margin: 4.166666666666666
+      zero_payoff_mark_contribution: 0.0
+    all_zero_payoff_unidentified:
+      owner_root_status: zero_payoff_unidentified
+      projection_status: zero_payoff_norm_refused
+      risky_rank: 0
+    one_mark_zero_risk_neutral_limit:
+      owner_root_status: no_interior_root_boundary_limit
+      residual_at_zero_exposure: 0.15
+      analytic_limit_at_unbounded_end: -0.0
+      exposure_interval: (-1.6666666666666667, +inf)
+    literal_laissez_faire_full_ak:
+      status: nonfinite_fiscal_kernel_at_literal_laissez_faire
+      worker_consumption: 0.0
+      government_successor_marginal_value: positive_infinity (tagged)
+      government_jump_kernel: positive_infinity (tagged)
+      relative_jump_kernel: positive_infinity (tagged)
+      owner_kernel: 0.5 (finite)
+      finite_residual_arithmetic_performed: false
+    safe_account:
+      marked_payoff_vector: identically zero on every fixture
+      rank_increase: 0 on every fixture
+  reliable_region: >-
+    Well-conditioned manufactured fixtures inside the declared property box: one
+    to four marks, strictly positive physical intensities, nonnegative
+    risk-neutral intensities, both payoff signs, and exposures at least
+    1e-6*max(1,|pi|) inside every finite wealth boundary.
+  failure_code: null
+  failure_detail: null
+
+tests:
+  baseline_full_suite: 74 passed
+  final_full_suite: 169 passed
+  focused_suite: 95 passed
+  property_cases: 240 generated, 240 passed, seed 20260905
+  focused_test_coverage:
+    - both frozen finite fixtures and the one-mark analytic root
+    - all three kernel routes, the dual exposure/wealth-ratio route, and both decomposition identities
+    - interval construction for all-positive, all-negative, mixed, and one-zero-component payoff vectors, including that zero is interior
+    - unique interior root, boundary-only limiting root, and zero-payoff-unidentified statuses
+    - two-mark nonzero orthogonal gap with zero marketed projection
+    - safe-account zero jump and unchanged risky rank
+    - tagged literal-laissez-faire boundary serialization with no finite arithmetic
+    - invalid direct wealth ratio, NaN, wrong-sign intensity, non-positive wealth multiplier, and every other refusal path
+    - deep immutability and fingerprint sensitivity to every operative field but not to JSON whitespace or key order
+    - standalone checker success on the report and failure on 19 corrupted copies
+
+error_assessment:
+  policy: computation/error-handling-and-result-use.md
+  structural_gates_passed:
+    exact_specification_version_and_hash: true
+    physical_versus_risk_neutral_intensity_separation: true
+    three_kernels_remain_distinct_objects: true
+    positive_wealth_multiplier_and_finite_positive_kernels_on_finite_branches: true
+    explicit_extended_real_classification_at_literal_laissez_faire: true
+    no_division_by_a_possibly_zero_payoff_component: true
+    zero_payoff_norm_refused: true
+    residuals_independently_reconstructed_term_by_term: true
+    clean_start_dependency_lock_immutable_output_complete_provenance: true
+  decision_gaps:
+    decomposition_identity_normalized: 1.0e-11
+    production_versus_independent_normalized: 1.0e-10
+    owner_root_residual_normalized: 1.0e-11
+    weighted_orthogonality_normalized: 1.0e-11
+    owner_root_boundary_margin_factor: 1.0e-10
+  credible_uncertainty:
+    max_decomposition_error: 1.3877787807814457e-17
+    max_relative_identity_error: 3.469446951953614e-18
+    max_production_versus_independent_error: 1.0408340855860843e-17
+    max_owner_root_residual: 6.661338147750939e-18
+    max_orthogonality_error: 1.6653345369377347e-17
+    min_owner_root_boundary_margin: 2.0
+  required_margins:
+    rule: U_q <= 0.1 * Delta_q
+    met: true
+  result_use_status: exploratory_only
+  disposition: continue_exploratory
+  quarantined_outputs: []
+  assessment_artifact: outputs/cs012-i0-pricing-kernel-identities/identity_report.json
+  expected_diagnostic_statuses:
+    - nonfinite_fiscal_kernel_at_literal_laissez_faire
+    - no_interior_root_boundary_limit
+    - zero_payoff_unidentified
+    - zero_payoff_norm_refused
+  note: >-
+    A well-formed explicit non-finite laissez-faire boundary and a boundary-only
+    owner root are expected diagnostic statuses, not numerical failures.
+
+deviations:
+  - id: DEV-01
+    item: CLI module name and flags
+    detail: >-
+      The repository's CLAUDE.md scaffold convention is
+      `python -m <package>.<subpackage>.cli --config ... --output-dir ... --run-id ...`.
+      The CS012 I0 handoff freezes a different invocation:
+      `python -m tai_public_finance.cs012_poisson_kernels.report --fixtures ... --output ...`.
+      The handoff's frozen validation command was implemented verbatim, as the
+      specification states that the implementation handoff freezes the exact
+      repository validation commands. There is exactly one CLI in the package, in
+      keeping with the repository's one-CLI-per-package rule. No mathematical or
+      output contract was changed to fit an interface.
+    resolution: implemented the handoff command; reported rather than silently reconciled
+  - id: DEV-02
+    item: PROJECT_STATUS.md absent
+    detail: >-
+      The collision gate names PROJECT_STATUS.md. This repository uses STATUS.md
+      for the same purpose; CLAUDE.md, README.md, and STATUS.md were all read
+      before writing. No PROJECT_STATUS.md exists here.
+    resolution: read STATUS.md in its place; no file created
+  - id: DEV-03
+    item: package namespace
+    detail: >-
+      CLAUDE.md's pre-scaffold note suggested not reusing the `tai_public_finance`
+      distribution name. The repository as actually scaffolded uses
+      `src/tai_public_finance/cs005_marked_poisson/`, and the handoff assigns
+      `src/tai_public_finance/cs012_poisson_kernels/`. The assigned path matches
+      the existing layout, so no path mapping was needed.
+    resolution: used the assigned path
+
+artifacts:
+  - role: primary_output
+    location: outputs/cs012-i0-pricing-kernel-identities/identity_report.json
+    sha256: 2ce7e59d8174fd149cafa5e63b12945cb506ec8b7762f7e93c9d22a8c3b3bb78
+    bytes: 38087
+  - role: input_fixtures
+    location: configs/cs012/i0_manufactured_fixtures.json
+    sha256: 5d116074672d0470d916e55e44e3a9aa00625f3d7bb0db85d52b21b39eb8f58d
+    bytes: 6523
+  - role: independent_checker
+    location: tools/check_cs012_i0_report.py
+    sha256: 522157c61f9ccf348c4b658b34ea1521016a75da6904bc579093919bb9e342a7
+    bytes: 27190
+
+timing:
+  machine_runtime_seconds: 0.37
+  machine_runtime_including_tests_seconds: 11.3
+  total_elapsed_implementation_minutes: 20
+  elapsed_start_utc: 2026-09-05T20:42:30Z
+  elapsed_end_utc: 2026-09-05T21:02:14Z
+  progress_update_threshold_hours: 3
+  stop_threshold_hours: 4
+  note: >-
+    The handoff's expected elapsed range was 2-4 hours; actual elapsed time was
+    about 20 minutes. Reported as observed, not adjusted to the expectation.
+
+interpretation:
+  supports_result_ids: []
+  challenges_result_ids: []
+  question_ids: [Q24]
+  assurance_or_review_artifacts: [EV13]
+  conclusion: >-
+    The three kernel definitions, the exact decomposition D_G = D_K + D_GK, its
+    relative-kernel form, the owner exposure interval and portfolio-pricing root,
+    the intensity-weighted marketed projection and orthogonal fiscal gap, the
+    exact safe-account payoff rank, and the literal laissez-faire extended-real
+    boundary are implemented and independently reconstructed term by term on
+    manufactured fixtures, with every maximum discrepancy at least six orders of
+    magnitude inside its declared tolerance. This is evidence about algebra and
+    failure semantics only.
+  limitations:
+    - No economic primitive is sourced or calibrated; every fixture value is manufactured.
+    - No successor, transition path, prefunding family, portfolio grid, government optimization, or plot exists.
+    - Nothing here supports a finite government kernel path, a portfolio sign in an economic scenario, a welfare conclusion, an existence result, or an optimal portfolio.
+    - CS012 remains version 0.1, status draft; this run does not promote it.
+    - The two-mark fixture's zero marketed projection is constructed, not discovered; it demonstrates the identity, not an economic property.
+    - Property coverage is confined to the declared well-conditioned box; near-pole exposures and ill-conditioned payoff norms are refused rather than characterized.
+  next_decision: >-
+    Independent review of this block. I1 onward requires the frozen synthetic and
+    economic parameter packets, inherited (S_0, M_0), successor domains, branch
+    selectors, and quantity-specific economic thresholds that CS012 v0.1 lists as
+    unresolved.
+  integration_owner: Nathan
+  review_state: ready for independent review
+  accepted: false

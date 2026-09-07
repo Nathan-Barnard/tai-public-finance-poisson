@@ -1,0 +1,65 @@
+{
+  "packet_id": "P-CS012-ECO-02",
+  "packet_kind": "provisional_illustrative_economic_scenario",
+  "time_unit": "year",
+  "value_unit": "current goods",
+  "preferences": {
+    "rho": 0.04
+  },
+  "installation": {
+    "varphi": 3.0,
+    "delta": 0.06
+  },
+  "technology": {
+    "I_0": 0.22,
+    "I_P": 0.46,
+    "Z": 0.021276517602977142,
+    "A_bar": 0.10329029481590953
+  },
+  "world_rates": {
+    "r_0_bar": 0.025,
+    "r_P_bar": 0.03,
+    "r_F_bar": 0.03
+  },
+  "shock_law": {
+    "lambda_total": 0.025,
+    "p_P": 0.65,
+    "p_F": 0.35,
+    "lambda_P": 0.01625,
+    "lambda_F": 0.00875,
+    "lambda_P_star": 0.014,
+    "lambda_F_star": 0.026
+  },
+  "inherited_state": {
+    "K_0": 1.0,
+    "q_0_rule": "exp(varphi*delta)",
+    "a_0": 1.0,
+    "public_installed_equity": 0.0,
+    "public_safe_asset": 0.0,
+    "public_safe_debt": 0.0,
+    "source_tax": 0.0,
+    "M_0": "empty_under_one_time_protection"
+  },
+  "successor_domains": {
+    "ak_root_interval": [
+      0.5,
+      3.0
+    ],
+    "partial_capital_interval": [
+      0.5,
+      2.0
+    ]
+  },
+  "diagnostics": {
+    "diagnostic_capital_grid": [
+      0.8,
+      1.0,
+      1.2,
+      1.4,
+      1.6
+    ],
+    "baseline_capital": 1.0
+  },
+  "provenance": "PROVISIONAL AND ILLUSTRATIVE. Not an estimate, not a country calibration, not a baseline for any policy statement. P-CS012-ECO-02 is P-CS012-ECO-01 with exactly one primitive changed: technology.A_bar moves from 0.10 to 0.10329029481590953 year^-1. Every other primitive is byte-identical to ECO-01, including varphi = 3.0, delta = 0.06, (r_0_bar, r_P_bar, r_F_bar) = (0.025, 0.030, 0.030), both task shares, the whole shock law, the inherited state and balance sheets, the successor domains, and the diagnostic capital grid. The judgement values behind those unchanged fields are still inherited from the provisional marked-Poisson first-run calibration design EMP005, profile P-CS005-REAL-01 (SHA-256 fde8a1736affeb53b6071edffe57f9462954114e12f70047032ec1dc4bb37d59), which states of itself that it 'is not an estimate and not a country baseline'. The new A_bar is a PROVISIONAL ILLUSTRATIVE PARAMETER CHOICE derived analytically, not measured: fixing a target full-AK capital growth rate g_F = 0.026 year^-1 gives the stationary AK price q_F = exp[varphi*(g_F + delta)] = 1.2943388186242377, and inverting the zero-tax world-user-cost equation gives A_bar = q_F*(r_F_bar - g_F) + (q_F - 1)/varphi = 0.10329029481590953. Nothing about g_F = 0.026 is estimated; it is chosen so that the full-AK mark raises installed-equity value instead of lowering it, which is the case ECO-01 does not exhibit. Z = 0.021276517602977142 remains a units normalization fixing the partial rest point at K_P_star = 1.25 exactly, not an estimate of anything.",
+  "limits": "Result use is exploratory_only. This packet supports owner-side I1 objects only: successor prices, marked payoff jumps, the world kernel, the owner kernel, the owner exposure, and the owner residual D_K. It does NOT support a government kernel, a fiscal marginal value, a prefunding path, a time path, a public-portfolio direction, a welfare statement, an equilibrium claim, or an optimal policy. The zero public installed-equity, safe-asset, and safe-debt positions are the I1 owner-side state only and must never be used to form a finite government kernel; the strictly positive prefunding family is frozen separately before I2. The inherited state is a named provisional state, not a solved pre-arrival equilibrium. The diagnostic capital grid is sensitivity only; K_0 = 1 remains the baseline whatever the grid shows. ECO-02 is a single-parameter companion to ECO-01, not a replacement for it and not a sweep: ECO-01 and its outputs remain valid and unchanged under their own fingerprint, and the pair is a two-point comparison of one primitive, never a calibrated range."
+}

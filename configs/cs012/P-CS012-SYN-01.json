@@ -1,0 +1,14 @@
+{
+  "packet_id": "P-CS012-SYN-01",
+  "packet_kind": "stationary_compatible_software_packet",
+  "dependency_repository": "https://github.com/Nathan-Barnard/tai-public-finance-ak-partial-ramsey.git",
+  "dependency_commit": "6b457682c4eed8ad4e3bdd867d1292abac38f424",
+  "primary_fixture": "manufactured-two-mark",
+  "regression_fixtures": [
+    "single-ak-two-root",
+    "manufactured-two-mark",
+    "manufactured-single-ak-support"
+  ],
+  "provenance": "Every parameter value used under this packet lives in the pinned CS011 dependency's own fixtures module at commit 6b457682c4eed8ad4e3bdd867d1292abac38f424. Nothing is transcribed here: the report reads each fixture's provenance, source_locator, economic_interpretation, manufactured_fields, and notes verbatim at load time, so a fixture that changed its own self-description could not be silently relabelled by this packet. 'manufactured-two-mark' is the primary stationary-compatible software probe: its partial-successor capital window is frozen as the interval [K_P*/1.5, K_P*x1.5] around the manufactured partial rest point, which is what makes it stationary-compatible in the only sense the dependency defines. 'single-ak-two-root' is the dependency's theory_supplied fixture and is run here purely as a regression that the pinned commit still reproduces its documented AK roots.",
+  "limits": "This packet has NO economic interpretation. It is not a calibration, not an estimate, not an anchor, and not a scenario. Its states are arbitrary probes chosen to exercise code paths, not equilibrium points, and their implementation margins are not expected to be strict. Nothing computed under this packet may be read as an economic result of any kind. Do not relabel it."
+}
